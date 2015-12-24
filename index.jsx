@@ -2,12 +2,17 @@ require("./node_modules/bootstrap/dist/css/bootstrap.min.css")
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export class App extends React.Component {
-	render() {
-		return (
-      <div>Simple React + Babel + Bootstrap + Webpack </div>
-		);
-	}
+import {ItemBox} from './components/ItemBox'
+
+
+/* create container as stateless function to indicate pure component */ 
+export const App = () => {
+	return (
+    <div>
+    	{ItemBox()}
+    	<div>Happy days</div>
+    </div>
+	);
 }
 
 ReactDOM.render(<App/>, document.querySelector("#myApp"));
