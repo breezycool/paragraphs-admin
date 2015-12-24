@@ -2,27 +2,34 @@ require("./node_modules/bootstrap/dist/css/bootstrap.min.css")
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+/* REDUX */
+import {Provider} from 'react-redux'
+import {store} from './redux/store'
+
 import {ItemBox} from './components/ItemBox'
-import {EditBox} from './components/EditBox'
+import {EditBoxContainer} from './components/EditBox'
 
 
 /* create container as stateless function to indicate pure component */ 
-export const App = () => {
-	return (
-		<div>
+export class App extends React.Component {
+	render() {
+		return (
 			<div>
-				{	
-					ItemBox()
-				}
+				<div>
+					{	ItemBox() }
+				</div>
+				<br />
+				<div>
+					<EditBoxContainer />
+				</div>
 			</div>
-			<br />
-			<div>
-				{
-					EditBox()
-				}
-			</div>
-		</div>
-	);
+		);
+	}
 }
 
-ReactDOM.render(<App/>, document.querySelector("#app"));
+ReactDOM.render(
+	<Provider store={store}>
+		<App/>
+	</Provider>,
+	document.querySelector("#app")
+);
