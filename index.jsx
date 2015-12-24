@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import {store} from './redux/store'
 
-import {ItemBox} from './components/ItemBox'
+import {ItemBoxContainer} from './components/ItemBox'
 import {EditBoxContainer} from './components/EditBox'
 
 
@@ -16,7 +16,7 @@ export class App extends React.Component {
 		return (
 			<div>
 				<div>
-					{	ItemBox() }
+					<ItemBoxContainer />
 				</div>
 				<br />
 				<div>
