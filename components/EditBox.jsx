@@ -19,7 +19,7 @@ export class EditBox extends React.Component {
 		);
 		return (
 			<div>
-				{this.props.isEditing ? showing : ""}
+				{this.props.visible ? showing : ""}
 			</div>	
 		);
 	}
@@ -27,11 +27,11 @@ export class EditBox extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isEditing: state.isEditing
+		visible: state.isEditing
 	}
 }
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		onClick: () => {
 			dispatch(toggleEdit())
