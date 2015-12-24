@@ -1,18 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {toggleEdit} from '../redux/actions'
+import {toggleEdit, saveText} from '../redux/actions'
 
 
-export class EditBox extends React.Component {
+export const EditBox = React.createClass({
+	getInitialState() {
+		return {
+			text: this.props.text
+		}
+	},
+	handleChange(e) {
+		this.setState({text: e.target.value})
+	},	
 	render() {
 		let showing = (
 			<div>
-				<textarea name="edit" id="edit" cols="30" rows="10">
-				</textarea>
+				<textarea name="edit" id="edit" cols="30" rows="10"
+									defaultValue={this.props.text}
+									onChange={this.handleChange}
+				/>
 				<div>
 					<button 
 						className="btn btn-secondary glyphicon glyphicon-trash"
-						onClick={this.props.onClick}
+						onClick={() => {
+							this.props.dispatch(saveText(this.state.text))
+							this.props.dispatch(toggleEdit())
+						}}
 					>Save</button>
 				</div>
 			</div>
@@ -23,20 +36,13 @@ export class EditBox extends React.Component {
 			</div>	
 		);
 	}
-}
+})
 
 const mapStateToProps = (state) => {
 	return {
-		visible: state.isEditing
+		visible: state.isEditing,
+		text: state.text
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onClick: () => {
-			dispatch(toggleEdit())
-		}
-	}
-}
-
-export const EditBoxContainer = connect(mapStateToProps, mapDispatchToProps)(EditBox)
+export const EditBoxContainer = connect(mapStateToProps)(EditBox)

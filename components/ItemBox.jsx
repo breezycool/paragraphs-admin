@@ -7,7 +7,7 @@ export class ItemBox extends React.Component {
 		let showing = (
 			<div>
 				<div>
-					Paragraph text.
+					{this.props.text}
 				</div>	
 				<div>
 					<button
@@ -28,7 +28,8 @@ export class ItemBox extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		visible: !state.isEditing
+		visible: !state.isEditing,
+		text: state.text
 	}
 }
 

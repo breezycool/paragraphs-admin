@@ -1,16 +1,21 @@
-import { TOGGLE_EDIT } from './actions'
+import { TOGGLE_EDIT, SAVE_TEXT } from './actions'
 
 const initialState = {
-	isEditing: false
+	isEditing: false,
+	text: "Type some text here..."
 }
 
 export const reducer = (state = initialState, action) => {
+	console.log(action)
 	switch(action.type) {
 	case TOGGLE_EDIT:
-		console.log(action)
-		return {
-				isEditing: !state.isEditing
-		}
+		return Object.assign({}, state, {
+			isEditing: !state.isEditing
+		})
+	case SAVE_TEXT:
+		return Object.assign({}, state, {
+			text: action.text
+		})
 	default:
 		return state
 	}
