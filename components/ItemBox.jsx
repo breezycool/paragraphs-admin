@@ -20,7 +20,7 @@ export class ItemBox extends React.Component {
 		);
 		return (
 	  	<div>
-	  	{ this.props.isEditing ? showing : ""}
+	  	{ this.props.isEditing ? "" : showing}
 	  	</div>
 	  );
 	}
@@ -32,10 +32,10 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, props) => {
 	return {
 		onClick: () => {
-			dispatch(toggleEdit(false))
+			dispatch(toggleEdit())
 		}
 	}
 }

@@ -1,8 +1,7 @@
 export const TOGGLE_EDIT = 'TOGGLE_EDIT'
 
-export const toggleEdit = (isEditing) => {
+export const toggleEdit = () => {
 	return {
-		type: TOGGLE_EDIT,
-		payload: isEditing
+		type: TOGGLE_EDIT
 	}
 }

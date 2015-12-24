@@ -7,8 +7,9 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
 	switch(action.type) {
 	case TOGGLE_EDIT:
+		console.log(action)
 		return {
-				isEditing: action.payload
+				isEditing: !state.isEditing
 		}
 	default:
 		return state
