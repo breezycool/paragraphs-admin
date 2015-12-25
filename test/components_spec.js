@@ -1,25 +1,41 @@
-import React from 'react/addons';
-import {expect} from 'chai';
-import {EditBox} from '../components/EditBox';
-import {ItemBox} from '../components/ItemBox';
+// import React from 'react/addons';
+// import {expect} from 'chai';
 
-const {renderIntoDocument, Simulate}
-  = React.addons.TestUtils;
+// import {store} from '../redux/store'
+// import {EditBoxContainer} from '../components/EditBox';
+// import {ItemBoxContainer} from '../components/ItemBox';
 
-describe('EditBox', () => {
-	it('should render into document', () => {
-		const component = renderIntoDocument(
-			EditBox()
-		)
-		expect(component.children).to.not.equal(null)
-	})
-})
+// /* react dom testing preprocess */
+// import jsdom from 'jsdom';
 
-describe('ItemBox', () => {
-	it('should render EditBox on edit button click', () => {
-		const component = renderIntoDocument(
-			ItemBox()
-		)
-		expect(component.children).to.not.equal(null)
-	})
-})
+// const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
+// const win = doc.defaultView;
+
+// global.document = doc;
+// global.window = win;
+
+// // from mocha-jsdom https://github.com/rstacruz/mocha-jsdom/blob/master/index.js#L80
+// Object.keys(window).forEach((key) => {
+//   if (!(key in global)) {
+//     global[key] = window[key];
+//   }
+// });
+// /* ----------------------- */
+
+// const {renderIntoDocument, Simulate}
+//   = React.addons.TestUtils;
+
+// describe('EditBox', () => {
+// 	it('should render into document', () => {
+// 		const component = renderIntoDocument(
+
+// 			<EditBoxContainer store={store}/>
+// 		)
+// 	})
+// })
+
+// describe('ItemBox', () => {
+// 	it('should render EditBox on edit button click', () => {
+
+// 	})
+// })

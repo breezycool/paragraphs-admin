@@ -6,8 +6,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import {store} from './redux/store'
 
-import {ItemBoxContainer} from './components/ItemBox'
-import {EditBoxContainer} from './components/EditBox'
+import {ParagraphBoxContainer} from './components/ParagraphBox'
 
 
 /* create container as stateless function to indicate pure component */ 
@@ -16,11 +15,7 @@ export class App extends React.Component {
 		return (
 			<div>
 				<div>
-					<ItemBoxContainer />
-				</div>
-				<br />
-				<div>
-					<EditBoxContainer />
+					<ParagraphBoxContainer />
 				</div>
 			</div>
 		);
