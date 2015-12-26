@@ -1,22 +1,8 @@
-import { TOGGLE_EDIT, SAVE_TEXT } from './actions'
+import { combineReducers } from 'redux'
+import {paragraphs} from './paragraphReducer'
+import {other} from './otherReducer'
 
-const initialState = {
-	isEditing: false,
-	text: "Type some text here..."
-}
-
-export const reducer = (state = initialState, action) => {
-	switch(action.type) {
-	case TOGGLE_EDIT:
-		return Object.assign({}, state, {
-			isEditing: !state.isEditing
-		})
-	case SAVE_TEXT:
-		return Object.assign({}, state, {
-			text: action.text
-		})
-	default:
-		return state
-	}
-}
-
+export const reducer = combineReducers({
+  other,
+	paragraphs
+})	

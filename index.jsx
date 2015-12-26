@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import {store} from './redux/store'
 
-import {ParagraphBoxContainer} from './components/ParagraphBox'
+import {ParagraphListContainer} from './components/ParagraphList'
 
 
 /* create container as stateless function to indicate pure component */ 
@@ -14,9 +14,7 @@ export class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<div>
-					<ParagraphBoxContainer />
-				</div>
+				<ParagraphListContainer />
 			</div>
 		);
 	}

@@ -14,15 +14,15 @@ export const ParagraphBox = React.createClass({
 					? <DisplayBox
 						text={this.props.text}
 						onClickHandler={() => {
-							this.props.dispatch(toggleEdit())
+							this.props.dispatch(toggleEdit(this.props.id))
 						}}
 					/>
 					: <EditBox 
 						text={this.props.text}
 						ref={(ref) => this.editBox = ref}
 						onClickHandler={() => {
-							this.props.dispatch(saveText(this.editBox.state.text))
-							this.props.dispatch(toggleEdit())
+							this.props.dispatch(saveText(this.editBox.state.text, this.props.id))
+							this.props.dispatch(toggleEdit(this.props.id))
 						}}
 					/>}
 			</div>	
@@ -30,11 +30,4 @@ export const ParagraphBox = React.createClass({
 	}
 })
 
-const mapStateToProps = (state) => {
-	return {
-		editing: state.isEditing,
-		text: state.text
-	}
-}
-
-export const ParagraphBoxContainer = connect(mapStateToProps)(ParagraphBox)
+export const ParagraphBoxContainer = connect()(ParagraphBox)
