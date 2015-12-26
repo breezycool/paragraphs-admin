@@ -13,8 +13,8 @@ export const EditBox = React.createClass({
 		return (
 			<div>
 				<textarea
-									defaultValue={this.props.text}
-									onChange={this.handleChange}
+					defaultValue={this.props.text}
+					onChange={this.handleChange}
 				/>
 				<div>
 					<button 

@@ -8,6 +8,8 @@ import {configureStore} from './redux/store'
 
 import DevTools from './redux/devtools'
 import {ParagraphListContainer} from './components/ParagraphList'
+import {HintListContainer} from './components/HintList'
+
 
 
 /* create container as stateless function to indicate pure component */ 
@@ -15,7 +17,12 @@ export class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<ParagraphListContainer />
+				<div>
+					<ParagraphListContainer />
+				</div>
+				<div>
+					<HintListContainer />
+				</div>
 				<DevTools />
 			</div>
 		);

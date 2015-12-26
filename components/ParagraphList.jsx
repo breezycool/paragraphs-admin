@@ -6,23 +6,22 @@ import {toggleEdit, saveText, addParagraph} from '../redux/actions'
 import {ParagraphBoxContainer} from './ParagraphBox'
 
 export const ParagraphList = React.createClass({
-
 	render() {
 		return (
-			<div>
-			{Object.keys(this.props.paragraphs).map((index) => {
-
-				return <ParagraphBoxContainer
-					key={index}
-					index={parseInt(index)}
-					paragraph={this.props.paragraphs[index].paragraph}
-				/>
-			})}
-			<button className="btn btn-sm btn-info glyphicon glyphicon-plus"
-                    onClick={()=>{
-                    	this.props.dispatch(addParagraph())
-                    }}
-                    > Add Paragraph </button>
+			<div className="col-md-6">
+				{Object.keys(this.props.paragraphs).map((index) => {
+					return <ParagraphBoxContainer
+						key={index}
+						index={parseInt(index)}
+						paragraph={this.props.paragraphs[index].paragraph}
+					/>
+				})}
+				<button
+					className="btn btn-sm btn-info glyphicon glyphicon-plus"
+					onClick={()=>{
+						this.props.dispatch(addParagraph())
+					}}
+				 > Add Paragraph </button>
 			</div>
 		)
 	}
