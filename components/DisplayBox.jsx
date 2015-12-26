@@ -55,8 +55,20 @@ const MySelect = React.createClass({
   }
 })
 
+<<<<<<< HEAD
 export const DisplayBox = React.createClass({
 
+=======
+const DisplayBox = React.createClass({
+	getDefaultProps() {
+		return {
+			backgroundColor: "#FFF",
+			height: "100%",
+			width: "45%",
+			margin: "8px"
+		}
+	},
+>>>>>>> refs/remotes/origin/master
 	render() {
 		return (
 			<div>
@@ -79,3 +91,5 @@ export const DisplayBox = React.createClass({
 		);
 	}
 })
+
+export default DisplayBox

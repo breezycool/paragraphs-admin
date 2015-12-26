@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const EditBox = React.createClass({
+const EditBox = React.createClass({
 	getInitialState() {
 		return {
 			text: this.props.text
@@ -13,8 +13,8 @@ export const EditBox = React.createClass({
 		return (
 			<div>
 				<textarea
-									defaultValue={this.props.text}
-									onChange={this.handleChange}
+					defaultValue={this.props.text}
+					onChange={this.handleChange}
 				/>
 				<div>
 					<button 
@@ -26,3 +26,5 @@ export const EditBox = React.createClass({
 		);
 	}
 })
+
+export default EditBox
