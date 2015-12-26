@@ -12,7 +12,7 @@ export const EditBox = React.createClass({
 	render() {
 		return (
 			<div>
-				<textarea name="edit" id="edit" cols="30" rows="10"
+				<textarea
 									defaultValue={this.props.text}
 									onChange={this.handleChange}
 				/>
