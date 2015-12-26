@@ -5,7 +5,7 @@ const initialState = {
 	text: "Type some text here..."
 }
 
-export const paragraphs = (state = initialState, action) => {
+export const paragraph = (state = initialState, action) => {
 	switch(action.type) {
 	case TOGGLE_EDIT:
 		return Object.assign({}, state, {

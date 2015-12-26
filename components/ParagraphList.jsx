@@ -7,13 +7,15 @@ import {ParagraphBoxContainer} from './ParagraphBox'
 
 export const ParagraphList = React.createClass({
 	render() {
+		console.log('rerendered paragraph list')
 		return (
 			<div>
 			{Object.keys(this.props.paragraphs).map((index) => {
+
 				return <ParagraphBoxContainer
 					key={index}
-					editing={this.props.paragraphs[index].editing}
-					text={this.props.paragraphs[index].text}
+					index={parseInt(index)}
+					paragraph={this.props.paragraphs[index].paragraph}
 				/>
 			})}
 			</div>

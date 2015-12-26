@@ -8,21 +8,23 @@ import {EditBox} from './EditBox'
 
 export const ParagraphBox = React.createClass({
 	render() {
+		console.log(this.props.paragraph)
 		return (
 			<div>
-				{!this.props.editing
+				{!this.props.paragraph.isEditing
 					? <DisplayBox
-						text={this.props.text}
+						text={this.props.paragraph.text}
 						onClickHandler={() => {
-							this.props.dispatch(toggleEdit(this.props.id))
+							this.props.dispatch(toggleEdit(this.props.index))
 						}}
 					/>
 					: <EditBox 
-						text={this.props.text}
+						text={this.props.paragraph.text}
 						ref={(ref) => this.editBox = ref}
 						onClickHandler={() => {
-							this.props.dispatch(saveText(this.editBox.state.text, this.props.id))
-							this.props.dispatch(toggleEdit(this.props.id))
+							console.log(this.props.index)
+							this.props.dispatch(saveText(this.editBox.state.text, this.props.index))
+							this.props.dispatch(toggleEdit(this.props.index))
 						}}
 					/>}
 			</div>	
