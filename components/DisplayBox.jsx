@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const DisplayBox = React.createClass({
+const DisplayBox = React.createClass({
 	getDefaultProps() {
 		return {
 			backgroundColor: "#FFF",
@@ -28,3 +28,5 @@ export const DisplayBox = React.createClass({
 		);
 	}
 })
+
+export default DisplayBox

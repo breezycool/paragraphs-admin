@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const EditBox = React.createClass({
+const EditBox = React.createClass({
 	getInitialState() {
 		return {
 			text: this.props.text
@@ -26,3 +26,5 @@ export const EditBox = React.createClass({
 		);
 	}
 })
+
+export default EditBox

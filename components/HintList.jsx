@@ -3,12 +3,18 @@ import {connect} from 'react-redux'
 
 import {addHint} from '../redux/actions'
 
+import {HintBoxContainer} from './HintBox.jsx'
+
 export const HintList = React.createClass({
 	render() {
 		return (
 			<div className="col-md-6">
 				{Object.keys(this.props.hints).map((index) => {
-					return <div>Hint</div>
+					return <HintBoxContainer
+						key={index}
+						index={index}
+						hint={this.props.hints[index]}
+					/>
 				})}
 				<button
 					className="btn btn-sm btn-info glyphicon glyphicon-plus"
