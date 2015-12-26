@@ -3,7 +3,7 @@ import React from 'react';
 export const DisplayBox = React.createClass({
 
 	getDefaultProps() {
-		return{
+		return {
 			backgroundColor: "#FFF",
 			height: "100%",
 			width: "45%",
