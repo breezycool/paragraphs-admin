@@ -1,11 +1,12 @@
 import {TOGGLE_EDIT, SAVE_TEXT, ADD_PARAGRAPH, REMOVE_PARAGRAPH} from './actions'
 
+/* paragraph reducer */
 const paragraphInitialState = {
 	isEditing: false,
 	text: "Type some text here..."
 }
 
-export const paragraph = (state = paragraphInitialState, action) => {
+const paragraph = (state = paragraphInitialState, action) => {
 	switch(action.type) {
 	case TOGGLE_EDIT:
 		return Object.assign({}, state, {
