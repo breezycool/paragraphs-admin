@@ -12,7 +12,9 @@ export const DisplayBox = React.createClass({
 						className="btn btn-primary glyphicon glyphicon-pencil"
 						onClick={this.props.onClickHandler}
 					>Edit</button>
-					<button className="btn btn-danger glyphicon glyphicon-trash">Remove</button>
+					<button className="btn btn-danger glyphicon glyphicon-trash"
+						onClick={this.props.onClickRemoveHandler}
+					>Remove</button>
 				</div>	
 			</div>
 		);

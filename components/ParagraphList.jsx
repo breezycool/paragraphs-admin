@@ -1,13 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import {toggleEdit, saveText} from '../redux/actions'
+import {toggleEdit, saveText, addParagraph} from '../redux/actions'
 
 import {ParagraphBoxContainer} from './ParagraphBox'
 
 export const ParagraphList = React.createClass({
+
+	add(text) {
+    let arr = this.props.paragraphs.slice();
+    arr.push(text);
+    this.setState();
+    console.log(this.state)
+    },
 	render() {
-		console.log('rerendered paragraph list')
 		return (
 			<div>
 			{Object.keys(this.props.paragraphs).map((index) => {
@@ -18,6 +24,11 @@ export const ParagraphList = React.createClass({
 					paragraph={this.props.paragraphs[index].paragraph}
 				/>
 			})}
+			<button className="btn btn-sm btn-info glyphicon glyphicon-plus"
+                    onClick={()=>{
+                    	this.props.dispatch(addParagraph())
+                    }}
+                    > Add Paragraph </button>
 			</div>
 		)
 	}

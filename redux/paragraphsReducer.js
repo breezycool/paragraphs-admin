@@ -1,11 +1,9 @@
 import {paragraph} from './paragraphReducer'
-import {TOGGLE_EDIT, SAVE_TEXT} from './actions'
+import {TOGGLE_EDIT, SAVE_TEXT, ADD_PARAGRAPH, REMOVE_PARAGRAPH} from './actions'
 
 const defaultAction = {type: "default"}
 const initialState = [
-	{id: 0, paragraph: paragraph(undefined, defaultAction)},
-	{id: 1, paragraph: paragraph(undefined, defaultAction)},
-	{id: 2, paragraph: paragraph(undefined, defaultAction)},
+	{id: 0, paragraph: paragraph(undefined, defaultAction)}
 ]
 
 export const paragraphs = (state = initialState, action) => {
@@ -17,19 +15,30 @@ export const paragraphs = (state = initialState, action) => {
 			id: parseInt(action.id),
 			paragraph: paragraph(state[action.id].paragraph, action)
 		} 
-		console.log(newState)
 		return newState
+
 	case SAVE_TEXT:
 		newState = state.slice()
 		newState[action.id] = {
 			id: parseInt(action.id),
 			paragraph: paragraph(state[action.id].paragraph, action)
 		} 
-		console.log(newState)
 		return newState
+
+	case ADD_PARAGRAPH:
+		newState = state.slice()
+		newState.push({
+			id: state.length,
+			paragraph: paragraph(undefined, defaultAction)
+		}) 
+		return newState
+
+	case REMOVE_PARAGRAPH:
+		newState = state.slice()
+		newState.splice(action.id, 1) 
+		return newState
+
 	default:
-		console.log("default action: ")
-		console.log(action)
 		return state
 	}
 }

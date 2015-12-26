@@ -18,7 +18,7 @@ export const EditBox = React.createClass({
 				/>
 				<div>
 					<button 
-						className="btn btn-secondary glyphicon glyphicon-trash"
+						className="btn btn-success glyphicon glyphicon-floppy-disk"
 						onClick={this.props.onClickHandler}
 					>Save</button>
 				</div>
