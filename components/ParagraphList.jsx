@@ -7,12 +7,6 @@ import {ParagraphBoxContainer} from './ParagraphBox'
 
 export const ParagraphList = React.createClass({
 
-	add(text) {
-    let arr = this.props.paragraphs.slice();
-    arr.push(text);
-    this.setState();
-    console.log(this.state)
-    },
 	render() {
 		return (
 			<div>
