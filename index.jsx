@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom';
 
 /* REDUX */
 import {Provider} from 'react-redux'
-import {store} from './redux/store'
+import {configureStore} from './redux/store'
 
+import DevTools from './redux/devtools'
 import {ParagraphListContainer} from './components/ParagraphList'
 
 
@@ -15,13 +16,14 @@ export class App extends React.Component {
 		return (
 			<div>
 				<ParagraphListContainer />
+				<DevTools />
 			</div>
 		);
 	}
 }
 
 ReactDOM.render(
-	<Provider store={store}>
+	<Provider store={configureStore()}>
 		<App/>
 	</Provider>,
 	document.querySelector("#app")
