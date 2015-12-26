@@ -1,26 +1,22 @@
 import {ADD_HINT} from './actions'
 
 /* hint reducer */
-const newHint = () => {
+const newHint = (id) => {
 	return {
-		id: 0,
+		id: id,
 		text: 'new hint',
 		paragraphs:[]
 	}
 }
 
-const initialState = [newHint()]
+const initialState = [newHint(0)]
 
 export const hints = (state = initialState, action) => {
 	let newState = []
 	switch(action.type) {
 	case ADD_HINT:
 		newState = state.slice()
-		newState.push({
-			id: state.length,
-			text: "new hint",
-			paragraphs: []
-		})
+		newState.push(newHint(state.length))
 		return newState
 	default:
 		return state
