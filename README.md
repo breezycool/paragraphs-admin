@@ -4,9 +4,13 @@ Simple React Webpack Babel Starter Kit
 
 This is a simple [React](https://facebook.github.io/react/), [Webpack](http://webpack.github.io/) and [Babel](https://babeljs.io/) application with nothing else in it.
 
-### What's in it?
+### Get the repo
 
-Just a simple [index.jsx](./index.jsx), [webpack.config.js](./webpack.config.js) and [index.html](./public/index.html) file.
+Make sure you do a recursive clone to get all the submodules.
+
+```
+> $ git clone --recursive https://github.com/breezycool/redux-learn
+```
 
 ### To run
 
@@ -17,7 +21,7 @@ Install:
 > $ npm install
 ```
 
-Install submodules (this is required):
+Install submodules (just in case you didn't recursive clone this repo):
 
 ```
 > $ git submodule init
