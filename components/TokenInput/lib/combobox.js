@@ -396,7 +396,8 @@ module.exports = React.createClass({
 				onKeyDown: this.handleKeydown,
 				onKeyUp: this.handleInputKeyUp,
 				role: 'combobox',
-				placeholder: 'Type a hint, and hit enter to save'
+				// TODO: refactor this placeholder string up the component hierarchy
+				placeholder: 'Type a hint'
 			}),
 			span({
 				'aria-hidden': 'true',

@@ -1,4 +1,5 @@
 import React from 'react';
+import TagSelect from './TagSelect.jsx'
 
 const EditBox = React.createClass({
 	getInitialState() {
@@ -17,12 +18,15 @@ const EditBox = React.createClass({
 					onChange={this.handleChange}
 				/>
 				<div>
+					<TagSelect/>
+				</div>
+				<div>
 					<button 
 						className="btn btn-success glyphicon glyphicon-floppy-disk"
 						onClick={this.props.onClickHandler}
 					> Save</button>
 				</div>
-			</div>
+			</div>	
 		);
 	}
 })

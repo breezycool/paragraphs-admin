@@ -1,5 +1,4 @@
 import React from 'react';
-import TagSelect from './TagSelect.jsx'
 
 export const DisplayBox = React.createClass({
 
@@ -27,9 +26,6 @@ export const DisplayBox = React.createClass({
 						onClick={this.props.onClickRemoveHandler}
 					> Remove</button>
 				</div>
-				<div>
-					<TagSelect/>
-				</div>	
 			</div>
 		);
 	}
