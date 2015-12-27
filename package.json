@@ -29,10 +29,12 @@
   "dependencies": {
     "bootstrap": "3.3.5",
     "immutable": "^3.7.6",
+    "lodash-node": "^3.10.1",
     "node-libs-browser": "0.5.3",
     "react": "0.14.3",
     "react-dom": "0.14.3",
     "react-redux": "^4.0.4",
+    "react-select": "^1.0.0-beta8",
     "redux": "^3.0.5"
   },
   "devDependencies": {

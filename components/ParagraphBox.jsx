@@ -28,6 +28,7 @@ export const ParagraphBox = React.createClass({
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
 					/>}
+					<br/>
 			</div>	
 		);
 	}
