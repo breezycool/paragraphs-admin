@@ -1,5 +1,4 @@
 import React from 'react';
-import FilteredMultiSelect from 'react-filtered-multiselect';
 import TokenInput from '../otherlibs/react-tokeninput/index';
 import {uniq} from 'lodash-node';
 import {without} from 'lodash-node';
