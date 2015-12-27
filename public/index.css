@@ -3,7 +3,7 @@ body {
 }
 
 .ic-tokeninput {
-  display: inline-block;
+  width: 100%;
 }
 
 .ic-tokeninput-list {
