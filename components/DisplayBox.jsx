@@ -1,5 +1,5 @@
 import React from 'react';
-import TokenInput from '../otherlibs/react-tokeninput/index';
+import TokenInput from '../otherlibs/reakt-tokeninput/index';
 import {uniq} from 'lodash-node';
 import {without} from 'lodash-node';
 
