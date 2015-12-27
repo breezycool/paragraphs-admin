@@ -8,6 +8,8 @@ var div = React.createFactory('div');
 var span = React.createFactory('span');
 var input = React.createFactory('input');
 
+const placeholderText = "Type a hint then hit enter."
+
 module.exports = React.createClass({
 
 	propTypes: {
@@ -396,19 +398,19 @@ module.exports = React.createClass({
 				onKeyDown: this.handleKeydown,
 				onKeyUp: this.handleInputKeyUp,
 				role: 'combobox',
-				placeholder: 'Type a hint, and hit enter to save'
-			}),
-			span({
-				'aria-hidden': 'true',
-				className: 'ic-tokeninput-button',
-				onClick: this.handleButtonClick
-			}, '▾'),
-			div({
-				id: this.state.listId,
-				ref: 'list',
-				className: 'ic-tokeninput-list',
-				role: 'listbox'
-			}, this.state.menu.children)
+				placeholder: placeholderText
+			})
+			// span({
+			// 	'aria-hidden': 'true',
+			// 	className: 'ic-tokeninput-button',
+			// 	onClick: this.handleButtonClick
+			// }, '▾')
+			// div({
+			// 	id: this.state.listId,
+			// 	ref: 'list',
+			// 	className: 'ic-tokeninput-list',
+			// 	role: 'listbox'
+			// }, this.state.menu.children)
 		);
 	}
 });

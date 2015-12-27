@@ -59,7 +59,7 @@ module.exports = React.createClass({
 
     return ul({className: 'ic-tokens flex', onClick: this.handleClick},
       tokens,
-      li({className: 'inline-flex', ref: 'combo-li'},
+    //  li({className: 'inline-flex', ref: 'combo-li'},
         Combobox({
           id: this.props.id,
           ariaLabel: this.props['combobox-aria-label'],
@@ -71,7 +71,7 @@ module.exports = React.createClass({
         },
           this.props.menuContent
         )
-      )
+     // )
     );
   }
 })
