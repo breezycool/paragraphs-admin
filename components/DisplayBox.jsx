@@ -4,7 +4,7 @@ export const DisplayBox = React.createClass({
 
 	getDefaultProps() {
 		return {
-			backgroundColor: "#FFF",
+			backgroundColor: "#fff",
 			height: "100%",
 			width: "45%",
 			margin: "8px"

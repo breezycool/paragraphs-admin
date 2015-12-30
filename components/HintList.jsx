@@ -19,7 +19,7 @@ export const HintList = React.createClass({
 				<button
 					className="btn btn-sm btn-info glyphicon glyphicon-plus"
 	        onClick={()=>{
-	        	this.props.dispatch(addHints(["new  hint."], this.props.hints.length))
+	        	this.props.dispatch(addHints(['new hint']))
 	        }}
 	       > Add Hint </button>
 	       <hr />
