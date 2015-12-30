@@ -37,8 +37,8 @@ export const removeParagraph = (id) => {
 export const saveHintTags = (id, hints) => {
 	return {
 		type: SAVE_HINT_TAGS,
-		id: id,
-		hints: hints // expect array
+		id: id, // of current paragraph
+		hints: hints // expect array of strings
 	}
 }
 
