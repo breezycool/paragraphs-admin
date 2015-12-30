@@ -8,7 +8,8 @@ var div = React.createFactory('div');
 var span = React.createFactory('span');
 var input = React.createFactory('input');
 
-const placeholderText = "Type a hint then hit enter."
+// TODO: pass this down as a prop
+const placeholderText = "Add a hint..."
 
 module.exports = React.createClass({
 
