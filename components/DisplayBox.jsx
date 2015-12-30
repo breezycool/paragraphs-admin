@@ -11,7 +11,7 @@ export const DisplayBox = React.createClass({
 		}
 	},
 
-	render() {
+	render() { //
 		return (
 			<div>
 				<div onClick={this.props.onClickHandler}>
@@ -19,7 +19,7 @@ export const DisplayBox = React.createClass({
 				</div>
 				<hr/>
 				<div>
-				{this.props.hintTags}
+					{this.props.hintTags}
 				</div>
 				<div>
 					<button style={{margin: '0.2em'}}
@@ -30,7 +30,6 @@ export const DisplayBox = React.createClass({
 						onClick={this.props.onClickRemoveHandler}
 					/>
 				</div>
-
 			</div>
 		);
 	}
