@@ -26,7 +26,7 @@ const TagSelect = React.createClass({
 
 		return {
 			selected: names, //this.props.hintTags
-			options: hints//this.props.hints.text
+			options: options//this.props.hints.text
 		};
 	},
 

@@ -1,19 +1,30 @@
 import React from 'react';
 import TagSelect from './TagSelect.jsx'
+import {connect} from 'react-redux'
+import {saveText, toggleEdit, saveHintTags, addHints} from '../redux/actions'
 
 var textareaStyle = {
 	minHeight: "200px"
 }
 
-const EditBox = React.createClass({
+export const EditBox = React.createClass({
 	getInitialState() {
 		return {
-			text: this.props.text
+			text: this.props.text,
+
 		}
 	},
 	handleChange(e) {
 		this.setState({text: e.target.value})
-	},	
+	},
+	onClickHandler(){
+		this.props.dispatch(saveText(this.state.text, this.props.index))
+		this.props.dispatch(toggleEdit(this.props.index))
+		//save hint tags associated with paragraph
+		this.props.dispatch(saveHintTags(this.tagSelect.state.selected))
+		//add any new hints to the hint list on the right.
+		this.props.dispatch(addHints(this.tagSelect.state.selected))
+	},
 	render() {
 		return (
 			<div>
@@ -23,12 +34,12 @@ const EditBox = React.createClass({
 					style={textareaStyle}
 				/>
 				<div>
-					<TagSelect hintTags={this.props.hintTags} hints={this.props.hints}/>
+					<TagSelect ref={(ref)=>{this.tagSelect=ref}} hintTags={this.props.hintTags} hints={this.props.hints}/>
 				</div>
 				<div>
 					<button 
 						className="btn btn-success glyphicon glyphicon-floppy-disk"
-						onClick={this.props.onClickHandler}
+						onClick={this.onClickHandler}
 					> Save</button>
 				</div>
 
@@ -37,4 +48,11 @@ const EditBox = React.createClass({
 	}
 })
 
-export default EditBox
+const mapStateToProps = (state) => {
+	return {
+		hints: state.hints
+	}
+}
+
+
+export const EditBoxContainer = connect(mapStateToProps)(EditBox)
