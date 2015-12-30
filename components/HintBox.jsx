@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 
 import {toggleHintEdit, saveHintText, removeHint} from '../redux/actions'
 
-import DisplayBox from './DisplayBox'
-import EditBox from './EditBox'
+import DisplayHintBox from './DisplayHintBox'
+import EditHintBox from './EditHintBox'
 
 export const HintBox = React.createClass({
 	render() {
@@ -20,7 +20,7 @@ export const HintBox = React.createClass({
 							this.props.dispatch(removeHint(this.props.index))
 						}}
 					/>
-					: <EditBox
+					: <EditHintBox
 							text={this.props.hint.text}
 							ref={(ref) => this.editBox = ref}
 							onClickHandler={() => {

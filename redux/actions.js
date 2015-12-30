@@ -4,6 +4,7 @@ export const TOGGLE_EDIT = 'TOGGLE_EDIT'
 export const SAVE_TEXT = 'SAVE_TEXT'
 export const ADD_PARAGRAPH = 'ADD_PARAGRAPH'
 export const REMOVE_PARAGRAPH = 'REMOVE_PARAGRAPH'
+export const SAVE_HINT_TAGS = 'SAVE_HINT_TAGS'
 
 export const toggleEdit = (id) => {
 	return {
@@ -32,6 +33,15 @@ export const removeParagraph = (id) => {
 		id: id
 	}
 }
+
+export const saveHintTags = (id) => {
+	return {
+		type: SAVE_HINT_TAGS,
+		id: id,
+		hints: hints
+	}
+}
+
 
 /* hints reducer */
 /* ************* */

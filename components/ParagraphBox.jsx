@@ -21,14 +21,13 @@ export const ParagraphBox = React.createClass({
 						}}
 					/>
 					: <EditBox 
+						hintTags={this.props.paragraph.hintTags}
 						text={this.props.paragraph.text}
 						ref={(ref) => this.editBox = ref}
 						onClickHandler={() => {
 							this.props.dispatch(saveText(this.editBox.state.text, this.props.index))
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
-						// NB: this does not need to be contained in state, as it is a UI conditional
-						isParagraph={true}
 					/>}
 					<br/>
 			</div>	

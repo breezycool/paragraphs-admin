@@ -13,7 +13,7 @@ export const ParagraphList = React.createClass({
 					return <ParagraphBoxContainer
 						key={index}
 						index={parseInt(index)}
-						paragraph={this.props.paragraphs[index].paragraph}
+						paragraph={this.props.paragraphs[index]}
 					/>
 				})}
 				<button
