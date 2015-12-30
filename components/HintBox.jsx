@@ -11,7 +11,7 @@ export const HintBox = React.createClass({
 		return (
 			<div>
 				{!this.props.hint.isEditing
-					? <DisplayBox
+					? <DisplayHintBox
 						text={this.props.hint.text}
 						onClickHandler={() => {
 							this.props.dispatch(toggleHintEdit(this.props.index))
