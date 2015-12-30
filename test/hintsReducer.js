@@ -18,10 +18,10 @@ describe('hints reducer', () => {
 
 	it('handles ADD_HINT action', () => {
 		let state = hintsStore.getState()
-		expect(state.hints).to.have.length(1)
+		let originalLength = state.hints.length
 		hintsStore.dispatch(addHint())
 		state = hintsStore.getState()
-		expect(state.hints).to.have.length(2)
+		expect(state.hints).to.have.length(originalLength + 1)
 	})
 
 	it('handles TOGGLE_HINT_EDIT action', () => {
@@ -31,10 +31,13 @@ describe('hints reducer', () => {
 	})
 
 	it('handles SAVE_HINT_TEXT action', () => {
-		hintsStore.dispatch(saveHintText('changing this text', 0))
 		let state = hintsStore.getState()
-		expect(state.hints).to.have.length(1)
-		expect(state.hints[0]).to.contain({text: 'changing this text'})
+		let originalLength = state.hints.length
+		hintsStore.dispatch(addHint())
+		hintsStore.dispatch(saveHintText('changing this text', 0))
+		state = hintsStore.getState()
+		expect(state.hints).to.have.length(originalLength + 1)
+		expect(state.hints[originalLength]).to.contain({text: 'changing this text'})
 	})
 
 	it('handles REMOVE_HINT action', () => {
