@@ -62,7 +62,23 @@ describe('hints reducer', () => {
 			}
 		})
 
+		it('should not add duplicate hints', () => {
+
+
+			let state = hintsStore.getState()
+			let originalLength = state.hints.length
+			hintsStore.dispatch(addHints(['hint 1']))
+			state = hintsStore.getState()
+			expect(state.hints).to.have.length(originalLength+1)
+			let hintsToAdd = ['hint 1', 'hint 1', 'hint 3']
+			hintsStore.dispatch(addHints(hintsToAdd))
+			state = hintsStore.getState()
+			expect(state.hints).to.have.length(originalLength+2)
+		})
+
 	})
+	
+
 
 	it('handles TOGGLE_HINT_EDIT action', () => {
 		hintsStore.dispatch(toggleHintEdit(0))

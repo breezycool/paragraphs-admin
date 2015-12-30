@@ -13,6 +13,7 @@ export const ParagraphBox = React.createClass({
 				{!this.props.paragraph.isEditing
 					? <DisplayBox
 						text={this.props.paragraph.text}
+						hintTags={this.props.paragraph.hintTags}
 						onClickHandler={() => {
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
