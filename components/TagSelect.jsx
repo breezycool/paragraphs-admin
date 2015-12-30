@@ -6,9 +6,9 @@ import ComboboxOption from './TokenInput/lib/option';
 const TagSelect = React.createClass({
 
 	getInitialState() {
-		let names = [
+		let names = 
 		 this.props.hintTags
-		  ].map(function(name) {
+		  .map(function(name) {
 		  return {
 			id: name,
 			name: name
