@@ -48,4 +48,8 @@ describe('paragraphs reducer', () => {
 		state = paragraphStore.getState()
 		expect(state.paragraphs.length).to.equal(originalLength)
 	})
+
+	// it('handles SAVE_HINT_TAGS', () => {
+		
+	// })
 })

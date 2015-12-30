@@ -1,11 +1,11 @@
-import {ADD_HINT, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, REMOVE_HINT} from './actions'
+import {ADD_HINTS, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, REMOVE_HINT} from './actions'
 
 /* hint reducer */
-const newHint = (id) => {
+const newHint = (id, text) => {
 	return {
 		id: id,
 		isEditing: false,
-		text: 'New hint',
+		text: text,
 		paragraphs:[]
 	}
 }
@@ -28,9 +28,13 @@ const initialState = [
 export const hints = (state = initialState, action) => {
 	let newState = state.slice()
 	switch(action.type) {
-	case ADD_HINT:
-		newState.push(newHint(state.length))
+	case ADD_HINTS:
+		action.hints.forEach((hintText, index) => {
+			// console.log("adding hint with id "+(state.length + index)+" and text '"+hintText+"'")
+			newState.push(newHint(state.length + index, hintText))
+		})
 		return newState
+
 	case TOGGLE_HINT_EDIT:
 		newState[action.id] = hint(state[action.id], action)
 		return newState
