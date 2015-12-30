@@ -8,7 +8,7 @@ import {HintBoxContainer} from './HintBox.jsx'
 export const HintList = React.createClass({
 	render() {
 		return (
-			<div className="col-md-6">
+			<div className="col-md-6 text-center">
 				{Object.keys(this.props.hints).map((index) => {
 					return <HintBoxContainer
 						key={index}
@@ -22,6 +22,7 @@ export const HintList = React.createClass({
 	        	this.props.dispatch(addHint())
 	        }}
 	       > Add Hint </button>
+	       <hr />
 			</div>
 		)
 	}

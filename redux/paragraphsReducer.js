@@ -23,7 +23,7 @@ const paragraph = (state = paragraphInitialState, action) => {
 
 const defaultAction = {type: "default"}
 const initialState = [
-	{id: 0, paragraph: paragraph(undefined, defaultAction)}
+	// {id: 0, paragraph: paragraph(undefined, defaultAction)}
 ]
 
 export const paragraphs = (state = initialState, action) => {

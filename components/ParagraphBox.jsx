@@ -27,6 +27,8 @@ export const ParagraphBox = React.createClass({
 							this.props.dispatch(saveText(this.editBox.state.text, this.props.index))
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
+						// NB: this does not need to be contained in state, as it is a UI conditional
+						isParagraph={true}
 					/>}
 					<br/>
 			</div>	

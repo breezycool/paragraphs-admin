@@ -19,10 +19,11 @@ textarea {
 }
 
 h1 {
-  background-color: #C3DCFF;
-  border-radius: 100px;
+  /*background-color: #C3DCFF;*/
+  /*border-radius: 100px;*/
   padding: 10px 5px;
   font-family: 'Poiret One', cursive !important;
+  border-bottom: 10px solid #5bc0de; /* bootstrap button color */
 }
 
 .ic-tokeninput {

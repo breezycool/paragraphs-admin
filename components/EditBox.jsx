@@ -17,14 +17,18 @@ const EditBox = React.createClass({
 					defaultValue={this.props.text}
 					onChange={this.handleChange}
 				/>
+				{this.props.isParagraph ?
 				<div>
-					<TagSelect/>
+				<TagSelect/>
 				</div>
+				: <br />
+				}
 				<div>
 					<button 
 						className="btn btn-success glyphicon glyphicon-floppy-disk"
 						onClick={this.props.onClickHandler}
 					> Save</button>
+					<div />
 				</div>
 			</div>	
 		);

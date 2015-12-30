@@ -5,7 +5,7 @@ const newHint = (id) => {
 	return {
 		id: id,
 		isEditing: false,
-		text: 'new hint',
+		text: 'New hint',
 		paragraphs:[]
 	}
 }
@@ -21,7 +21,9 @@ const hint = (state = newHint(0), action) => {
 	}
 }
 
-const initialState = [newHint(0)]
+const initialState = [
+	// newHint(0)
+]
 
 export const hints = (state = initialState, action) => {
 	let newState = state.slice()
