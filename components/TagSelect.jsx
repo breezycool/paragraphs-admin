@@ -3,32 +3,30 @@ import TokenInput from './TokenInput/index';
 import {uniq, without} from 'lodash-node';
 import ComboboxOption from './TokenInput/lib/option';
 
-let namez = [
-  "Yolanda",
-  "Ysabel",
-  "Yulissa"
-  ].map(function(name) {
-  return {
-    id: name,
-    name: name
-  }
-});
-
 const TagSelect = React.createClass({
 
 	getInitialState() {
 		let names = [
-		 //this.props.hintTags
+		 this.props.hintTags
 		  ].map(function(name) {
 		  return {
 			id: name,
 			name: name
 		  }
 		});
-		  console.log(this.props.hintTags.toString());
+
+		let options = [
+		 this.props.hints.text
+		  ].map(function(name) {
+		  return {
+			id: name,
+			name: name
+		  }
+		});
+
 		return {
-			selected: [], //this.props.hintTags
-			options: []//this.props.hints.text
+			selected: names, //this.props.hintTags
+			options: hints//this.props.hints.text
 		};
 	},
 
