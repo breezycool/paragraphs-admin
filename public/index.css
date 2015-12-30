@@ -18,6 +18,13 @@ textarea {
   margin-bottom: 6px;
 }
 
+h1 {
+  background-color: #C3DCFF;
+  border-radius: 100px;
+  padding: 10px 5px;
+  font-family: 'Poiret One', cursive !important;
+}
+
 .ic-tokeninput {
   width: 100%;
 }
