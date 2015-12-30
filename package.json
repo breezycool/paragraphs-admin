@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-babel",
+  "name": "paragraphs-admin",
   "version": "0.0.2",
-  "description": "React Webpack Babel Starter Kit",
+  "description": "Admin interface for Ken Grace Paragraph iOS app",
   "main": "''",
   "scripts": {
     "build": "webpack --progress --profile --colors",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alicoding/react-webpack-babel"
+    "url": "https://github.com/breezycool/paragraphs-admin"
   },
   "keywords": [
     "React",
@@ -20,12 +20,12 @@
     "Starter",
     "template"
   ],
-  "author": "Ali Al Dallal",
+  "author": "Lachlan Kermode",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alicoding/react-webpack-babel/issues"
+    "url": "https://github.com/breezycool/paragraphs-admin/issues"
   },
-  "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
+  "homepage": "https://github.com/breezycool/paragraphs-admin#readme",
   "dependencies": {
     "bootstrap": "3.3.5",
     "immutable": "^3.7.6",
