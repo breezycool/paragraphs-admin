@@ -58,11 +58,17 @@ export const paragraphs = (state = initialState, action) => {
 		return newState
 
 	case SAVE_HINT_TAGS:
-		action.hints.map((hint) => {
-			newState[action.id].hintTags.push({
-				id: state[action.id].hintTags.length,
-				text: hint
+		action.hints.map((hintTag) => {
+			var alreadyExists = false
+			state[action.id].hintTags.forEach((hint) => {
+				if (hintTag == hint.text) alreadyExists = true
 			})
+			if (!alreadyExists) {
+				newState[action.id].hintTags.push({
+					id: state[action.id].hintTags.length,
+					text: hintTag
+				})
+			}
 		})
 		return newState
 
