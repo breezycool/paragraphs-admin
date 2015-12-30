@@ -5,8 +5,7 @@ const newHint = (id, text) => {
 	return {
 		id: id,
 		isEditing: false,
-		text: text,
-		paragraphs:[]
+		text: text
 	}
 }
 

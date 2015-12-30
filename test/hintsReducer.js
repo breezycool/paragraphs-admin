@@ -89,6 +89,8 @@ describe('hints reducer', () => {
 
 	})
 
+
+
 	it('handles TOGGLE_HINT_EDIT action', () => {
 		hintsStore.dispatch(toggleHintEdit(0))
 		let state = hintsStore.getState()
