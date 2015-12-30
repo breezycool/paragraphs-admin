@@ -1,11 +1,6 @@
 import React from 'react';
-import TagSelect from './TagSelect.jsx'
 
-var textareaStyle = {
-	minHeight: "200px"
-}
-
-const EditBox = React.createClass({
+const EditHintBox = React.createClass({
 	getInitialState() {
 		return {
 			text: this.props.text
@@ -20,21 +15,16 @@ const EditBox = React.createClass({
 				<textarea
 					defaultValue={this.props.text}
 					onChange={this.handleChange}
-					style={textareaStyle}
 				/>
-				<div>
-					<TagSelect hintTags={this.props.hintTags} hints={this.props.hints}/>
-				</div>
 				<div>
 					<button 
 						className="btn btn-success glyphicon glyphicon-floppy-disk"
 						onClick={this.props.onClickHandler}
 					> Save</button>
 				</div>
-
 			</div>
 		);
 	}
 })
 
-export default EditBox
+export default EditHintBox

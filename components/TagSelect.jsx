@@ -1,12 +1,34 @@
 import React from 'react';
 import TokenInput from './TokenInput/index';
 import {uniq, without} from 'lodash-node';
+import ComboboxOption from './TokenInput/lib/option';
+
+let namez = [
+  "Yolanda",
+  "Ysabel",
+  "Yulissa"
+  ].map(function(name) {
+  return {
+    id: name,
+    name: name
+  }
+});
 
 const TagSelect = React.createClass({
+
 	getInitialState() {
+		let names = [
+		 //this.props.hintTags
+		  ].map(function(name) {
+		  return {
+			id: name,
+			name: name
+		  }
+		});
+		  console.log(this.props.hintTags.toString());
 		return {
-			selected: [],
-			options: {}
+			selected: [], //this.props.hintTags
+			options: []//this.props.hints.text
 		};
 	},
 
@@ -41,12 +63,11 @@ const TagSelect = React.createClass({
 	},
 
 	filterTags(userInput) {
-		// this is for the options, because we are not using options as tags so names is an empty array
-		let names = [];
+
 		if (userInput === '')
 			return this.setState({options: []});
 		var filter = new RegExp('^'+userInput, 'i');
-		this.setState({options: names.filter(function(state) {
+		this.setState({options: this.state.options.filter(function(state) {
 			return filter.test(state.name) || filter.test(state.id);
 		})});
 	},

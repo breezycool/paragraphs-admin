@@ -8,8 +8,7 @@ var div = React.createFactory('div');
 var span = React.createFactory('span');
 var input = React.createFactory('input');
 
-// TODO: pass this down as a prop
-const placeholderText = "Add a hint..."
+const placeholderText = "Type a hint then hit enter."
 
 module.exports = React.createClass({
 
@@ -400,18 +399,18 @@ module.exports = React.createClass({
 				onKeyUp: this.handleInputKeyUp,
 				role: 'combobox',
 				placeholder: placeholderText
-			})
-			// span({
-			// 	'aria-hidden': 'true',
-			// 	className: 'ic-tokeninput-button',
-			// 	onClick: this.handleButtonClick
-			// }, '▾')
-			// div({
-			// 	id: this.state.listId,
-			// 	ref: 'list',
-			// 	className: 'ic-tokeninput-list',
-			// 	role: 'listbox'
-			// }, this.state.menu.children)
+			}),
+			span({
+				'aria-hidden': 'true',
+				className: 'ic-tokeninput-button',
+				onClick: this.handleButtonClick
+			}, '▾'),
+			div({
+				id: this.state.listId,
+				ref: 'list',
+				className: 'ic-tokeninput-list',
+				role: 'listbox'
+			}, this.state.menu.children)
 		);
 	}
 });
