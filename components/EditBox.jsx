@@ -1,6 +1,10 @@
 import React from 'react';
 import TagSelect from './TagSelect.jsx'
 
+var textareaStyle = {
+	minHeight: "200px"
+}
+
 const EditBox = React.createClass({
 	getInitialState() {
 		return {
@@ -16,6 +20,7 @@ const EditBox = React.createClass({
 				<textarea
 					defaultValue={this.props.text}
 					onChange={this.handleChange}
+					style={textareaStyle}
 				/>
 				{this.props.isParagraph ?
 				<div>

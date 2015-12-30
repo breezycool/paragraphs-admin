@@ -14,17 +14,17 @@ export const DisplayBox = React.createClass({
 	render() {
 		return (
 			<div>
-				<div>
+				<div onClick={this.props.onClickHandler}>
 					{this.props.text}
 				</div>	
 				<div>
 					<button style={{margin: '0.2em'}}
 						className="btn btn-primary glyphicon glyphicon-pencil"
 						onClick={this.props.onClickHandler}
-					> Edit</button>
+					/>
 					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
 						onClick={this.props.onClickRemoveHandler}
-					> Remove</button>
+					/>
 				</div>
 			</div>
 		);
