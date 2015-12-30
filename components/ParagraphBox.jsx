@@ -20,14 +20,10 @@ export const ParagraphBox = React.createClass({
 							this.props.dispatch(removeParagraph(this.props.index))
 						}}
 					/>
-					: <EditBox 
+					: <EditBoxContainer
 						hintTags={this.props.paragraph.hintTags}
 						text={this.props.paragraph.text}
-						ref={(ref) => this.editBox = ref}
-						onClickHandler={() => {
-							this.props.dispatch(saveText(this.editBox.state.text, this.props.index))
-							this.props.dispatch(toggleEdit(this.props.index))
-						}}
+						index={this.props.index}
 					/>}
 					<br/>
 			</div>	

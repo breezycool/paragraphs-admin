@@ -25,7 +25,7 @@ const TagSelect = React.createClass({
 			name: name
 		  }
 		});
-		  console.log(this.props.hintTags.toString());
+		//  console.log(this.props.hintTags.toString());
 		return {
 			selected: [], //this.props.hintTags
 			options: []//this.props.hints.text
