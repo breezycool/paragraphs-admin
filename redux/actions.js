@@ -34,25 +34,26 @@ export const removeParagraph = (id) => {
 	}
 }
 
-export const saveHintTags = (id) => {
+export const saveHintTags = (id, hints) => {
 	return {
 		type: SAVE_HINT_TAGS,
 		id: id,
-		hints: hints
+		hints: hints // expect array
 	}
 }
 
 
 /* hints reducer */
 /* ************* */
-export const ADD_HINT = 'ADD_HINT'
+export const ADD_HINTS = 'ADD_HINTS'
 export const TOGGLE_HINT_EDIT = 'TOGGLE_HINT_EDIT'
 export const SAVE_HINT_TEXT = 'SAVE_HINT_TEXT'
 export const REMOVE_HINT = 'REMOVE_HINT'
 
-export const addHint = () => {
+export const addHints = (hints) => {
 	return {
-		type: ADD_HINT
+		type: ADD_HINTS,
+		hints: hints
 	}
 }
 

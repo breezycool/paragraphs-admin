@@ -20,27 +20,36 @@ describe('paragraphs reducer', () => {
 	it('handles TOGGLE_EDIT action', () => {
 		paragraphStore.dispatch(toggleEdit(0))
 		let state = paragraphStore.getState()
-		expect(state.paragraphs.length).to.equal(1)
-		expect(state.paragraphs[0].paragraph).to.contain({isEditing: true})		
+		expect(state.paragraphs[0]).to.contain({isEditing: true})		
 	})
 
 	it('handles SAVE_TEXT action', () => {
-		paragraphStore.dispatch(saveText('new text', 0))
 		let state = paragraphStore.getState()
-		expect(state.paragraphs.length).to.equal(1)
-		expect(state.paragraphs[0].paragraph.text).to.equal('new text')
+		let originalLength = state.paragraphs.length
+		paragraphStore.dispatch(saveText('new text', 0))
+		state = paragraphStore.getState()
+		expect(state.paragraphs.length).to.equal(originalLength)
+		expect(state.paragraphs[0].text).to.equal('new text')
 	})
 
 	it('handles ADD_PARAGRAPH action', () => {
-		paragraphStore.dispatch(addParagraph())
 		let state = paragraphStore.getState()
-		expect(state.paragraphs.length).to.equal(2)
+		let originalLength = state.paragraphs.length
+		paragraphStore.dispatch(addParagraph())
+		state = paragraphStore.getState()
+		expect(state.paragraphs.length).to.equal(originalLength + 1)
 	})
 
 	it('handles REMOVE_PARAGRAPH action', () => {
+		let state = paragraphStore.getState()
+		let originalLength = state.paragraphs.length
 		paragraphStore.dispatch(addParagraph())
 		paragraphStore.dispatch(removeParagraph(1))
-		let state = paragraphStore.getState()
-		expect(state.paragraphs.length).to.equal(1)
+		state = paragraphStore.getState()
+		expect(state.paragraphs.length).to.equal(originalLength)
 	})
+
+	// it('handles SAVE_HINT_TAGS', () => {
+		
+	// })
 })
