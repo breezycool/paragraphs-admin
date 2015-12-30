@@ -12,7 +12,7 @@ import {HintListContainer} from './components/HintList'
 
 
 
-/* create container as stateless function to indicate pure component */ 
+/* create container as stateless function to indicate pure component */
 export class App extends React.Component {
 	render() {
 		return (
