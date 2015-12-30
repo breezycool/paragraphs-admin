@@ -8,16 +8,17 @@ const EditHintBox = React.createClass({
 	},
 	handleChange(e) {
 		this.setState({text: e.target.value})
-	},	
+	},
 	render() {
 		return (
 			<div>
+				
 				<textarea
 					defaultValue={this.props.text}
 					onChange={this.handleChange}
 				/>
 				<div>
-					<button 
+					<button
 						className="btn btn-success glyphicon glyphicon-floppy-disk"
 						onClick={this.props.onClickHandler}
 					> Save</button>

@@ -4,7 +4,7 @@ export const DisplayBox = React.createClass({
 
 	getDefaultProps() {
 		return {
-			backgroundColor: "#FFF",
+			backgroundColor: "#fff",
 			height: "100%",
 			width: "45%",
 			margin: "8px"
@@ -16,7 +16,7 @@ export const DisplayBox = React.createClass({
 			<div>
 				<div onClick={this.props.onClickHandler}>
 					{this.props.text}
-				</div>	
+				</div>
 				<div>
 					<button style={{margin: '0.2em'}}
 						className="btn btn-primary glyphicon glyphicon-pencil"

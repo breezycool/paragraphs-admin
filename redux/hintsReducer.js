@@ -16,6 +16,7 @@ const hint = (state = newHint(0), action) => {
 			return Object.assign({}, state, {
 				isEditing: !state.isEditing
 			})
+
 		default:
 			return state
 	}
@@ -30,20 +31,29 @@ export const hints = (state = initialState, action) => {
 	switch(action.type) {
 	case ADD_HINTS:
 		action.hints.forEach((hintText, index) => {
-			// console.log("adding hint with id "+(state.length + index)+" and text '"+hintText+"'")
-			newState.push(newHint(state.length + index, hintText))
+			var alreadyExists = false
+			// NOTE: nested loops, but shouldn't matter with no. of hints in practice.
+			state.map((hint) => {
+				if (hint.text == hintText) alreadyExists = true
+			})
+			if (!alreadyExists) {
+				newState.push(newHint(state.length + index, hintText))
+			}
 		})
 		return newState
 
 	case TOGGLE_HINT_EDIT:
 		newState[action.id] = hint(state[action.id], action)
 		return newState
+
 	case SAVE_HINT_TEXT:
 		newState[action.id].text = action.text
 		return newState
+
 	case REMOVE_HINT:
 		newState.splice(action.id, 1)
 		return newState
+
 	default:
 		return state
 	}

@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 
 import {configureStore} from '../redux/store'
-import {toggleEdit, saveText, addParagraph, removeParagraph} from '../redux/actions'
+import {toggleEdit, saveText, addParagraph, removeParagraph, saveHintTags} from '../redux/actions'
 
 let paragraphStore
 describe('paragraphs reducer', () => {
@@ -20,7 +20,7 @@ describe('paragraphs reducer', () => {
 	it('handles TOGGLE_EDIT action', () => {
 		paragraphStore.dispatch(toggleEdit(0))
 		let state = paragraphStore.getState()
-		expect(state.paragraphs[0]).to.contain({isEditing: true})		
+		expect(state.paragraphs[0]).to.contain({isEditing: true})
 	})
 
 	it('handles SAVE_TEXT action', () => {
@@ -49,7 +49,42 @@ describe('paragraphs reducer', () => {
 		expect(state.paragraphs.length).to.equal(originalLength)
 	})
 
-	// it('handles SAVE_HINT_TAGS', () => {
-		
-	// })
+	describe('handles SAVE_HINT_TAGS action', () => {
+		it('works with one hint', () => {
+			let state = paragraphStore.getState()
+			let originalLength = state.hints.length
+
+			paragraphStore.dispatch(addParagraph())
+			let paragraphId = state.paragraphs.length // due to 0 indexing
+			let hintToSave = ['newly added hint']
+			paragraphStore.dispatch(saveHintTags(paragraphId, hintToSave))
+
+			state = paragraphStore.getState()
+			let hintTags = state.paragraphs[paragraphId].hintTags
+			expect(hintTags[hintTags.length - 1]).to.contain({
+				text:'newly added hint'
+			})
+		})
+
+		it('works with 100 hints', () => {
+			let state = paragraphStore.getState()
+			let originalLength = state.hints.length
+
+			paragraphStore.dispatch(addParagraph())
+			let paragraphId = state.paragraphs.length // due to 0 indexing
+			let hintsToSave = []
+			for (var i = 0; i < 100; i++) {
+				hintsToSave.push('hint '+i)
+			}
+			paragraphStore.dispatch(saveHintTags(paragraphId, hintsToSave))
+
+			state = paragraphStore.getState()
+			let hintTags = state.paragraphs[paragraphId].hintTags
+			expect(hintTags.length).to.be.above(100)
+			hintTags.map((hint, index) => {
+				if (index == 0) return // TODO: make test applicable for all starting data
+				expect(hint).to.contain({text: 'hint '+(index-1)})
+			})
+		})
+	})
 })

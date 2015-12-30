@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 
 import {configureStore} from '../redux/store'
-import {addHints, toggleHintEdit, saveHintText, removeHint, saveHintTags} from '../redux/actions'
+import {addHints, toggleHintEdit, saveHintText, removeHint} from '../redux/actions'
 
 let hintsStore
 describe('hints reducer', () => {
@@ -15,6 +15,7 @@ describe('hints reducer', () => {
 		expect(state).to.be.instanceOf(Object)
 		expect(state).to.include.keys(['hints'])
 	})
+
 	describe('handles ADD_HINTS action', () => {
 		it('works with one new hint', () => {
 			let state = hintsStore.getState()
@@ -62,6 +63,30 @@ describe('hints reducer', () => {
 			}
 		})
 
+
+		it('should not add duplicate hints', () => {
+      let state = hintsStore.getState()
+      let originalLength = state.hints.length
+      hintsStore.dispatch(addHints(['hint 1']))
+      state = hintsStore.getState()
+      expect(state.hints).to.have.length(originalLength+1)
+      let hintsToAdd = ['hint 1', 'hint 1', 'hint 3']
+      hintsStore.dispatch(addHints(hintsToAdd))
+      state = hintsStore.getState()
+      expect(state.hints).to.have.length(originalLength+2)
+    })
+
+		it('should add nothing if sent an empty array', () => {
+			let state = hintsStore.getState()
+			let originalLength = state.hints.length
+
+			hintsStore.dispatch(addHints([]))
+			state = hintsStore.getState()
+
+			expect(state.hints.length).to.equal(originalLength)
+
+		})
+
 	})
 
 	it('handles TOGGLE_HINT_EDIT action', () => {
@@ -85,5 +110,5 @@ describe('hints reducer', () => {
 		let state = hintsStore.getState()
 		expect(state.hints).to.have.length(0)
 	})
- 
+
 })

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import {addHint} from '../redux/actions'
+import {addHints} from '../redux/actions'
 
 import {HintBoxContainer} from './HintBox.jsx'
 
@@ -19,7 +19,7 @@ export const HintList = React.createClass({
 				<button
 					className="btn btn-sm btn-info glyphicon glyphicon-plus"
 	        onClick={()=>{
-	        	this.props.dispatch(addHint())
+	        	this.props.dispatch(addHints(['new hint']))
 	        }}
 	       > Add Hint </button>
 	       <hr />
