@@ -75,10 +75,12 @@ export const DisplayBox = React.createClass({
 					: hintTagsArr }
 				</div>
 				<div>
+					<span style={{margin: '0.2em', paddingRight: '1em'}}>
 					<button style={{margin: '0.2em'}}
 						className="btn btn-primary glyphicon glyphicon-pencil"
 						onClick={this.props.onClickHandler}
 					/>
+					</span>
 					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
 						onClick={this.openDeleteAlert}
 					/>
