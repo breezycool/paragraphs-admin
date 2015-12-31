@@ -12,6 +12,9 @@ module.exports = {
         path: path.join(__dirname, 'public'),
         filename: 'bundle.js'
     },
+    externals:[{
+      xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
+    }],
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
