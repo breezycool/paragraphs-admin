@@ -78,3 +78,13 @@ export const removeHint = (id) => {
 		id: id
 	}
 }
+
+/* parse reducer */
+/* ************* */
+export const SAVE_TO_PARSE = 'SAVE_TO_PARSE'
+
+export const saveToParse = () => {
+	return {
+		type: SAVE_TO_PARSE
+	}
+}
