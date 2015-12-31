@@ -69,9 +69,9 @@ export const DisplayBox = React.createClass({
 				</div>
 				<hr style={{marginTop: '5px', marginBottom: '5px'}}/>
 				<div>
-					<span style={{fontWeight: 'bold'}}> Hint Tags: </span>
+					<span style={{fontWeight: 'bold'}}> Hints: </span>
 					{hintTagsArr.length===0
-					? <span style={{color: 'grey'}} className="btn btn-secondary btn-xs"> No hint tags to display.</span>
+					? <span style={{color: 'grey'}} className="btn btn-secondary btn-xs"> No hints to display.</span>
 					: hintTagsArr }
 				</div>
 				<div>

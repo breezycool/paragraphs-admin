@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import {toggleHintEdit, saveHintText, removeHint} from '../redux/actions'
+import {toggleHintEdit, saveHintText, hardDeleteHint} from '../redux/actions'
 
 import DisplayHintBox from './DisplayHintBox'
 import EditHintBox from './EditHintBox'
 
 export const HintBox = React.createClass({
 	render() {
-		
+
 		return (
 			<div>
 				{!this.props.hint.isEditing
@@ -19,7 +19,7 @@ export const HintBox = React.createClass({
 							this.props.dispatch(toggleHintEdit(this.props.index))
 						}}
 						onClickRemoveHandler={() => {
-							this.props.dispatch(removeHint(this.props.index))
+							this.props.dispatch(hardDeleteHint(this.props.hint.text))
 							this.displayHintBox.setState({ showModal: false });
 						}}
 					/>

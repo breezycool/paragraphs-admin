@@ -22,7 +22,7 @@ const hint = (state = newHint(0), action) => {
 }
 
 const initialState = [
-	newHint(0,"Zombie Nouns")
+	// newHint(0,"Zombie Nouns")
 ]
 
 export const hints = (state = initialState, action) => {

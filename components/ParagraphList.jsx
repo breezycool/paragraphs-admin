@@ -13,7 +13,7 @@ export const ParagraphList = React.createClass({
 				{Object.keys(this.props.paragraphs).map((index) => {
 					return <ParagraphBoxContainer
 						key={index}
-						index={parseInt(index)}
+						index={index}
 						paragraph={this.props.paragraphs[index]}
 					/>
 				})}
