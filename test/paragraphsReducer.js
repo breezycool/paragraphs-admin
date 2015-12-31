@@ -87,13 +87,16 @@ describe('paragraphs reducer', () => {
 		it('should not add duplicate hint tags', () => {
       let state = paragraphStore.getState()
       let originalLength = state.paragraphs[0].hintTags.length
+
       paragraphStore.dispatch(saveHintTags(0, ['ZOMBIE NOUNZ']))
       state = paragraphStore.getState()
-      expect(state.paragraphs[0].hintTags).to.have.length(originalLength+1)
+      expect(state.paragraphs[0].hintTags).to.have.length(1) // existing is overridden
+			expect(state.paragraphs[0].hintTags[0]).to.equal('ZOMBIE NOUNZ')
+			
       let hintTagsToAdd = ['ZOMBIE NOUNZ', 'ZOMBIE NOUNZ', 'ZOMBIE NOUNS']
       paragraphStore.dispatch(saveHintTags(0, hintTagsToAdd))
       state = paragraphStore.getState()
-      expect(state.paragraphs[0].hintTags).to.have.length(originalLength+2)
+      expect(state.paragraphs[0].hintTags).to.have.length(originalLength+1)
     })
 	})
 })
