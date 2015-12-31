@@ -1,3 +1,5 @@
+import thunk from 'redux-thunk'
+
 /* paragraphs reducer */
 /* ****************** */
 export const TOGGLE_EDIT = 'TOGGLE_EDIT'
@@ -81,17 +83,18 @@ export const removeHint = (id) => {
 
 /* server reducer */
 /* ************* */
-export const TRANSFORM_STATE_TO_SERVER = 'TRANSFORM_STATE_TO_SERVER'
-export const SAVE_STATE_FROM_SERVER = 'SAVE_STATE_FROM_SERVER'
+export const SAVE_REQUEST = 'SAVE_REQUEST'
+export const SAVE_SUCCESS = 'SAVE_SUCCESS'
+export const SAVE_ERROR = 'SAVE_ERROR'
 
-export const transformStateToServer = () => {
-	return {
-		type: TRANSFORM_STATE_TO_SERVER
-	}
-}
+import {postStateToParse} from './parseHTTP'
 
-export const transformStateFromServer = () => {
-	return {
-		type: TRANSFORM_STATE_FROM_SERVER
-	}
+export const saveRequest = () => {
+	// thunk syntax
+	return ((dispatch, getState) => {
+		postStateToParse(getState()).then(
+			saved => dispatch({type: SAVE_SUCCESS}),
+			error => dispatch({type: SAVE_ERROR, error: error})
+		)
+	})
 }

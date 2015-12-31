@@ -6,8 +6,7 @@ Parse.initialize(
   "KVCwYVJhND1pfaE1lu8tT1Pe3MStpeqHyaevzttj"
 );
 
-export const transformStateToServer = (state) => {
-
+export const postStateToParse = (state) => {
   return new Promise((resolve, reject) => {
 
     //TODO: implement Parse logic to send to server
@@ -16,8 +15,7 @@ export const transformStateToServer = (state) => {
   })
 }
 
-export const transformStateFromServer = (state) => {
-
+export const getStateFromParse = (state) => {
     return new Promise((resolve, reject) => {
 
       //TODO: implement Parse logic to send to server

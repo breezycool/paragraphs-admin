@@ -1,8 +1,4 @@
 import {expect} from 'chai'
-import {server} from '../redux/serverReducer'
-import {createStore} from 'redux'
-
-import {transformStateToServer, transformStateFromServer} from '../redux/actions'
 
 import {Parse} from 'parse/node'
 
@@ -50,30 +46,6 @@ describe('parse cloud api', () => {
         throw new Error("Couldn't save paragraph")
       }
     })
-  })
-
-})
-
-describe('server reducer', () => {
-
-  let store
-  beforeEach(() => {
-    store = createStore(server)
-  })
-
-  it('handles a default action with undefined state', () => {
-    let action = {type: 'default'}
-    store.dispatch(action)
-  })
-
-  it('handles SAVE_STATE_TO_SERVER', () => {
-    let action = {type: 'default'}
-    store.dispatch(action)
-    let state = store.getState()
-    store.dispatch(transformStateToServer())
-    let newState = store.getState()
-    expect(state).to.equal(newState)
-
   })
 
 })
