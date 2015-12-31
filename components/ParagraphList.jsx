@@ -9,7 +9,6 @@ export const ParagraphList = React.createClass({
 	render() {
 		return (
 			<div className="col-md-6 text-center">
-				<h3> Paragraphs </h3>
 				{Object.keys(this.props.paragraphs).map((index) => {
 					return <ParagraphBoxContainer
 						key={index}
@@ -22,7 +21,7 @@ export const ParagraphList = React.createClass({
 					onClick={()=>{
 						this.props.dispatch(addParagraph())
 					}}
-				 > </button>
+				 > Add Paragraph </button>
 				 <hr />
 			</div>
 		)
