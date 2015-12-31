@@ -6,7 +6,6 @@ textarea {
   width: 100%;
   padding-right: 20px;
   padding: 10px 8px;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
@@ -23,7 +22,7 @@ h1 {
   /*background-color: #C3DCFF;*/
   /*border-radius: 100px;*/
   padding: 10px 5px;
-  font-family: 'Poiret One', cursive;
+  font-family: 'Poiret One', cursive !important;
   border-bottom: 10px solid #5bc0de; /* bootstrap button color */
 }
 
@@ -39,13 +38,12 @@ h1 {
   background: #fff;
   top: 100%;
   left: 0;
-  padding: 5px 0;
+  padding: 5px 0px;
   max-height: 400px;
   overflow: auto;
   font-size: 12px;
   font-family: sans-serif;
   width: 100%;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;

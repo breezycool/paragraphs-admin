@@ -343,6 +343,7 @@ module.exports = React.createClass({
 	},
 
 	findInitialInputValue: function() {
+		// TODO: might not need this, we should know this in `makeMenu`
 		var inputValue;
 		React.Children.forEach(this.props.children, function(child) {
 			if (child.props.value === this.props.value)

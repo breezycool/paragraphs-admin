@@ -50,7 +50,6 @@ export const hints = (state = initialState, action) => {
 		return newState
 
 	case REMOVE_HINT:
-		// TODO: remove all instance from paragraph.hintTags
 		newState.splice(action.id, 1)
 		return newState
 
