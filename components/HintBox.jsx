@@ -13,12 +13,14 @@ export const HintBox = React.createClass({
 			<div>
 				{!this.props.hint.isEditing
 					? <DisplayHintBox
+						ref={(ref)=>{this.displayHintBox=ref}}
 						text={this.props.hint.text}
 						onClickHandler={() => {
 							this.props.dispatch(toggleHintEdit(this.props.index))
 						}}
 						onClickRemoveHandler={() => {
 							this.props.dispatch(removeHint(this.props.index))
+							this.displayHintBox.setState({ showModal: false });
 						}}
 					/>
 					: <EditHintBox
