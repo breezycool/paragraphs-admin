@@ -40,7 +40,7 @@ export const EditBox = React.createClass({
 					<button
 						className="btn btn-success glyphicon glyphicon-floppy-disk"
 						onClick={this.onClickHandler}
-					> Save</button>
+					></button>
 				</div>
 
 			</div>
