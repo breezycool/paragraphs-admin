@@ -37,10 +37,15 @@ export const removeParagraph = (id) => {
 }
 
 export const saveHintTags = (id, hints) => {
+	// filter duplicates in hint sent to reducer
+	function onlyUnique(value, index, self) {
+		return self.indexOf(value) === index;
+	}
+
 	return {
 		type: SAVE_HINT_TAGS,
 		id: id, // of current paragraph
-		hints: hints // expect array of strings
+		hints: hints.filter(onlyUnique) // expect array of strings
 	}
 }
 
@@ -50,7 +55,7 @@ export const saveHintTags = (id, hints) => {
 export const ADD_HINTS = 'ADD_HINTS'
 export const TOGGLE_HINT_EDIT = 'TOGGLE_HINT_EDIT'
 export const SAVE_HINT_TEXT = 'SAVE_HINT_TEXT'
-export const REMOVE_HINT = 'REMOVE_HINT'
+export const HARD_DELETE_HINT = 'HARD_DELETE_HINT'
 
 export const addHints = (hints) => {
 	return {
@@ -74,10 +79,10 @@ export const saveHintText = (text, id) => {
 	}
 }
 
-export const removeHint = (id) => {
+export const hardDeleteHint = (hint) => {
 	return {
-		type: REMOVE_HINT,
-		id: id
+		type: HARD_DELETE_HINT,
+		hint: hint
 	}
 }
 

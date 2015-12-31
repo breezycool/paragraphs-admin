@@ -1,4 +1,4 @@
-import {ADD_HINTS, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, REMOVE_HINT} from './actions'
+import {ADD_HINTS, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, HARD_DELETE_HINT} from './actions'
 
 /* hint reducer */
 const newHint = (id, text) => {
@@ -27,6 +27,7 @@ const initialState = [
 
 export const hints = (state = initialState, action) => {
 	let newState = state.slice()
+
 	switch(action.type) {
 	case ADD_HINTS:
 		action.hints.forEach((hintText, index) => {
@@ -49,9 +50,13 @@ export const hints = (state = initialState, action) => {
 		newState[action.id].text = action.text
 		return newState
 
-	case REMOVE_HINT:
-		// TODO: remove all instance from paragraph.hintTags
-		newState.splice(action.id, 1)
+	case HARD_DELETE_HINT:
+		//TODO: improve this logic
+		let ind
+		newState.forEach((p, index) => {
+			if (p.text == action.hint) ind = index
+		})
+		newState.splice(ind,1)
 		return newState
 
 	default:
