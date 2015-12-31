@@ -8,7 +8,6 @@ import EditHintBox from './EditHintBox'
 
 export const HintBox = React.createClass({
 	render() {
-		
 		return (
 			<div>
 				{!this.props.hint.isEditing

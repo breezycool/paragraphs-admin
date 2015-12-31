@@ -9,7 +9,6 @@ export const HintList = React.createClass({
 	render() {
 		return (
 			<div className="col-md-6 text-center">
-			<h3> Hints </h3>
 				{Object.keys(this.props.hints).map((index) => {
 					return <HintBoxContainer
 						key={index}
@@ -17,6 +16,12 @@ export const HintList = React.createClass({
 						hint={this.props.hints[index]}
 					/>
 				})}
+				<button
+					className="btn btn-sm btn-info glyphicon glyphicon-plus"
+	        onClick={()=>{
+	        	this.props.dispatch(addHints(['new hint']))
+	        }}
+	       > Add Hint </button>
 	       <hr />
 			</div>
 		)
