@@ -19,10 +19,12 @@ export const DisplayHintBox = React.createClass({
 					{this.props.text}  
 				</span>	
 				<span>
+				<span style={{margin: '0.2em', paddingRight: '1em'}}>
 					<button style={{margin: '0.2em'}}
 						className="btn btn-primary glyphicon glyphicon-pencil"
 						onClick={this.props.onClickHandler}
 					> </button>
+				</span>
 					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
 						onClick={this.props.onClickRemoveHandler}
 					> </button>
