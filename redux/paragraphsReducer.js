@@ -1,4 +1,7 @@
-import {TOGGLE_EDIT, SAVE_TEXT, ADD_PARAGRAPH, REMOVE_PARAGRAPH, SAVE_HINT_TAGS} from './actions'
+import {TOGGLE_EDIT, SAVE_TEXT, ADD_PARAGRAPH,
+	REMOVE_PARAGRAPH, SAVE_HINT_TAGS, HARD_DELETE_HINT} from './actions'
+
+import {indexOf, pull} from 'lodash-node'
 
 /* paragraph reducer */
 const newParagraph = (id) => {
@@ -58,14 +61,23 @@ export const paragraphs = (state = initialState, action) => {
 		return newState
 
 	case SAVE_HINT_TAGS:
-		const onlyUnique = (value, index, self) => {
-			return self.indexOf(value) === index;
-		}
+		newState[action.id].hintTags = action.hints
+		return newState
 
-		newState[action.id].hintTags = action.hints.filter(onlyUnique)
+	case HARD_DELETE_HINT:
+		state.forEach((p, ind) => {
+			let tags = p.hintTags
+			// if hint to delete is in tags
+			let tagIndex = indexOf(tags, action.hint)
+			if (tagIndex != -1) {
+				// remove from tags in newState
+				newState[ind].hintTags.splice(tagIndex, 1)
+			}
+		})
 		return newState
 
 	default:
 		return state
+
 	}
 }
