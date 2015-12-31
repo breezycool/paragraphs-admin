@@ -9,6 +9,7 @@ import {configureStore} from './redux/store'
 import DevTools from './redux/devtools'
 import {ParagraphListContainer} from './components/ParagraphList'
 import {HintListContainer} from './components/HintList'
+import {ServerControlsContainer} from './components/ServerControls'
 
 
 
@@ -18,10 +19,15 @@ export class App extends React.Component {
 		return (
 			<div>
 				<div>
-					<ParagraphListContainer />
-				</div>
-				<div>
-					<HintListContainer />
+					<div>
+						<ServerControlsContainer />
+					</div>
+					<span>
+						<ParagraphListContainer />
+					</span>
+					<span>
+						<HintListContainer />
+					</span>
 				</div>
 				<DevTools />
 			</div>
