@@ -21,7 +21,7 @@ export const EditBox = React.createClass({
 		this.props.dispatch(saveText(this.state.text, this.props.index))
 		this.props.dispatch(toggleEdit(this.props.index))
 		//save hint tags associated with paragraph
-		this.props.dispatch(saveHintTags(this.props.key, this.tagSelect.state.selected.map((each)=>{return each.name})))
+		this.props.dispatch(saveHintTags(this.props.index, this.tagSelect.state.selected.map((each)=>{return each.name})))
 		//add any new hints to the hint list on the right.
 		this.props.dispatch(addHints(this.tagSelect.state.selected.map((each)=>{return each.name})))
 	},
