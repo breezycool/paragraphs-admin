@@ -27,6 +27,14 @@ h1 {
   border-bottom: 10px solid #5bc0de; /* bootstrap button color */
 }
 
+h3 {
+  /*background-color: #C3DCFF;*/
+  /*border-radius: 100px;*/
+  padding: 10px 5px;
+  font-family: 'Poiret One', cursive;
+  border-bottom: 1px solid #D8CFCF; /* #28272A  dark color */
+}
+
 .ic-tokeninput {
   width: 100%;
 }
@@ -150,9 +158,9 @@ h1 {
 }
 
 .ic-token {
-  background-color: #F5F7F8;
-  border: 1px solid #C1C7CF;
-  color: #7C8E9A;
+  background-color: #f0ad4e;
+  border: 1px solid #eea236;
+  color: #fff;
   border-radius: 3px;
   padding: 3px 8px;
   margin-right: 6px;

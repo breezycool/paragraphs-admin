@@ -112,7 +112,7 @@ describe('hints reducer', () => {
 		hintsStore.dispatch(saveHintText('changing this text', 0))
 		state = hintsStore.getState()
 		expect(state.hints).to.have.length(originalLength + 1)
-		expect(state.hints[originalLength]).to.contain({text: 'changing this text'})
+		expect(state.hints[0]).to.contain({text: 'changing this text'})
 	})
 
 	describe('handles HARD_DELETE_HINT action', () => {
