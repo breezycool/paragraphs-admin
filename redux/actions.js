@@ -54,7 +54,6 @@ export const saveHintTags = (id, hints) => {
 /* ************* */
 export const ADD_HINTS = 'ADD_HINTS'
 export const TOGGLE_HINT_EDIT = 'TOGGLE_HINT_EDIT'
-export const SAVE_HINT_TEXT = 'SAVE_HINT_TEXT'
 
 export const addHints = (hints) => {
 	return {
@@ -70,22 +69,23 @@ export const toggleHintEdit = (id) => {
 	}
 }
 
-export const saveHintText = (text, id) => {
-	return {
-		type: SAVE_HINT_TEXT,
-		text: text,
-		id: id
-	}
-}
-
 /* hints and paragraphs together */
 /* ***************************** */
 export const HARD_DELETE_HINT = 'HARD_DELETE_HINT'
+export const SAVE_HINT_TEXT = 'SAVE_HINT_TEXT'
 
 export const hardDeleteHint = (hint) => {
 	return {
 		type: HARD_DELETE_HINT,
 		hint: hint
+	}
+}
+
+export const saveHintText = (text, id) => {
+	return {
+		type: SAVE_HINT_TEXT,
+		text: text,
+		id: id
 	}
 }
 
