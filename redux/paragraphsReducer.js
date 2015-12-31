@@ -7,7 +7,7 @@ const newParagraph = (id) => {
 		isEditing: false,
 		text: 'new paragraph.',
 		hintTags: [
-			{id:0, text:"Zombie Nouns"}
+			"Zombie Nouns"
 		]
 	}
 }
@@ -58,18 +58,11 @@ export const paragraphs = (state = initialState, action) => {
 		return newState
 
 	case SAVE_HINT_TAGS:
-		action.hints.map((hintTag) => {
-			var alreadyExists = false
-			state[action.id].hintTags.forEach((hint) => {
-				if (hintTag == hint.text) alreadyExists = true
-			})
-			if (!alreadyExists) {
-				newState[action.id].hintTags.push({
-					id: state[action.id].hintTags.length,
-					text: hintTag
-				})
-			}
-		})
+		const onlyUnique = (value, index, self) => {
+			return self.indexOf(value) === index;
+		}
+
+		newState[action.id].hintTags = action.hints.filter(onlyUnique)
 		return newState
 
 	default:

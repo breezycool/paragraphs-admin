@@ -13,7 +13,7 @@ export const ParagraphBox = React.createClass({
 				{!this.props.paragraph.isEditing
 					? <DisplayBox
 						text={this.props.paragraph.text}
-						hintTags={this.props.paragraph.hintTags.map((each)=>{return each.text})}
+						hintTags={this.props.paragraph.hintTags}
 						onClickHandler={() => {
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
@@ -22,12 +22,12 @@ export const ParagraphBox = React.createClass({
 						}}
 					/>
 					: <EditBoxContainer
-						hintTags={this.props.paragraph.hintTags.map((each)=>{return each.text})}
+						hintTags={this.props.paragraph.hintTags}
 						text={this.props.paragraph.text}
 						index={this.props.index}
 					/>}
 					<br/>
-			</div>	
+			</div>
 		);
 	}
 })

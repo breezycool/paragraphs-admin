@@ -61,9 +61,7 @@ describe('paragraphs reducer', () => {
 
 			state = paragraphStore.getState()
 			let hintTags = state.paragraphs[paragraphId].hintTags
-			expect(hintTags[hintTags.length - 1]).to.contain({
-				text:'newly added hint'
-			})
+			expect(hintTags[hintTags.length - 1]).to.contain('newly added hint')
 		})
 
 		it('works with 100 hints', () => {
@@ -80,10 +78,9 @@ describe('paragraphs reducer', () => {
 
 			state = paragraphStore.getState()
 			let hintTags = state.paragraphs[paragraphId].hintTags
-			expect(hintTags.length).to.be.above(100)
+			expect(hintTags.length).to.be.above(99)
 			hintTags.map((hint, index) => {
-				if (index == 0) return // TODO: make test applicable for all starting data
-				expect(hint).to.contain({text: 'hint '+(index-1)})
+				expect(hint).to.contain('hint '+(index))
 			})
 		})
 
