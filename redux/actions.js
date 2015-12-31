@@ -79,12 +79,19 @@ export const removeHint = (id) => {
 	}
 }
 
-/* parse reducer */
+/* server reducer */
 /* ************* */
-export const SAVE_TO_PARSE = 'SAVE_TO_PARSE'
+export const TRANSFORM_STATE_TO_SERVER = 'TRANSFORM_STATE_TO_SERVER'
+export const SAVE_STATE_FROM_SERVER = 'SAVE_STATE_FROM_SERVER'
 
-export const saveToParse = () => {
+export const transformStateToServer = () => {
 	return {
-		type: SAVE_TO_PARSE
+		type: TRANSFORM_STATE_TO_SERVER
+	}
+}
+
+export const transformStateFromServer = () => {
+	return {
+		type: TRANSFORM_STATE_FROM_SERVER
 	}
 }
