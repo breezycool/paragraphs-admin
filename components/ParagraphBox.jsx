@@ -1,17 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import {toggleEdit, saveText, removeParagraph} from '../redux/actions'
+import {removeParagraph, toggleEdit, saveText} from '../redux/actions'
 
-import DisplayBox from './DisplayBox'
+import {DisplayBox} from './DisplayBox'
 import {EditBoxContainer} from './EditBox'
 
+
+
 export const ParagraphBox = React.createClass({
+
 	render() {
 		return (
 			<div>
 				{!this.props.paragraph.isEditing
 					? <DisplayBox
+						ref={(ref)=>{this.displayBox=ref}}
 						text={this.props.paragraph.text}
 						hintTags={this.props.paragraph.hintTags}
 						onClickHandler={() => {
@@ -19,6 +23,7 @@ export const ParagraphBox = React.createClass({
 						}}
 						onClickRemoveHandler={() => {
 							this.props.dispatch(removeParagraph(this.props.index))
+							this.displayBox.setState({ showModal: false });
 						}}
 					/>
 					: <EditBoxContainer
@@ -26,10 +31,11 @@ export const ParagraphBox = React.createClass({
 						text={this.props.paragraph.text}
 						index={this.props.index}
 					/>}
-					<br/>
+				<br/>
 			</div>
 		);
 	}
 })
 
 export const ParagraphBoxContainer = connect()(ParagraphBox)
+
