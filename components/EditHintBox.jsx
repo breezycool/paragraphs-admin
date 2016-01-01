@@ -47,7 +47,6 @@ const EditHintBox = React.createClass({
 	},
 	closeAlert() {
 	  this.setState({ showModal: false });
-	  this.props.dispatch(toggleHintEdit(this.props.index))
 	},
 
 	openAlert() {
@@ -90,7 +89,6 @@ const EditHintBox = React.createClass({
 				        show={this.state.showModal}
 				        onHide={this.closeAlert}>
 				<div style={dialogStyle()} >
-				  <h4 style={{fontWeight: 'bold'}} id='modal-label'>Wait!</h4>
 				  <p align='center'>A hint with that name already exists.</p>
 				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeAlert}>Okay, sorry.</Button>
 				</div>
