@@ -2,7 +2,7 @@ import {expect} from 'chai'
 
 import {configureStore} from '../redux/store'
 import {toggleEdit, saveText, addParagraph, addHints,
-	removeParagraph, saveHintTags, hardDeleteHint} from '../redux/actions'
+	removeParagraph, saveHintTags, hardDeleteHint, saveHintText} from '../redux/actions'
 
 let paragraphStore
 describe('paragraphs reducer', () => {
@@ -130,7 +130,23 @@ describe('paragraphs reducer', () => {
 		})
 
 		it('deletes a tag across several paragraphs', () => {
-
 		})
+	})
+
+	describe('SAVE_HINT_TEXT action', () => {
+    it('updates relevant hintTags', () => {
+      let state = paragraphStore.getState()
+			let length = state.paragraphs.length
+
+			paragraphStore.dispatch(saveHintTags(0, ['original text']))
+			paragraphStore.dispatch(addHints(['original text']))
+
+			paragraphStore.dispatch(saveHintText('original text', 'changed text', 0))
+
+			state = paragraphStore.getState()
+			expect(state.hints).to.have.length(1) // sanity check
+
+			expect(state.paragraphs[0].hintTags[0]).to.equal('changed text')
+    })
 	})
 })
