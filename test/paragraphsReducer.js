@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 
 import {configureStore} from '../redux/store'
-import {toggleEdit, saveText, addParagraph, addHints,
+import {toggleEdit, saveText, addParagraph, addHints, toggleParagraphType,
 	removeParagraph, saveHintTags, hardDeleteHint, saveHintText} from '../redux/actions'
 
 let paragraphStore
@@ -24,13 +24,19 @@ describe('paragraphs reducer', () => {
 		expect(state.paragraphs[0]).to.contain({isEditing: true})
 	})
 
+	it('handles TOGGLE_PARAGRAPH_TYPE action', () => {
+		paragraphStore.dispatch(toggleParagraphType(0))
+		let state = paragraphStore.getState()
+		expect(state.paragraphs[0]).to.contain({isBadText: false})
+	})
+
 	it('handles SAVE_TEXT action', () => {
 		let state = paragraphStore.getState()
 		let originalLength = state.paragraphs.length
 		paragraphStore.dispatch(saveText('new text', 0))
 		state = paragraphStore.getState()
 		expect(state.paragraphs.length).to.equal(originalLength)
-		expect(state.paragraphs[0].text).to.equal('new text')
+		expect(state.paragraphs[0].badText).to.equal('new text')
 	})
 
 	it('handles ADD_PARAGRAPH action', () => {
