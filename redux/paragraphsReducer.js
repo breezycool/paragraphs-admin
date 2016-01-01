@@ -4,7 +4,7 @@ import {TOGGLE_EDIT, TOGGLE_PARAGRAPH_TYPE, SAVE_TEXT, ADD_PARAGRAPH,
 import {indexOf, pull} from 'lodash-node'
 
 /* paragraph reducer */
-const newParagraph = (id, badText, improvedText, hints) => {
+export const newParagraph = (id, badText, improvedText, hints) => {
 	return {
 		id: id,
 		isEditing: false,

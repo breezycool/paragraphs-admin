@@ -1,4 +1,4 @@
-import {SAVE_SUCCESS, SAVE_ERROR} from './actions'
+import {SAVE_SUCCESS, SAVE_ERROR, LOAD_SUCCESS, LOAD_ERROR} from './actions'
 
 let initialState = {}
 
@@ -16,7 +16,16 @@ export const server = (state = initialState, action) => {
       error: action.error
     })
 
+    case LOAD_SUCCESS:
+      return action.state
+
+    case LOAD_ERROR:
+      return {
+          status: 2,
+          error: action.error
+      }
+
     default:
-      return state;
+      return state
   }
 }

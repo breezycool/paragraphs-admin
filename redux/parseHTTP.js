@@ -18,20 +18,51 @@ export const getStateFromParse = () => {
 
   return new Promise((resolve, reject) => {
 
-    let result = {}
+    let server = {}
 
     allHints.find().then((serverHints) => {
-      result.hints = serverHints
+      server.hints = serverHints
       return allParagraphs.find()
 
     }).then((serverParagraphs) => {
-      result.paragraphs = serverParagraphs
-      return result
+      server.paragraphs = serverParagraphs
+      return server
 
-    }).then((data) => {
+    }).then((success) => {
 
-      // do things with data
-      resolve(data)
+      // transform hints
+      let hints = server.hints.map(h => {
+        return {
+          id: h.id,
+          text: h.get('text'),
+          isEditing: false
+        }
+      })
+
+      // transform paragraphs
+      let paragraphs = server.paragraphs.map(p => {
+
+        let hintTags = p.get('hints').map(hintId => {
+          let releventHint = hints.filter(h => h.id == hintId)[0] // there should always only be one
+          return releventHint.text
+        })
+
+        return {
+          id: p.id,
+          badText: p.get('badText'),
+          improvedText: p.get('improvedText'),
+          isEditing: false,
+          hintTags: hintTags
+        }
+      })
+
+      // transform to state
+      let state = {
+        hints: hints,
+        paragraphs: paragraphs
+      }
+
+      resolve(state)
 
     }, (error) => {
       // error
