@@ -31,9 +31,13 @@ export const saveText = (text, id) => {
 	}
 }
 
+// NOTE: probably don't actually want zombie nouns
 export const addParagraph = () => {
-	return {
-		type: ADD_PARAGRAPH
+	return (dispatch) => {
+		dispatch({
+			type: ADD_PARAGRAPH
+		})
+		dispatch(addHints(['Zombie Nouns']))
 	}
 }
 
