@@ -27,7 +27,7 @@ describe('hints reducer', () => {
 		expect(state).to.include.keys(['hints'])
 	})
 
-	describe('handles ADD_HINTS action', () => {
+	describe('ADD_HINTS action', () => {
 		it('works with one new hint', () => {
 			let state = hintsStore.getState()
 			let originalLength = state.hints.length
@@ -105,14 +105,16 @@ describe('hints reducer', () => {
 		expect(state.hints[0]).to.contain({isEditing: true})
 	})
 
-	it('handles SAVE_HINT_TEXT action', () => {
-		let state = hintsStore.getState()
-		let originalLength = state.hints.length
-		hintsStore.dispatch(addHints(['initial hint']))
-		hintsStore.dispatch(saveHintText('changing this text', 0))
-		state = hintsStore.getState()
-		expect(state.hints).to.have.length(originalLength + 1)
-		expect(state.hints[0]).to.contain({text: 'changing this text'})
+	describe('SAVE_HINT_TEXT action', () => {
+    it('saves to hint store', () => {
+      let state = hintsStore.getState()
+  		let originalLength = state.hints.length
+  		hintsStore.dispatch(addHints(['initial hint']))
+  		hintsStore.dispatch(saveHintText('initial hint', 'changing this text', 0))
+  		state = hintsStore.getState()
+  		expect(state.hints).to.have.length(originalLength + 1)
+  		expect(state.hints[0]).to.contain({text: 'changing this text'})
+    })
 	})
 
 	describe('handles HARD_DELETE_HINT action', () => {

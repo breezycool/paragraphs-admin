@@ -81,11 +81,12 @@ export const hardDeleteHint = (hint) => {
 	}
 }
 
-export const saveHintText = (text, id) => {
+export const saveHintText = (oldText, text, id) => {
 	return {
 		type: SAVE_HINT_TEXT,
-		text: text,
-		id: id
+		text,
+		oldText,
+		id
 	}
 }
 

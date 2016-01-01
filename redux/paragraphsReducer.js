@@ -1,5 +1,5 @@
 import {TOGGLE_EDIT, SAVE_TEXT, ADD_PARAGRAPH,
-	REMOVE_PARAGRAPH, SAVE_HINT_TAGS, HARD_DELETE_HINT} from './actions'
+	REMOVE_PARAGRAPH, SAVE_HINT_TAGS, HARD_DELETE_HINT, SAVE_HINT_TEXT} from './actions'
 
 import {indexOf, pull} from 'lodash-node'
 
@@ -74,6 +74,19 @@ export const paragraphs = (state = initialState, action) => {
 				newState[ind].hintTags.splice(tagIndex, 1)
 			}
 		})
+		return newState
+
+	case SAVE_HINT_TEXT:
+		console.log("hitting hint text paragraphs")
+		state.forEach((p, ind) => {
+			// console.log(p)
+			p.hintTags.forEach((t, innerIndex) => {
+				if (t == action.oldText) {
+					newState[ind].hintTags[innerIndex] = action.text
+				}
+			})
+		})
+
 		return newState
 
 	default:
