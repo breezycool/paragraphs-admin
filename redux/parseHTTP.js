@@ -12,32 +12,31 @@ Parse.initialize(
 let Hint = Parse.Object.extend('Hint')
 let Paragraph = Parse.Object.extend('Paragraph')
 
-export const getStateFromParse = (state) => {
+export const getStateFromParse = () => {
   var allParagraphs = new Parse.Query(Paragraph)
   var allHints = new Parse.Query(Hint)
 
-  allHints.find().then((serverHints) => {
+  return new Promise((resolve, reject) => {
 
-    // mess with serverHints
+    let result = {}
 
-    return [serverHints, allParagraphs.find()]
-  }).spread((serverHints, serverParagraphs) => {
+    allHints.find().then((serverHints) => {
+      result.hints = serverHints
+      return allParagraphs.find()
 
-    // mess with hints and paragraphs
-    // create state via reducers (that take in initial state)
-    serverParagraphs.forEach((p) => {
-      // TODO: do somethign with hintsRefactord
-      newParagraph(p.objectId, p.badText, p.improvedText, hintsRefactord)
+    }).then((serverParagraphs) => {
+      result.paragraphs = serverParagraphs
+      return result
+
+    }).then((data) => {
+
+      // do things with data
+      resolve(data)
+
+    }, (error) => {
+      // error
+      resolve( "ERROR: "+error)
     })
-
-    state
-
-    return state
-  }).then((success) => {
-    // success
-  }, (error) => {
-    // error
-    return "ERROR: "+error
   })
 
 }
