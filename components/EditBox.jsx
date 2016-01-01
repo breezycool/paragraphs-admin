@@ -9,8 +9,11 @@ var textareaStyle = {
 
 export const EditBox = React.createClass({
 	getInitialState() {
+
+		let initText = this.props.isBadText? this.props.badText : this.props.improvedText
 		return {
-			text: this.props.text,
+
+			text: initText
 
 		}
 	},
@@ -26,10 +29,14 @@ export const EditBox = React.createClass({
 		this.props.dispatch(addHints(this.tagSelect.state.selected.map((each)=>{return each.name})))
 	},
 	render() {
+		let paragraphType = this.props.isBadText? "Bad Text" : "Improved Text";
 		return (
 			<div>
+				<div style={{fontWeight: 'bold'}}>
+					{paragraphType}
+				</div>
 				<textarea
-					defaultValue={this.props.text}
+					defaultValue={this.state.text}
 					onChange={this.handleChange}
 					style={textareaStyle}
 				/>
