@@ -120,14 +120,14 @@ import {getStateFromParse, postStateToParse} from './parseHTTP'
 
 export const login = (username, password) => {
 	return ((dispatch) => {
-		loadFromServer()
+		dispatch(loadFromServer())
 	})
 }
 
 export const loadFromServer = () => {
 	return ((dispatch) => {
 		getStateFromParse().then(
-			state => dispatch({type: LOAD_SUCCESS, state: {}}),
+			state => dispatch({type: LOAD_SUCCESS, state: state}),
 			error => dispatch({type: LOAD_ERROR})
 		)
 	})
