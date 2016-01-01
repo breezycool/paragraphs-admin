@@ -20,9 +20,9 @@ export const server = (state = initialState, action) => {
     })
 
     case LOAD_SUCCESS:
-      return Object.assign({}, action.state, {
+      return {
         loggedIn: true
-      })
+      }
 
     case LOAD_ERROR:
       return {

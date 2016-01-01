@@ -1,4 +1,4 @@
-import {ADD_HINTS, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, HARD_DELETE_HINT} from './actions'
+import {ADD_HINTS, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, HARD_DELETE_HINT, LOAD_SUCCESS} from './actions'
 
 /* hint reducer */
 const newHint = (id, text) => {
@@ -28,9 +28,11 @@ const initialState = [
 export const hints = (state = initialState, action) => {
 	let newState = state.slice()
 
-	// if (action == undefined) return state
-
 	switch(action.type) {
+
+	case LOAD_SUCCESS:
+		return action.state.hints
+
 	case ADD_HINTS:
 		action.hints.forEach((hintText, index) => {
 			var alreadyExists = false

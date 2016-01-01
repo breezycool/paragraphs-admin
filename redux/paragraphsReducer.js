@@ -1,5 +1,5 @@
 import {TOGGLE_EDIT, TOGGLE_PARAGRAPH_TYPE, SAVE_TEXT, ADD_PARAGRAPH,
-	REMOVE_PARAGRAPH, SAVE_HINT_TAGS, HARD_DELETE_HINT, SAVE_HINT_TEXT} from './actions'
+	REMOVE_PARAGRAPH, SAVE_HINT_TAGS, HARD_DELETE_HINT, SAVE_HINT_TEXT, LOAD_SUCCESS} from './actions'
 
 import {indexOf, pull} from 'lodash-node'
 
@@ -50,6 +50,9 @@ export const paragraphs = (state = [], action) => {
 
 	switch(action.type) {
 
+	case LOAD_SUCCESS:
+		return action.state.paragraphs
+
 	case ADD_PARAGRAPH:
 		newState.push(newParagraph(state.length, 'bad Text', 'improved Text', []))
 		return newState
@@ -94,7 +97,6 @@ export const paragraphs = (state = [], action) => {
 				}
 			})
 		})
-
 		return newState
 
 	default:
