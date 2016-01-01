@@ -11,18 +11,18 @@ import {ParagraphListContainer} from './components/ParagraphList'
 import {HintListContainer} from './components/HintList'
 import {ServerControlsContainer} from './components/ServerControls'
 
-import LoginForm from './components/LoginForm'
+import {connect} from 'react-redux'
 
-let notLoggedIn=false;
+import {LoginFormContainer} from './components/LoginForm'
 
 /* create container as stateless function to indicate pure component */
-export class App extends React.Component {
+export const App = React.createClass ({
 	render() {
 		return (
 			<div>
-			{notLoggedIn?
+			{this.props.loggedIn?
 			<div>
-				<LoginForm />
+				<LoginFormContainer />
 			</div>
 			:	<div>
 					<div>
@@ -39,11 +39,19 @@ export class App extends React.Component {
 			</div>
 		);
 	}
+})
+
+const mapStateToProps = (state) => {
+	return {
+		loggedIn: state.server.loggedIn
+	}
 }
+
+export const AppContainer = connect(mapStateToProps)(App)
 
 ReactDOM.render(
 	<Provider store={configureStore()}>
-		<App/>
+		<AppContainer/>
 	</Provider>,
 	document.querySelector("#app")
 );

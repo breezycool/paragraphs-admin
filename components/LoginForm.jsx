@@ -1,6 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import {login} from '../redux/actions'
 
 const LoginForm = React.createClass({
+  login() {
+    this.props.dispatch(login("",""))
+  },
   render() {
     return (
         <div style={{margin: '0 auto', width: '250px' }}>     
@@ -8,12 +13,12 @@ const LoginForm = React.createClass({
           <input type='password' placeholder="Password"/>
           <hr/>
           <div>
-        	<button className="btn btn-primary">Log In</button>  
+        	<button onClick={this.login} className="btn btn-primary">Log In</button>  
           </div>   
       </div>
     );
   }
 })
 
-export default LoginForm
+export const LoginFormContainer = connect()(LoginForm)
 

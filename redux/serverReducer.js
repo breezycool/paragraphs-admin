@@ -17,7 +17,9 @@ export const server = (state = initialState, action) => {
     })
 
     case LOAD_SUCCESS:
-      return action.state
+         return Object.assign({}, action.state, {
+           loggedIn: true
+         })
 
     case LOAD_ERROR:
       return {
