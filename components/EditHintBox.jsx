@@ -58,7 +58,8 @@ const EditHintBox = React.createClass({
 		this.setState({text: e.target.value})
 	},
 	onClickHandler() {
-		
+
+		//check if what we are trying to save already exists in the hints. give an alert if so.
 		let hintTextArray = this.props.hints.map(h => h.text);
 		if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
 		{
