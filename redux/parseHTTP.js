@@ -74,41 +74,26 @@ export const getStateFromParse = () => {
 
 export const postStateToParse = (state) => {
   return new Promise((resolve, reject) => {
-  //
-  //   let hints = []
-  //   state.hints.forEach(h => {
-  //     let hint = new Hint()
-  //     hint.objectId = h.id
-  //     hint.text = h.text
-  //
-  //     hints.push(hint)
-  //   })
-  //
-  //   let paragraphs = []
-  //   state.paragraphs.forEach(p => {
-  //
-  //     let paragraph = new Paragraph()
-  //     paragraph.objectId = p.id
-  //     paragraph.badText = p.badText
-  //     paragraph.improvedText = p.improvedText
-  //     paragraph.hints = hintsAsParseObjects(p.hintTags)
-  //
-  //   })
-  //
-  //   state.paragraphs.map((p) => {
-  //     hintTags = p.hintTags.map(m => )
-  //     return {
-  //       badText: p.badText,
-  //       improvedText: p.improvedText,
-  //       hintTags: [
-  //
-  //       ]
-  //     }
-  //   })
-  //
-  //
-  //   //TODO: implement Parse logic to send to server
-  //
+
+    // let state.hints.map(h => {
+    //   let hint = new Hint()
+    //   h.id = hint.id
+    //   h.text = hint.text
+    // })
+    //
+    // let state.paragraphs.map(p => {
+    //
+    //   let hintTags = p.hintTags.map(t => {
+    //
+    //   })
+    //
+    //   let paragraph = new Paragraph()
+    //   paragraph.id = p.id
+    //   paragraph.badText = p.badText
+    //   paragraph.improvedText = p.improvedText
+    //
+    // })
+
     resolve(state)
   })
 }

@@ -3,6 +3,9 @@ import {SAVE_SUCCESS, SAVE_ERROR, LOAD_SUCCESS, LOAD_ERROR} from './actions'
 let initialState = {}
 
 export const server = (state = initialState, action) => {
+
+  if (action == undefined) return state
+
   switch (action.type) {
 
     case SAVE_SUCCESS:
