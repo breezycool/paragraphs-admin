@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 /* paragraphs reducer */
 /* ****************** */
 export const TOGGLE_EDIT = 'TOGGLE_EDIT'
+export const TOGGLE_PARAGRAPH_TYPE = 'TOGGLE_PARAGRAPH_TYPE'
 export const SAVE_TEXT = 'SAVE_TEXT'
 export const ADD_PARAGRAPH = 'ADD_PARAGRAPH'
 export const REMOVE_PARAGRAPH = 'REMOVE_PARAGRAPH'
@@ -15,8 +16,15 @@ export const toggleEdit = (id) => {
 	}
 }
 
-export const saveText = (text, id) => {
+export const toggleParagraphType = (id) => {
 	return {
+		type: TOGGLE_PARAGRAPH_TYPE,
+		id
+	}
+}
+
+export const saveText = (text, id) => {
+	return { // improvedText
 		type: SAVE_TEXT,
 		text: text,
 		id: id
