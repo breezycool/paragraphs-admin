@@ -118,18 +118,3 @@ export const DisplayBox = React.createClass({
 		);
 	}
 })
-
-
-
-// <Modal show={this.state.showModal} onHide={this.closeDeleteAlert}>
-// 					<Modal.Header closeButton>
-// 					    <Modal.Title>Wait</Modal.Title>
-// 					</Modal.Header>
-// 					<Modal.Body>
-// 						<p>Are you sure you want to delete this paragraph?</p>
-// 					</Modal.Body>
-// 					<Modal.Footer>
-// 					    <Button onClick={this.closeDeleteAlert}>Cancel</Button>
-// 					</Modal.Footer>
-// 				</Modal>
-// <Button onClick={this.props.dispatch(removeParagraph(this.props.index))}>Yes</Button>
