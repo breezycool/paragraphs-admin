@@ -64,9 +64,14 @@ export const ADD_HINTS = 'ADD_HINTS'
 export const TOGGLE_HINT_EDIT = 'TOGGLE_HINT_EDIT'
 
 export const addHints = (hints) => {
+
+	function onlyUnique(value, index, self) {
+		return self.indexOf(value) === index;
+	}
+
 	return {
 		type: ADD_HINTS,
-		hints: hints
+		hints: hints.filter(onlyUnique)
 	}
 }
 
