@@ -28,7 +28,7 @@ const initialState = [
 export const hints = (state = initialState, action) => {
 	let newState = state.slice()
 
-	if (action == undefined) return state
+	// if (action == undefined) return state
 
 	switch(action.type) {
 	case ADD_HINTS:

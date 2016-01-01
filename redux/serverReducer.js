@@ -4,7 +4,7 @@ let initialState = {}
 
 export const server = (state = initialState, action) => {
 
-  if (action == undefined) return state
+  // if (action == undefined) return state
 
   switch (action.type) {
 
