@@ -43,7 +43,7 @@ export const getStateFromParse = (state) => {
 }
 
 export const postStateToParse = (state) => {
-  // return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
   //
   //   let hints = []
   //   state.hints.forEach(h => {
@@ -79,6 +79,6 @@ export const postStateToParse = (state) => {
   //
   //   //TODO: implement Parse logic to send to server
   //
-  //   resolve(state)
-  // })
+    resolve(state)
+  })
 }
