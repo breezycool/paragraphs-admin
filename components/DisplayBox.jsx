@@ -46,7 +46,7 @@ export const DisplayBox = React.createClass({
 		}
 	},
 	getInitialState() {
-	  return { showModal: false };
+	  return { showModal: false, typeBad:true };
 	},
 
 	closeDeleteAlert() {
@@ -56,6 +56,12 @@ export const DisplayBox = React.createClass({
 	openDeleteAlert() {
 	  this.setState({ showModal: true });
 	},
+	getClassNameB1() {		
+		return this.props.isBadText? "btn btn-default active":"btn btn-default"; 
+	},
+	getClassNameB2() {		
+		return this.props.isBadText? "btn btn-default":"btn btn-default active"; 
+	},
 
 	render() { //
 		let hintTagsArr = [];
@@ -64,8 +70,16 @@ export const DisplayBox = React.createClass({
 		};
 		return (
 			<div>
+				<div className="btn-group">
+				  <button style={{fontWeight: 'bold'}} className={this.getClassNameB1()} onClick={this.props.onChangeImprovedTypeHandler}>
+				    Bad Text
+				  </button>
+				  <button style={{fontWeight: 'bold'}} className={this.getClassNameB2()} onClick={this.props.onChangeBadTypeHandler}>
+				    Improved Text
+				  </button>
+				</div>
 				<div onClick={this.props.onClickHandler}>
-					{this.props.text}
+					{this.props.isBadText? this.props.badText : this.props.improvedText}
 				</div>
 				<hr style={{marginTop: '5px', marginBottom: '5px'}}/>
 				<div>
@@ -84,6 +98,7 @@ export const DisplayBox = React.createClass({
 					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
 						onClick={this.openDeleteAlert}
 					/>
+
 				</div>
 				<hr style={{marginTop: '5px', marginBottom: '5px', borderColor: '#D8CFCF'}}/>
 				<Modal  aria-labelledby='modal-label'
@@ -101,19 +116,6 @@ export const DisplayBox = React.createClass({
 			</div>
 		);
 	}
+
 })
 
-
-
-// <Modal show={this.state.showModal} onHide={this.closeDeleteAlert}>
-// 					<Modal.Header closeButton>
-// 					    <Modal.Title>Wait</Modal.Title>
-// 					</Modal.Header>
-// 					<Modal.Body>
-// 						<p>Are you sure you want to delete this paragraph?</p>
-// 					</Modal.Body>
-// 					<Modal.Footer>
-// 					    <Button onClick={this.closeDeleteAlert}>Cancel</Button>
-// 					</Modal.Footer>
-// 				</Modal>
-// <Button onClick={this.props.dispatch(removeParagraph(this.props.index))}>Yes</Button>
