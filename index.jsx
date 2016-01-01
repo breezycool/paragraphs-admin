@@ -20,7 +20,7 @@ export const App = React.createClass ({
 	render() {
 		return (
 			<div>
-			{this.props.loggedIn?
+			{!this.props.loggedIn?
 			<div>
 				<LoginFormContainer />
 			</div>
