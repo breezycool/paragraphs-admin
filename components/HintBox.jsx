@@ -27,7 +27,7 @@ export const HintBox = React.createClass({
 							text={this.props.hint.text}
 							ref={(ref) => this.editBox = ref}
 							onClickHandler={() => {
-								this.props.dispatch(saveHintText(this.props.hint.text, this.editBox.state.text, this.props.index))
+								this.props.dispatch(saveHintText(this.editBox.state.text, this.props.index))
 								this.props.dispatch(toggleHintEdit(this.props.index))
 							}}
 					/>
