@@ -113,13 +113,25 @@ export const saveHintText = (oldText, text, id) => {
 /* ************* */
 export const SAVE_SUCCESS = 'SAVE_SUCCESS'
 export const SAVE_ERROR = 'SAVE_ERROR'
+export const LOAD_SUCCESS = 'LOAD_SUCCESS'
+export const LOAD_ERROR = 'LOAD_ERROR'
 
-import {postStateToParse} from './parseHTTP'
+import {getStateFromParse, postStateToParse} from './parseHTTP'
+
+export const loadFromServer = () => {
+	return ((dispatch) => {
+		getStateFromParse().then(
+			state => dispatch({type: LOAD_SUCCESS, state: state}),
+			error => dispatch({type: LOAD_ERROR})
+		)
+	})
+}
 
 export const saveRequest = () => {
 	// thunk syntax
 	return ((dispatch, getState) => {
-		postStateToParse(getState()).then(
+		let state = getState()
+		postStateToParse(state).then(
 			saved => dispatch({type: SAVE_SUCCESS}),
 			error => dispatch({type: SAVE_ERROR, error: error})
 		)

@@ -1,19 +1,31 @@
-import {SAVE_SUCCESS, SAVE_ERROR} from './actions'
+import {SAVE_SUCCESS, SAVE_ERROR, LOAD_SUCCESS, LOAD_ERROR} from './actions'
 
-let initialState = []
+let initialState = {}
 
 export const server = (state = initialState, action) => {
   switch (action.type) {
 
     case SAVE_SUCCESS:
-      return state
+      return Object.assign({}, state, {
+        status: 1
+      })
 
     case SAVE_ERROR:
-      let newState = state.splice()
-      //TODO: insert messages from action.error
-      return newState
+    return Object.assign({}, state, {
+      status: 2,
+      error: action.error
+    })
+
+    case LOAD_SUCCESS:
+      return action.state
+
+    case LOAD_ERROR:
+      return {
+          status: 2,
+          error: action.error
+      }
 
     default:
-      return state;
+      return state
   }
 }
