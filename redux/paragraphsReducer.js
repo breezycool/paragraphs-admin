@@ -8,13 +8,13 @@ const newParagraph = (id, badText, improvedText, hints) => {
 	return {
 		id: id,
 		isEditing: false,
-		badText: text,
+		badText: badText,
 		improvedText: improvedText,
 		hintTags: hints
 	}
 }
 
-const paragraph = (state = {}), action) => {
+const paragraph = (state = {}, action) => {
 	switch(action.type) {
 	case TOGGLE_EDIT:
 		return Object.assign({}, state, {
@@ -54,7 +54,7 @@ export const paragraphs = (state = [], action) => {
 	switch(action.type) {
 
 	case ADD_PARAGRAPH:
-		newState.push(newParagraph(state.length))
+		newState.push(newParagraph(state.length, 'bad Text', 'improved Text', []))
 		return newState
 
 	case TOGGLE_EDIT:

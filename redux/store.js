@@ -9,7 +9,7 @@ const createFinalStore = compose(
 )(createStore)
 
 export function configureStore(initialState) {
-  const store = createFinalStore(reducer);
+  const store = createFinalStore(reducer, initialState);
 
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   // if (module.hot) {
