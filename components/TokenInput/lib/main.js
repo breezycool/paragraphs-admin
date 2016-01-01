@@ -68,8 +68,8 @@ module.exports = React.createClass({
           onSelect: this.handleSelect,
           onRemoveLast: this.handleRemoveLast,
           value: this.state.selectedToken
-        },
-          this.props.menuContent
+        }
+          ,this.props.menuContent
         )
        )
     );

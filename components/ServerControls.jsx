@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 import {connect} from 'react-redux'
+import Loading from 'react-loading'
 // import {saveRequest} from '../redux/actions'
 
 const modalStyle = {
@@ -90,8 +91,11 @@ const ServerControls = React.createClass({
 				        backdropStyle={backdropStyle}
 				        show={this.state.showPendingModal}>
 				<div style={dialogStyle()}>
-				  <p>Making changes...</p>
-				  <Button style={{margin: '0.2em'}} bsStyle="danger" onClick={this.cancelPendingModal}>Cancel</Button>
+					<div>
+					  <p>Making changes...</p>
+					   <Loading type='cylon' color='#66AAD5' />
+					</div>
+				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.cancelPendingModal}>Cancel</Button>
 				</div>
 				</Modal>
 

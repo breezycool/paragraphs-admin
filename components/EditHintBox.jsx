@@ -90,7 +90,7 @@ const EditHintBox = React.createClass({
 				        onHide={this.closeAlert}>
 				<div style={dialogStyle()} >
 				  <p align='center'>A hint with that name already exists.</p>
-				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeAlert}>Okay, sorry.</Button>
+				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeAlert}>Okay</Button>
 				</div>
 				</Modal>
 			</div>

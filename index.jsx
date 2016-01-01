@@ -11,14 +11,20 @@ import {ParagraphListContainer} from './components/ParagraphList'
 import {HintListContainer} from './components/HintList'
 import {ServerControlsContainer} from './components/ServerControls'
 
+import LoginForm from './components/LoginForm'
 
+let notLoggedIn=true;
 
 /* create container as stateless function to indicate pure component */
 export class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<div>
+			{notLoggedIn?
+			<div>
+				<LoginForm />
+			</div>
+			:	<div>
 					<div>
 						<ServerControlsContainer />
 					</div>
@@ -28,8 +34,8 @@ export class App extends React.Component {
 					<span>
 						<HintListContainer />
 					</span>
-				</div>
-				<DevTools />
+				</div>}
+			<DevTools />
 			</div>
 		);
 	}
