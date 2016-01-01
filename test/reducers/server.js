@@ -52,7 +52,6 @@ describe('server reducer', () => {
     }
     store.dispatch(loadSuccess())
     let state = store.getState()
-    expect(state).to.contain(fakeState)
     expect(state).to.contain({loggedIn: true})
   })
 
