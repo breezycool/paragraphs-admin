@@ -46,7 +46,7 @@ export const DisplayBox = React.createClass({
 		}
 	},
 	getInitialState() {
-	  return { showModal: false };
+	  return { showModal: false, typeBad:true };
 	},
 
 	closeDeleteAlert() {
@@ -56,14 +56,29 @@ export const DisplayBox = React.createClass({
 	openDeleteAlert() {
 	  this.setState({ showModal: true });
 	},
+	getClassNameB1() {		
+		return this.state.typeBad? "btn btn-primary active":"btn btn-primary"; 
+	},
+	getClassNameB2() {		
+		return this.state.typeBad? "btn btn-primary":"btn btn-primary active"; 
+	},
 
 	render() { //
+		console.log(this.getClassNameB1())
 		let hintTagsArr = [];
 		for (let i = 0; i < this.props.hintTags.length; i++) {
 		  hintTagsArr.push(<HintTag text={this.props.hintTags[i]}/>);
 		};
 		return (
 			<div>
+				<div className="btn-group">
+				  <button className={this.getClassNameB1()} onClick={this.props.onChangeTypeHandler}>
+				    Version 1
+				  </button>
+				  <button className={this.getClassNameB2()} onClick={this.props.onChangeTypeHandler}>
+				    Version 2
+				  </button>
+				</div>
 				<div onClick={this.props.onClickHandler}>
 					{this.props.text}
 				</div>
@@ -84,6 +99,7 @@ export const DisplayBox = React.createClass({
 					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
 						onClick={this.openDeleteAlert}
 					/>
+
 				</div>
 				<hr style={{marginTop: '5px', marginBottom: '5px', borderColor: '#D8CFCF'}}/>
 				<Modal  aria-labelledby='modal-label'
