@@ -36,6 +36,7 @@
     "react": "0.14.3",
     "react-bootstrap": "^0.28.1",
     "react-dom": "0.14.3",
+    "react-loading": "0.0.7",
     "react-overlays": "^0.5.4",
     "react-redux": "^4.0.4",
     "react-select": "^1.0.0-beta8",
