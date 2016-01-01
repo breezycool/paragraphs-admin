@@ -15,8 +15,10 @@ export const ParagraphBox = React.createClass({
 				{!this.props.paragraph.isEditing
 					? <DisplayBox
 						ref={(ref)=>{this.displayBox=ref}}
-						text={this.props.paragraph.text}
+						badText={this.props.paragraph.badText}
+						improvedText={this.props.paragraph.improvedText}
 						hintTags={this.props.paragraph.hintTags}
+						isBadText={this.props.paragraph.isBadText}
 						onClickHandler={() => {
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
@@ -24,14 +26,26 @@ export const ParagraphBox = React.createClass({
 							this.props.dispatch(removeParagraph(this.props.index))
 							this.displayBox.setState({ showModal: false });
 						}}
-						onChangeTypeHandler={() => {
-							this.props.dispatch(toggleParagraphType(this.props.index))
+						onChangeBadTypeHandler={() => {
+							if(this.props.paragraph.isBadText)
+							{this.props.dispatch(toggleParagraphType(this.props.index)); 
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
+							} 
+							
+						}}
+						onChangeImprovedTypeHandler={() => {
+							if(!this.props.paragraph.isBadText)
+							{this.props.dispatch(toggleParagraphType(this.props.index)); 
+							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
+							} 
+							
 						}}
 					/>
 					: <EditBoxContainer
 						hintTags={this.props.paragraph.hintTags}
-						text={this.props.paragraph.text}
+						badText={this.props.paragraph.badText}
+						improvedText={this.props.paragraph.improvedText}
+						isBadText={this.props.paragraph.isBadText}
 						index={this.props.index}
 					/>}
 				<br/>
