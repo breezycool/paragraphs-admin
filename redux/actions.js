@@ -118,6 +118,12 @@ export const LOAD_ERROR = 'LOAD_ERROR'
 
 import {getStateFromParse, postStateToParse} from './parseHTTP'
 
+export const login = (username, password) => {
+	// TODO: implement authentication
+	
+	loadFromServer()
+}
+
 export const loadFromServer = () => {
 	return ((dispatch) => {
 		getStateFromParse().then(

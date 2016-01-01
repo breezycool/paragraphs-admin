@@ -13,7 +13,7 @@ import {ServerControlsContainer} from './components/ServerControls'
 
 import LoginForm from './components/LoginForm'
 
-let notLoggedIn=true;
+let notLoggedIn=false;
 
 /* create container as stateless function to indicate pure component */
 export class App extends React.Component {
