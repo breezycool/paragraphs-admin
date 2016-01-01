@@ -2,6 +2,7 @@ import React from 'react';
 import HintTag from './HintTag.jsx'
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
+import {connect} from 'react-redux'
 
 const modalStyle = {
   position: 'fixed',
@@ -64,9 +65,10 @@ export const DisplayBox = React.createClass({
 	},
 
 	render() { //
+		let hintTags = this.props.hintTags[this.props.index]
 		let hintTagsArr = [];
-		for (let i = 0; i < this.props.hintTags.length; i++) {
-		  hintTagsArr.push(<HintTag text={this.props.hintTags[i]}/>);
+		for (let i = 0; i < hintTags.length; i++) {
+		  hintTagsArr.push(<HintTag text={hintTags[i]}/>);
 		};
 		return (
 			<div>
@@ -119,3 +121,10 @@ export const DisplayBox = React.createClass({
 
 })
 
+const mapStateToProps = (state) => {
+	return {
+		hintTags: state.paragraphs.map(p => p.hintTags)
+	}
+}
+
+export const DisplayBoxContainer = connect(mapStateToProps)(DisplayBox)
