@@ -1,7 +1,18 @@
 import {expect} from 'chai'
 
 import {configureStore} from '../redux/store'
-import {addHints, toggleHintEdit, saveHintText, removeHint} from '../redux/actions'
+import {addHints, toggleHintEdit, saveHintText, hardDeleteHint} from '../redux/actions'
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
 
 let hintsStore
 describe('hints reducer', () => {
@@ -16,7 +27,7 @@ describe('hints reducer', () => {
 		expect(state).to.include.keys(['hints'])
 	})
 
-	describe('handles ADD_HINTS action', () => {
+	describe('ADD_HINTS action', () => {
 		it('works with one new hint', () => {
 			let state = hintsStore.getState()
 			let originalLength = state.hints.length
@@ -94,20 +105,29 @@ describe('hints reducer', () => {
 		expect(state.hints[0]).to.contain({isEditing: true})
 	})
 
-	it('handles SAVE_HINT_TEXT action', () => {
-		let state = hintsStore.getState()
-		let originalLength = state.hints.length
-		hintsStore.dispatch(addHints(['initial hint']))
-		hintsStore.dispatch(saveHintText('changing this text', 0))
-		state = hintsStore.getState()
-		expect(state.hints).to.have.length(originalLength + 1)
-		expect(state.hints[0]).to.contain({text: 'changing this text'})
+	describe('SAVE_HINT_TEXT action', () => {
+    it('saves to hint store', () => {
+      let state = hintsStore.getState()
+  		let originalLength = state.hints.length
+  		hintsStore.dispatch(addHints(['initial hint']))
+  		hintsStore.dispatch(saveHintText('initial hint', 'changing this text', 0))
+  		state = hintsStore.getState()
+  		expect(state.hints).to.have.length(originalLength + 1)
+  		expect(state.hints[0]).to.contain({text: 'changing this text'})
+    })
 	})
 
-	it('handles REMOVE_HINT action', () => {
-		hintsStore.dispatch(removeHint())
-		let state = hintsStore.getState()
-		expect(state.hints).to.have.length(0)
+	describe('handles HARD_DELETE_HINT action', () => {
+		it('deletes hint from hints in state', () => {
+			hintsStore.dispatch(addHints(['hint to delete']))
+			let state = hintsStore.getState()
+			let originalLength = state.hints.length
+
+			hintsStore.dispatch(hardDeleteHint('hint to delete'))
+			state = hintsStore.getState()
+
+			expect(state.hints).to.have.length(originalLength - 1)
+		})
 	})
 
 })

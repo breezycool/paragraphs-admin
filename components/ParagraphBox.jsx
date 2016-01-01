@@ -9,7 +9,6 @@ import {EditBoxContainer} from './EditBox'
 
 
 export const ParagraphBox = React.createClass({
-
 	render() {
 		return (
 			<div>
@@ -42,4 +41,3 @@ export const ParagraphBox = React.createClass({
 })
 
 export const ParagraphBoxContainer = connect()(ParagraphBox)
-

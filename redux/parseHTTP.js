@@ -9,6 +9,10 @@ Parse.initialize(
 export const postStateToParse = (state) => {
   return new Promise((resolve, reject) => {
 
+    let Paragraphs = Parse.Object.extend('Paragraphs')
+
+    
+
     //TODO: implement Parse logic to send to server
 
     resolve(state)
