@@ -26,8 +26,7 @@ export const server = (state = initialState, action) => {
 
     case LOAD_ERROR:
       return {
-          status: 2,
-          error: action.error
+        error: action.error
       }
 
     default:

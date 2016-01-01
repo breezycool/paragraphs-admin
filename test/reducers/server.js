@@ -52,7 +52,7 @@ describe('server reducer', () => {
     }
     store.dispatch(loadSuccess())
     let state = store.getState()
-    expect(state).to.contain({loggedIn: true})
+    expect(state).to.contain  ({loggedIn: true})
   })
 
   it('handles LOAD_ERROR', () => {
@@ -64,7 +64,6 @@ describe('server reducer', () => {
     }
     store.dispatch(loadError())
     let state = store.getState()
-    expect(state).to.contain({status: 2})
     expect(state).to.contain({error: 'this is a loading error'})
   })
 
