@@ -44,7 +44,7 @@ const initialState = []
 
 export const paragraphs = (state = [], action) => {
 
-	if (action == undefined) return state
+	// if (action == undefined) return state
 
 	let newState = state.slice()
 
