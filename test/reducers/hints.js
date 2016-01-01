@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 
-import {configureStore} from '../redux/store'
-import {addHints, toggleHintEdit, saveHintText, hardDeleteHint} from '../redux/actions'
+import {configureStore} from '../../redux/store'
+import {addHints, toggleHintEdit, saveHintText, hardDeleteHint} from '../../redux/actions'
 
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;

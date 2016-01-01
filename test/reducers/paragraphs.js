@@ -2,9 +2,9 @@ import {expect} from 'chai'
 
 // NOTE: this was amateur - I should only be testing the
 // 			 paragraphs reducer here, not the whole store.
-import {configureStore} from '../redux/store'
+import {configureStore} from '../../redux/store'
 import {toggleEdit, saveText, addParagraph, addHints, toggleParagraphType,
-	removeParagraph, saveHintTags, hardDeleteHint, saveHintText} from '../redux/actions'
+	removeParagraph, saveHintTags, hardDeleteHint, saveHintText} from '../../redux/actions'
 
 let paragraphStore
 describe('paragraphs reducer', () => {
