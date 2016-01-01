@@ -4,7 +4,8 @@ import {hints} from './hintsReducer'
 import {server} from './serverReducer'
 
 export const reducer = combineReducers({
-    hints,
-    paragraphs,
-    server
+	hints,
+	paragraphs,
+	server
 })
+
