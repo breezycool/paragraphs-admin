@@ -11,22 +11,22 @@ const mockStore = configureStore(middlewares)
 
 describe('async actions', () => {
 
-  afterEach(() => {
-    nock.cleanAll()
-  })
-
-  it('dispatches SAVE_SUCCESS after valid save', (done) => {
-    nock('http://example.com/') //TODO: set up this nock to intercept Parse
-      .get('/todos')
-      .reply(200, { success: 'here be some state' })
-
-    const expectedActions = [
-      { type: actions.SAVE_SUCCESS }
-    ]
-
-    const store = mockStore({state: 'someInitialState'}, expectedActions, done);
-    store.dispatch(actions.saveRequest());
-  })
+  // afterEach(() => {
+  //   nock.cleanAll()
+  // })
+  //
+  // it('dispatches SAVE_SUCCESS after valid save', (done) => {
+  //   nock('http://example.com/') //TODO: set up this nock to intercept Parse
+  //     .get('/todos')
+  //     .reply(200, { success: 'here be some state' })
+  //
+  //   const expectedActions = [
+  //     { type: actions.SAVE_SUCCESS }
+  //   ]
+  //
+  //   const store = mockStore({state: 'someInitialState'}, expectedActions, done);
+  //   store.dispatch(actions.saveRequest());
+  // })
 
   // it('dispatches SAVE_ERROR with error after invalid save', (done) => {
   //   nock('http://example.com/') //TODO: set up this nock to intercept Parse, might need to do some funky things....

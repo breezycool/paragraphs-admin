@@ -119,7 +119,7 @@ export const login = (username, password) => {
 	return ((dispatch) => {
 		loginToParse(username, password).then(
 			success => dispatch(loadFromServer()),
-			error   => dispatch({type: LOAD_ERROR, error: error})
+			error   => dispatch({type: LOAD_ERROR, error: error.message})
 		)
 	})
 }

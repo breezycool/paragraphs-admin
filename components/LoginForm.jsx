@@ -24,9 +24,9 @@ const LoginForm = React.createClass({
           <input onChange={this.handleUChange} type='text' placeholder='Username' />
           <input onChange={this.handlePChange} type='password' placeholder="Password"/>
           <hr/>         
-            {this.props.error? <div className="alert alert-danger"> {this.props.error.message} </div> : <div></div>}         
+            {this.props.error? <div className="alert alert-danger"> {this.props.error.message} </div> : <div></div>}
           <div>
-        	<button onClick={this.login} className="btn btn-primary">Log In</button>  
+        	<button onClick={this.login} className="btn btn-primary">Log In</button>
           </div>
       </div>
     );
@@ -40,5 +40,3 @@ const mapStateToProps = (state) => {
 }
 
 export const LoginFormContainer = connect(mapStateToProps)(LoginForm)
-
-//s
