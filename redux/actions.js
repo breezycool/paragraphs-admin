@@ -112,6 +112,7 @@ export const SAVE_SUCCESS = 'SAVE_SUCCESS'
 export const SAVE_ERROR = 'SAVE_ERROR'
 export const LOAD_SUCCESS = 'LOAD_SUCCESS'
 export const LOAD_ERROR = 'LOAD_ERROR'
+export const RESET_STATUS = 'RESET_STATUS'
 
 import {getStateFromParse, postStateToParse, loginToParse} from './parseHTTP'
 
@@ -137,9 +138,12 @@ export const saveToServer = () => {
 	// thunk syntax
 	return ((dispatch, getState) => {
 		let state = getState()
-		// console.log(state) 
+		// console.log(state)
 		postStateToParse(state).then(
-			saved => dispatch({type: SAVE_SUCCESS}),
+			saved => {
+				dispatch({type: SAVE_SUCCESS})
+				dispatch({type: RESET_STATUS})
+			},
 			error => dispatch({type: SAVE_ERROR, error: error})
 		)
 	})

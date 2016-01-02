@@ -67,5 +67,16 @@ describe('server reducer', () => {
     expect(state).to.contain({error: 'this is a loading error'})
   })
 
+  it('handles RESET_STATUS', () => {
+    const resetStatus = () => {
+      return {
+        type: types.RESET_STATUS
+      }
+    }
+    store.dispatch(resetStatus())
+    let state = store.getState()
+    expect(state).to.contain({status: 0})
+  })
+
 
 })

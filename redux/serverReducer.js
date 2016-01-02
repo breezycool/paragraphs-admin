@@ -1,4 +1,4 @@
-import {SAVE_SUCCESS, SAVE_ERROR, LOAD_SUCCESS, LOAD_ERROR} from './actions'
+import {SAVE_SUCCESS, SAVE_ERROR, LOAD_SUCCESS, LOAD_ERROR, RESET_STATUS} from './actions'
 
 let initialState = {}
 
@@ -28,6 +28,11 @@ export const server = (state = initialState, action) => {
       return {
         error: action.error
       }
+
+    case RESET_STATUS:
+      return Object.assign({}, state, {
+        status: 0
+      })
 
     default:
       return state
