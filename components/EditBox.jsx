@@ -9,12 +9,9 @@ var textareaStyle = {
 
 export const EditBox = React.createClass({
 	getInitialState() {
-
 		let initText = this.props.isBadText? this.props.badText : this.props.improvedText
 		return {
-
 			text: initText
-
 		}
 	},
 	handleChange(e) {
