@@ -12,6 +12,20 @@ Parse.initialize(
 let Hint = Parse.Object.extend('Hint')
 let Paragraph = Parse.Object.extend('Paragraph')
 
+/* loginToParse */
+/* ******************************************** */
+export const loginToParse = (username, password) => {
+  return new Promise((resolve, reject) => {
+    Parse.User.logIn(username, password).then(
+      success => resolve(),
+      error   => reject(error)
+    )
+  })
+}
+/* ******************************************** */
+
+/* getStateFromParse */
+/* ******************************************** */
 export const getStateFromParse = () => {
   var allParagraphs = new Parse.Query(Paragraph)
   var allHints = new Parse.Query(Hint)
@@ -71,7 +85,10 @@ export const getStateFromParse = () => {
   })
 
 }
+/* ******************************************** */
 
+/* postStateToParse */
+/* ******************************************** */
 export const postStateToParse = (state) => {
   return new Promise((resolve, reject) => {
 

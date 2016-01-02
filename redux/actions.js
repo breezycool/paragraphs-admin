@@ -113,11 +113,14 @@ export const SAVE_ERROR = 'SAVE_ERROR'
 export const LOAD_SUCCESS = 'LOAD_SUCCESS'
 export const LOAD_ERROR = 'LOAD_ERROR'
 
-import {getStateFromParse, postStateToParse} from './parseHTTP'
+import {getStateFromParse, postStateToParse, loginToParse} from './parseHTTP'
 
 export const login = (username, password) => {
 	return ((dispatch) => {
-		dispatch(loadFromServer())
+		loginToParse(username, password).then(
+			success => dispatch(loadFromServer()),
+			error   => dispatch({type: LOAD_ERROR, error: error})
+		)
 	})
 }
 
