@@ -10,7 +10,8 @@ export const server = (state = initialState, action) => {
 
     case SAVE_SUCCESS:
       return Object.assign({}, state, {
-        status: 1
+        status: 1,
+        error: ""
       })
 
     case SAVE_ERROR:

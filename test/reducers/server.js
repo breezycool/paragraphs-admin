@@ -68,12 +68,7 @@ describe('server reducer', () => {
   })
 
   it('handles RESET_STATUS', () => {
-    const resetStatus = () => {
-      return {
-        type: types.RESET_STATUS
-      }
-    }
-    store.dispatch(resetStatus())
+    store.dispatch(types.resetStatus())
     let state = store.getState()
     expect(state).to.contain({status: 0})
   })
