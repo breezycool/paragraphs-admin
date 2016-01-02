@@ -18,11 +18,16 @@ const LoginForm = React.createClass({
   handlePChange(e) {
     this.setState({password: e.target.value})
   },
+  onEnter(e) {
+    if(e.keyCode == 13){
+      this.login()
+    }
+  },
   render() {
     return (
         <div style={{margin: '0 auto', width: '250px' }}>
-          <input onChange={this.handleUChange} type='text' placeholder='Username' />
-          <input onChange={this.handlePChange} type='password' placeholder="Password"/>
+          <input onChange={this.handleUChange} onKeyDown={this.onEnter} type='text' placeholder='Username' />
+          <input onChange={this.handlePChange} onKeyDown={this.onEnter} type='password' placeholder="Password"/>
           <hr/>
             {this.props.error? <div className="alert alert-danger"> {this.props.error} </div> : <div></div>}
           <div>
