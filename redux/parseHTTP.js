@@ -125,7 +125,7 @@ export const postStateToParse = (state) => {
       return Parse.Object.saveAll(serverHints)
     }).then(
       success => resolve(state),
-      error   => reject()
-    ).catch(error => reject())
+      error   => reject(error.message)
+    )
   })
 }
