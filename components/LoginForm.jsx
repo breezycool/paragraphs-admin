@@ -8,13 +8,13 @@ const LoginForm = React.createClass({
   },
   render() {
     return (
-        <div style={{margin: '0 auto', width: '250px' }}>     
+        <div style={{margin: '0 auto', width: '250px' }}>
           <input type='text' placeholder='Username' />
           <input type='password' placeholder="Password"/>
-          <hr/>         
-            {this.props.error? <div className="alert alert-danger"> {this.props.error.message} </div> : <div></div>}         
+          <hr/>
+            {this.props.error? <div className="alert alert-danger"> {this.props.error} </div> : <div></div>}         
           <div>
-        	<button onClick={this.login} className="btn btn-primary">Log In</button>  
+        	<button onClick={this.login} className="btn btn-primary">Log In</button>
           </div>
       </div>
     );
@@ -28,4 +28,3 @@ const mapStateToProps = (state) => {
 }
 
 export const LoginFormContainer = connect(mapStateToProps)(LoginForm)
-

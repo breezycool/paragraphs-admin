@@ -92,24 +92,21 @@ export const getStateFromParse = () => {
 export const postStateToParse = (state) => {
   return new Promise((resolve, reject) => {
 
-    // let state.hints.map(h => {
-    //   let hint = new Hint()
-    //   h.id = hint.id
-    //   h.text = hint.text
-    // })
-    //
-    // let state.paragraphs.map(p => {
-    //
-    //   let hintTags = p.hintTags.map(t => {
-    //
-    //   })
-    //
-    //   let paragraph = new Paragraph()
-    //   paragraph.id = p.id
-    //   paragraph.badText = p.badText
-    //   paragraph.improvedText = p.improvedText
-    //
-    // })
+    let serverHints = state.hints.map(h => {
+      let hint = new Hint()
+      h.id = hint.id
+      h.text = hint.text
+    })
+
+    let serverParagraphs = state.paragraphs.map(p => {
+
+      let paragraph = new Paragraph()
+      paragraph.id = p.id
+      paragraph.badText = p.badText
+      paragraph.improvedText = p.improvedText
+      paragraph.hints = p.hintTags.map(t => t.id)
+
+    })
 
     resolve(state)
   })
