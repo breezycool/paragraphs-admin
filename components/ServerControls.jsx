@@ -41,7 +41,8 @@ const ServerControls = React.createClass({
 
 	getDefaultProps() {
 		return {
-			goodRequest: false
+			error: "",
+			status: 0
 		}
 	},
 
@@ -66,10 +67,12 @@ const ServerControls = React.createClass({
 	},
 	onClickSend() {
 		this.props.dispatch(saveToServer());
-		this.setState({ showModal: false, showPendingModal: true });
+		this.setState({ showModal: false, showPendingModal: true, showResultModal: true});
 	},
+	//componentDidMount
 
 	render() {
+		//this.props.
 		return (
 			<div style={{textAlign: 'center'}}>
 				<button className="btn btn-success" onClick={this.openSendModal}>Send Paragraphs to App</button>
@@ -89,7 +92,7 @@ const ServerControls = React.createClass({
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}
 				        backdropStyle={backdropStyle}
-				        show={this.state.showPendingModal}>
+				        show={this.props.status===0 && this.state.showPendingModal}>
 				<div style={dialogStyle()}>
 					<div>
 					  <p>Making changes...</p>
@@ -102,12 +105,12 @@ const ServerControls = React.createClass({
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}
 				        backdropStyle={backdropStyle}
-				        show={this.state.showResultModal}
+				        show={this.props.status!==0 && this.state.showResultModal}
 				        onHide={this.closeResultModal}>
 				<div style={dialogStyle()}>
-				 {this.props.goodRequest
+				 {this.props.error===""
 				  ?<p>Changes made successfully.</p>
-				  :<p>Sorry, changes were unsuccessful. Try again.</p>}
+				  :<p>Sorry, changes were unsuccessful. Error: {this.props.error}</p>}
 				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeResultModal}>Okay</Button>
 				</div>
 				</Modal>
@@ -116,4 +119,11 @@ const ServerControls = React.createClass({
 	}
 })
 
-export const ServerControlsContainer = connect()(ServerControls)
+const mapStateToProps = (state) => {
+  return {
+    error: state.server.error,
+    status: state.server.status
+  }
+}
+
+export const ServerControlsContainer = connect(mapStateToProps)(ServerControls)
