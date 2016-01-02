@@ -20,7 +20,7 @@ const LoginForm = React.createClass({
   },
   onEnter(e) {
     if(e.keyCode == 13){
-      this.login()
+      this.login() //13 is enter
     }
   },
   render() {
