@@ -11,7 +11,7 @@ describe('methods to load state to and from parse', () => {
     store = configureStore()
   })
 
-  it('loads correct state from parse', (done) => {
+  it('loads state from parse', (done) => {
     parse.getStateFromParse().then((state) => {
       store.dispatch({type: types.LOAD_SUCCESS, state: state})
       done()
