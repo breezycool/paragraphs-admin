@@ -92,22 +92,32 @@ export const getStateFromParse = () => {
 export const postStateToParse = (state) => {
   return new Promise((resolve, reject) => {
 
+    console.log(state.hints)
     let serverHints = state.hints.map(h => {
       let hint = new Hint()
-      h.id = hint.id
-      h.text = hint.text
+      hint.set('id', h.id)
+      hint.set('text', h.text)
+      return hint
     })
 
     let serverParagraphs = state.paragraphs.map(p => {
 
       let paragraph = new Paragraph()
-      paragraph.id = p.id
-      paragraph.badText = p.badText
-      paragraph.improvedText = p.improvedText
-      paragraph.hints = p.hintTags.map(t => t.id)
-
+      paragraph.set('id', p.id)
+      paragraph.set('badText', p.badText)
+      paragraph.set('improvedText', p.improvedText)
+      paragraph.set('hints', p.hintTags.map(t => t.id))
+      return paragraph
     })
 
-    resolve(state)
+    console.log(serverHints)
+    console.log(serverParagraphs)
+
+    Parse.Object.saveAll(serverParagraphs).then(success => {
+      return Parse.Object.saveAll(serverHints)
+    }).then(
+      success => resolve(state),
+      error   => reject()
+    )
   })
 }

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 import {connect} from 'react-redux'
 import Loading from 'react-loading'
-// import {saveRequest} from '../redux/actions'
+import {saveToServer} from '../redux/actions'
 
 const modalStyle = {
   position: 'fixed',
@@ -65,7 +65,7 @@ const ServerControls = React.createClass({
 	  this.setState({ showModal: true });
 	},
 	onClickSend() {
-		//this.props.dispatch(saveRequest());
+		this.props.dispatch(saveToServer());
 		this.setState({ showModal: false, showPendingModal: true });
 	},
 

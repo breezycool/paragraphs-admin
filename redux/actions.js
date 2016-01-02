@@ -133,10 +133,11 @@ export const loadFromServer = () => {
 	})
 }
 
-export const saveRequest = () => {
+export const saveToServer = () => {
 	// thunk syntax
 	return ((dispatch, getState) => {
 		let state = getState()
+		// console.log(state) 
 		postStateToParse(state).then(
 			saved => dispatch({type: SAVE_SUCCESS}),
 			error => dispatch({type: SAVE_ERROR, error: error})
