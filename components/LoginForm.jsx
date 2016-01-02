@@ -3,14 +3,26 @@ import {connect} from 'react-redux'
 import {login} from '../redux/actions'
 
 const LoginForm = React.createClass({
+  getInitialState() {
+    return {
+      username: "",
+      password: ""
+    }
+  },
   login() {
-    this.props.dispatch(login("",""))
+    this.props.dispatch(login(this.state.username,this.state.password))
+  },
+  handleUChange(e) {
+    this.setState({username: e.target.value})
+  },
+  handlePChange(e) {
+    this.setState({password: e.target.value})
   },
   render() {
     return (
         <div style={{margin: '0 auto', width: '250px' }}>     
-          <input type='text' placeholder='Username' />
-          <input type='password' placeholder="Password"/>
+          <input onChange={this.handleUChange} type='text' placeholder='Username' />
+          <input onChange={this.handlePChange} type='password' placeholder="Password"/>
           <hr/>         
             {this.props.error? <div className="alert alert-danger"> {this.props.error.message} </div> : <div></div>}         
           <div>
