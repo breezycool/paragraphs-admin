@@ -56,10 +56,18 @@ export const getStateFromParse = () => {
       // transform paragraphs
       let paragraphs = server.paragraphs.map(p => {
 
-        let hintTags = p.get('hints').map(hintId => {
-          let releventHint = hints.filter(h => h.id == hintId)[0] // there should always only be one
-          return releventHint.text
-        })
+        let hintTags = p.get('hints')
+        if (hintTags[0] != null) {
+          console.log(hintTags)
+          hintTags.map(hintId => {
+            let releventHint = hints.filter(h => (h.id == hintId))[0] // there should always only be one
+            console.log(relevantHint)
+            return releventHint.text
+          })
+        }
+        else {
+          hintTags = []
+        }
 
         return {
           id: p.id,
