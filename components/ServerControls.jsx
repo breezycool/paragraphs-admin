@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 import {connect} from 'react-redux'
-import {saveToServer} from '../redux/actions'
+import {saveToServer, resetStatus} from '../redux/actions'
 
 const modalStyle = {
   position: 'fixed',
@@ -55,10 +55,12 @@ const ServerControls = React.createClass({
 
 	cancelPendingModal() {
 	  this.setState({ showPendingModal: false, showResultModal: true });
+	  this.props.dispatch(resetStatus());
 	},
 
 	closeResultModal() {
-	  this.setState({ showResultModal: false });
+	  this.setState({ showResultModal: false, showPendingModal: false });
+	  this.props.dispatch(resetStatus());
 	},
 
 	openSendModal() {
@@ -110,7 +112,7 @@ const ServerControls = React.createClass({
 				        show={this.props.status!==0 && this.state.showResultModal}
 				        onHide={this.closeResultModal}>
 				<div style={dialogStyle()}>
-				 {this.props.error===""
+				 {this.props.error==="" && this.props.status===1
 				  ?<p>Changes made successfully.</p>
 				  :<p>Sorry, changes were unsuccessful. Error: {this.props.error}</p>}
 				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeResultModal}>Okay</Button>
