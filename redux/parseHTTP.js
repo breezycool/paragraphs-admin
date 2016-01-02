@@ -126,6 +126,6 @@ export const postStateToParse = (state) => {
     }).then(
       success => resolve(state),
       error   => reject()
-    )
+    ).catch(error => reject())
   })
 }
