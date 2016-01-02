@@ -2,7 +2,6 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 import {connect} from 'react-redux'
-import Loading from 'react-loading'
 import {saveToServer} from '../redux/actions'
 
 const modalStyle = {
@@ -41,7 +40,8 @@ const ServerControls = React.createClass({
 
 	getDefaultProps() {
 		return {
-			goodRequest: false
+			error: "",
+			status: 0
 		}
 	},
 
@@ -66,10 +66,12 @@ const ServerControls = React.createClass({
 	},
 	onClickSend() {
 		this.props.dispatch(saveToServer());
-		this.setState({ showModal: false, showPendingModal: true });
+		this.setState({ showModal: false, showPendingModal: true, showResultModal: true});
 	},
+	//componentDidMount
 
 	render() {
+		//this.props.
 		return (
 			<div style={{textAlign: 'center'}}>
 				<button className="btn btn-success" onClick={this.openSendModal}>Send Paragraphs to App</button>
@@ -89,11 +91,14 @@ const ServerControls = React.createClass({
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}
 				        backdropStyle={backdropStyle}
-				        show={this.state.showPendingModal}>
+				        show={this.props.status===0 && this.state.showPendingModal}>
 				<div style={dialogStyle()}>
 					<div>
 					  <p>Making changes...</p>
-					   <Loading type='cylon' color='#66AAD5' />
+					   <div className="spinner">
+					     <div className="double-bounce1"></div>
+					     <div className="double-bounce2"></div>
+					   </div>
 					</div>
 				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.cancelPendingModal}>Cancel</Button>
 				</div>
@@ -102,12 +107,12 @@ const ServerControls = React.createClass({
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}
 				        backdropStyle={backdropStyle}
-				        show={this.state.showResultModal}
+				        show={this.props.status!==0 && this.state.showResultModal}
 				        onHide={this.closeResultModal}>
 				<div style={dialogStyle()}>
-				 {this.props.goodRequest
+				 {this.props.error===""
 				  ?<p>Changes made successfully.</p>
-				  :<p>Sorry, changes were unsuccessful. Try again.</p>}
+				  :<p>Sorry, changes were unsuccessful. Error: {this.props.error}</p>}
 				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeResultModal}>Okay</Button>
 				</div>
 				</Modal>
@@ -116,4 +121,11 @@ const ServerControls = React.createClass({
 	}
 })
 
-export const ServerControlsContainer = connect()(ServerControls)
+const mapStateToProps = (state) => {
+  return {
+    error: state.server.error,
+    status: state.server.status
+  }
+}
+
+export const ServerControlsContainer = connect(mapStateToProps)(ServerControls)
