@@ -98,12 +98,14 @@ export const getStateFromParse = () => {
 /* postStateToParse */
 /* ******************************************** */
 export const postStateToParse = (state) => {
+
+  //TODO: completely reset parse state with existing.
   return new Promise((resolve, reject) => {
 
     console.log(state.hints)
     let serverHints = state.hints.map(h => {
       let hint = new Hint()
-      hint.set('id', h.id)
+      if (typeof h.id === 'string') hint.set('id', h.id)
       hint.set('text', h.text)
       return hint
     })
@@ -111,7 +113,7 @@ export const postStateToParse = (state) => {
     let serverParagraphs = state.paragraphs.map(p => {
 
       let paragraph = new Paragraph()
-      paragraph.set('id', p.id)
+      if (typeof p.id === 'string') paragraph.set('id', p.id)
       paragraph.set('badText', p.badText)
       paragraph.set('improvedText', p.improvedText)
       paragraph.set('hints', p.hintTags.map(t => t.id))
