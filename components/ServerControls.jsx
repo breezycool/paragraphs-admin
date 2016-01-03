@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 import {connect} from 'react-redux'
 import {saveToServer, resetStatus} from '../redux/actions'
+import TimerMixin from 'react-timer-mixin'
 
 const modalStyle = {
   position: 'fixed',
@@ -38,6 +39,7 @@ const dialogStyle = function() {
 
 const ServerControls = React.createClass({
 
+	mixins: [TimerMixin],
 	getDefaultProps() {
 		return {
 			error: "",
@@ -46,7 +48,7 @@ const ServerControls = React.createClass({
 	},
 
 	getInitialState() {
-	  return { showModal: false, showPendingModal:false, showResultModal: false };
+	  return { showModal: false, showPendingModal:false, showResultModal: false, timedOut: false };
 	},
 
 	closeSendModal() {
@@ -54,26 +56,26 @@ const ServerControls = React.createClass({
 	},
 
 	cancelPendingModal() {
-	  this.setState({ showPendingModal: false, showResultModal: true });
+	  this.setState({ showPendingModal: false, showResultModal: false, timedOut: false });
+	  this.clearTimeout(this.timeoutID);
 	  this.props.dispatch(resetStatus());
 	},
 
 	closeResultModal() {
-	  this.setState({ showResultModal: false, showPendingModal: false });
+	  this.setState({ showResultModal: false, showPendingModal: false, timedOut: false });
+	  this.clearTimeout(this.timeoutID);
 	  this.props.dispatch(resetStatus());
 	},
 
 	openSendModal() {
-	  this.setState({ showModal: true });
+	  this.setState({ showModal: true, timedOut: false });
 	},
 	onClickSend() {
 		this.props.dispatch(saveToServer());
-		this.setState({ showModal: false, showPendingModal: true, showResultModal: true});
+		this.setState({ timedOut: false, showModal: false, showPendingModal: true, showResultModal: true});
+		this.timeoutID = this.setTimeout(() => {this.setState({ timedOut: true})}, 5000)
 	},
-	//componentDidMount
-
 	render() {
-		//this.props.
 		return (
 			<div style={{textAlign: 'center'}}>
 				<button className="btn btn-success" onClick={this.openSendModal}>Send Paragraphs to App</button>
@@ -96,11 +98,15 @@ const ServerControls = React.createClass({
 				        show={this.props.status===0 && this.state.showPendingModal}>
 				<div style={dialogStyle()}>
 					<div>
+					{this.state.timedOut===false?
+					  <div>
 					  <p>Making changes...</p>
 					   <div className="spinner">
 					     <div className="double-bounce1"></div>
 					     <div className="double-bounce2"></div>
 					   </div>
+					   </div>
+					   :<p>Timed out, most likely internet connection. Try refreshing the app.</p> }
 					</div>
 				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.cancelPendingModal}>Cancel</Button>
 				</div>
@@ -109,7 +115,7 @@ const ServerControls = React.createClass({
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}
 				        backdropStyle={backdropStyle}
-				        show={this.props.status!==0 && this.state.showResultModal}
+				        show={this.state.showResultModal && this.props.status!==0}
 				        onHide={this.closeResultModal}>
 				<div style={dialogStyle()}>
 				 {this.props.error==="" && this.props.status===1
@@ -117,8 +123,8 @@ const ServerControls = React.createClass({
 				  :<p>Sorry, changes were unsuccessful. Error: {this.props.error}</p>}
 				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeResultModal}>Okay</Button>
 				</div>
-				</Modal>
-			</div>
+			</Modal>
+		</div>
 		)
 	}
 })
@@ -131,3 +137,4 @@ const mapStateToProps = (state) => {
 }
 
 export const ServerControlsContainer = connect(mapStateToProps)(ServerControls)
+//
