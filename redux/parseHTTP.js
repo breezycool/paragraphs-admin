@@ -105,6 +105,7 @@ export const postStateToParse = (state) => {
     console.log(state.hints)
     let serverHints = state.hints.map(h => {
       let hint = new Hint()
+      // if object is pulled from parse, set save to update
       if (typeof h.id === 'string') hint.set('id', h.id)
       hint.set('text', h.text)
       return hint
@@ -113,6 +114,7 @@ export const postStateToParse = (state) => {
     let serverParagraphs = state.paragraphs.map(p => {
 
       let paragraph = new Paragraph()
+      // if object is pulled from parse, set save to update
       if (typeof p.id === 'string') paragraph.set('id', p.id)
       paragraph.set('badText', p.badText)
       paragraph.set('improvedText', p.improvedText)
