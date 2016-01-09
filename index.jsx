@@ -15,6 +15,10 @@ import {connect} from 'react-redux'
 
 import {LoginFormContainer} from './components/LoginForm'
 
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+
 /* create container as stateless function to indicate pure component */
 export const App = React.createClass ({
 	render() {
@@ -47,7 +51,9 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export const AppContainer = connect(mapStateToProps)(App)
+let DragApp = DragDropContext(HTML5Backend)(App);
+
+export const AppContainer = connect(mapStateToProps)(DragApp)
 
 ReactDOM.render(
 	<Provider store={configureStore()}>
