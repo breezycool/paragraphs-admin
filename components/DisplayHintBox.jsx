@@ -60,17 +60,17 @@ export const DisplayHintBox = React.createClass({
 	render() {
 		return (
 			<div>
-				<span>
+				<span onClick={this.props.onClickHandler}>
 					{this.props.text}  
 				</span>	
 				<span>
-				<span style={{margin: '0.2em', paddingRight: '1em'}}>
-					<button style={{margin: '0.2em'}}
+				<span style={{margin: '0.2em', paddingRight: '0.08em'}}>
+					<button style={{margin: '0em'}}
 						className="btn btn-primary glyphicon glyphicon-pencil"
 						onClick={this.props.onClickHandler}
 					> </button>
 				</span>
-					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
+					<button style={{margin: '0em'}} className="btn btn-danger glyphicon glyphicon-trash"
 						onClick={this.openDeleteAlert}
 					> </button>
 				</span>

@@ -14,8 +14,8 @@ var PropTypes = React.PropTypes;
 const paragraphTarget = {
   drop(props, monitor) {
   	let hints = monitor.getItem()
-  	var arr = Object.keys(hints).map(function (key) {return hints[key]});
-    props.dispatch(saveHintTags(props.index, props.paragraph.hintTags.concat(arr)))
+  	var extraHint = Object.keys(hints).map(function (key) {return hints[key]});
+    props.dispatch(saveHintTags(props.index, props.paragraph.hintTags.concat(extraHint)))
   }
 };
 
