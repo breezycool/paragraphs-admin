@@ -51,7 +51,7 @@ const mapStateToProps = (state) => {
 	}
 }
 
-let DragApp = DragDropContext(HTML5Backend)(App);
+const DragApp = DragDropContext(HTML5Backend)(App);
 
 export const AppContainer = connect(mapStateToProps)(DragApp)
 

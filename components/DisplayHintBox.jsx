@@ -92,4 +92,4 @@ export const DisplayHintBox = React.createClass({
 	}
 })
 
-export default DisplayHintBox
+export default DisplayHintBox;

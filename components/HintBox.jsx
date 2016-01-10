@@ -9,7 +9,7 @@ import {EditHintBoxContainer} from './EditHintBox'
 import {ItemTypes} from './ItemTypes'
 import { DragSource } from 'react-dnd';
 
-var PropTypes = React.PropTypes;
+let PropTypes = React.PropTypes;
 
 const hintSource = {
   beginDrag(props) {
@@ -38,8 +38,8 @@ export const HintBox = React.createClass({
 	},
 
 	render() {
-		var connectDragSource = this.props.connectDragSource;
-		var isDragging = this.props.isDragging;
+		let connectDragSource = this.props.connectDragSource;
+		let isDragging = this.props.isDragging;
 		return connectDragSource(
 			<div style={{cursor: "pointer", opacity: isDragging ? 0.5 : 1}}>
 				{!this.props.hint.isEditing
@@ -65,6 +65,6 @@ export const HintBox = React.createClass({
 	}
 })
 
-let DragHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(HintBox);
+const DragHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(HintBox);
 
 export const HintBoxContainer = connect()(DragHintBox)

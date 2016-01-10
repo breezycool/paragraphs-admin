@@ -9,12 +9,12 @@ import {EditBoxContainer} from './EditBox'
 import { ItemTypes } from './ItemTypes';
 import { DropTarget } from 'react-dnd';
 
-var PropTypes = React.PropTypes;
+let PropTypes = React.PropTypes;
 
 const paragraphTarget = {
   drop(props, monitor) {
   	let hints = monitor.getItem()
-  	var extraHint = Object.keys(hints).map(function (key) {return hints[key]});
+  	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
     props.dispatch(saveHintTags(props.index, props.paragraph.hintTags.concat(extraHint)))
   }
 };
@@ -33,8 +33,8 @@ export const ParagraphBox = React.createClass({
 	},
 
 	render() {
-		var connectDropTarget = this.props.connectDropTarget;
-		var isOver = this.props.isOver;
+		let connectDropTarget = this.props.connectDropTarget;
+		let isOver = this.props.isOver;
 
 		return connectDropTarget(
 			<div>
@@ -81,6 +81,6 @@ export const ParagraphBox = React.createClass({
 	}
 })
 
-let DropParagraphBox = DropTarget(ItemTypes.HINT, paragraphTarget, collect)(ParagraphBox);
+const DropParagraphBox = DropTarget(ItemTypes.HINT, paragraphTarget, collect)(ParagraphBox);
 
 export const ParagraphBoxContainer = connect()(DropParagraphBox)

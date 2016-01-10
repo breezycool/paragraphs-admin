@@ -73,7 +73,7 @@ const ServerControls = React.createClass({
 	onClickSend() {
 		this.props.dispatch(saveToServer());
 		this.setState({ timedOut: false, showModal: false, showPendingModal: true, showResultModal: true});
-		this.timeoutID = this.setTimeout(() => {this.setState({ timedOut: true})}, 5000)
+		this.timeoutID = this.setTimeout(() => {this.setState({ timedOut: true})}, 12000)
 	},
 	render() {
 		return (
