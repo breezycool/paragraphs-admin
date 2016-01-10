@@ -3,7 +3,7 @@ import TagSelect from './TagSelect.jsx'
 import {connect} from 'react-redux'
 import {saveText, toggleEdit, saveHintTags, addHints} from '../redux/actions'
 
-var textareaStyle = {
+let textareaStyle = {
 	minHeight: "200px"
 }
 

@@ -1,16 +1,42 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import {removeParagraph, toggleEdit, saveText, toggleParagraphType} from '../redux/actions'
+import {removeParagraph, toggleEdit, saveText, toggleParagraphType, saveHintTags} from '../redux/actions'
 
 import {DisplayBoxContainer} from './DisplayBox'
 import {EditBoxContainer} from './EditBox'
 
+import { ItemTypes } from './ItemTypes';
+import { DropTarget } from 'react-dnd';
 
+let PropTypes = React.PropTypes;
+
+const paragraphTarget = {
+  drop(props, monitor) {
+  	let hints = monitor.getItem()
+  	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
+    props.dispatch(saveHintTags(props.index, props.paragraph.hintTags.concat(extraHint)))
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
 
 export const ParagraphBox = React.createClass({
+
+	propTypes: {
+	  isOver: PropTypes.bool.isRequired
+	},
+
 	render() {
-		return (
+		let connectDropTarget = this.props.connectDropTarget;
+		let isOver = this.props.isOver;
+
+		return connectDropTarget(
 			<div>
 				{!this.props.paragraph.isEditing
 					? <DisplayBoxContainer
@@ -55,4 +81,6 @@ export const ParagraphBox = React.createClass({
 	}
 })
 
-export const ParagraphBoxContainer = connect()(ParagraphBox)
+const DropParagraphBox = DropTarget(ItemTypes.HINT, paragraphTarget, collect)(ParagraphBox);
+
+export const ParagraphBoxContainer = connect()(DropParagraphBox)
