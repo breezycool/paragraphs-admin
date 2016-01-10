@@ -3,33 +3,11 @@ import {connect} from 'react-redux'
 
 import {toggleHintEdit, hardDeleteHint} from '../redux/actions'
 
-import DisplayHintBox from './DisplayHintBox'
+import DragDisplayHintBox from './DisplayHintBox'
 import {EditHintBoxContainer} from './EditHintBox'
 
-import {ItemTypes} from './ItemTypes'
-import { DragSource } from 'react-dnd';
-
-let PropTypes = React.PropTypes;
-
-const hintSource = {
-  beginDrag(props) {
-    return {text: props.hint.text};
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
 
 export const HintBox = React.createClass({
-
-	propTypes: {
-	    connectDragSource: PropTypes.func.isRequired,
-	    isDragging: PropTypes.bool.isRequired
-	  },
 
 	getInitialState() {
 		return {
@@ -38,12 +16,10 @@ export const HintBox = React.createClass({
 	},
 
 	render() {
-		let connectDragSource = this.props.connectDragSource;
-		let isDragging = this.props.isDragging;
-		return connectDragSource(
-			<div style={{cursor: "pointer", opacity: isDragging ? 0.5 : 1}}>
+		return (
+			<div>
 				{!this.props.hint.isEditing
-					? <DisplayHintBox
+					? <DragDisplayHintBox
 						ref={(ref)=>{this.displayHintBox=ref}}
 						text={this.props.hint.text}
 						onClickHandler={() => {
@@ -65,6 +41,4 @@ export const HintBox = React.createClass({
 	}
 })
 
-const DragHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(HintBox);
-
-export const HintBoxContainer = connect()(DragHintBox)
+export const HintBoxContainer = connect()(HintBox)

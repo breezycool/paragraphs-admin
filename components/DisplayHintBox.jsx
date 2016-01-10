@@ -2,6 +2,25 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 
+import {ItemTypes} from './ItemTypes'
+import { DragSource } from 'react-dnd';
+
+const PropTypes = React.PropTypes;
+
+const hintSource = {
+  beginDrag(props) {
+    return {text: props.text};
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
+
+
 const modalStyle = {
   position: 'fixed',
   zIndex: 1040,
@@ -37,6 +56,11 @@ const dialogStyle = function() {
 
 export const DisplayHintBox = React.createClass({
 
+	propTypes: {
+	    connectDragSource: PropTypes.func.isRequired,
+	    isDragging: PropTypes.bool.isRequired
+	  },
+
 	getDefaultProps() {
 		return {
 			backgroundColor: "#FFF",
@@ -58,8 +82,11 @@ export const DisplayHintBox = React.createClass({
 	},
 
 	render() {
-		return (
-			<div>
+		let connectDragSource = this.props.connectDragSource;
+		let isDragging = this.props.isDragging;
+
+		return connectDragSource(
+			<div style={{cursor: "pointer", opacity: isDragging ? 0.5 : 1}}>
 				<span onClick={this.props.onClickHandler}>
 					{this.props.text}  
 				</span>	
@@ -92,4 +119,6 @@ export const DisplayHintBox = React.createClass({
 	}
 })
 
-export default DisplayHintBox;
+const DragDisplayHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(DisplayHintBox);
+
+export default DragDisplayHintBox;
