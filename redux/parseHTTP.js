@@ -111,7 +111,7 @@ export const postStateToParse = (state) => {
     let serverParagraphs = state.paragraphs.map(p => {
 
       let paragraph = new Paragraph()
-      paragraph.set('id', p.id)
+      if (typeof p.id == 'string') paragraph.set('id', p.id)
       paragraph.set('badText', p.badText)
       paragraph.set('improvedText', p.improvedText)
       paragraph.set('hints', p.hintTags.map(t => t.id))
