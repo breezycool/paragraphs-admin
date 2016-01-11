@@ -31,17 +31,9 @@ export const saveText = (text, id) => {
 	}
 }
 
-// NOTE: probably don't actually want zombie nouns
 export const addParagraph = () => {
 	return {
 		type: ADD_PARAGRAPH
-	}
-}
-
-export const removeParagraph = (id) => {
-	return {
-		type: REMOVE_PARAGRAPH,
-		id: id
 	}
 }
 
@@ -88,13 +80,6 @@ export const toggleHintEdit = (id) => {
 export const HARD_DELETE_HINT = 'HARD_DELETE_HINT'
 export const SAVE_HINT_TEXT = 'SAVE_HINT_TEXT'
 
-export const hardDeleteHint = (hint) => {
-	return {
-		type: HARD_DELETE_HINT,
-		hint: hint
-	}
-}
-
 export const saveHintText = (oldText, text, id) => {
 	return {
 		type: SAVE_HINT_TEXT,
@@ -120,7 +105,49 @@ export const resetStatus = () => {
 	}
 }
 
-import {getStateFromParse, postStateToParse, loginToParse} from './parseHTTP'
+import {
+	getStateFromParse,
+	postStateToParse,
+	loginToParse,
+	removeParagraphFromParse,
+	removeHintFromParse
+} from './parseHTTP'
+
+export const removeParagraph = (id) => {
+	return ((dispatch, getState) => {
+		console.log(id)
+		removeParagraphFromParse(id).then(
+			success => dispatch({
+				type: REMOVE_PARAGRAPH,
+				id: id
+			}),
+			// TODO: this save error is maybe not handled in UI
+			error => dispatch({type: SAVE_ERROR})
+		)
+	})
+}
+
+export const hardDeleteHint = (hint) => {
+	return ((dispatch, getState) => {
+		// find id and hint index from state
+		let state = getState()
+		let id
+		state.forEach((p, index) => {
+			if (p.text == action.hint) id = p.id
+		})
+		// remove from parse
+		removeParagraphFromParse(id).then(
+			success => {
+				dispatch({
+					type: HARD_DELETE_HINT,
+					hint: hint
+				})
+			},
+			// TODO: this save error is maybe not handled in UI
+			error => dispatch({type: SAVE_ERROR})
+		)
+	})
+}
 
 export const login = (username, password) => {
 	return ((dispatch) => {

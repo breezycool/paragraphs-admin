@@ -129,3 +129,35 @@ export const postStateToParse = (state) => {
     )
   })
 }
+/* ******************************************** */
+
+/* removeParagraphFromParse */
+/* ******************************************** */
+export const removeParagraphFromParse = (id) => {
+  return new Promise((resolve, reject) => {
+    let paragraph = new Paragraph()
+    paragraph.set('id', id)
+
+    paragraph.destroy().then(
+      success => resolve(),
+      error => reject()
+    )
+  })
+  /* end of promise */
+}
+/* ******************************************** */
+
+/* removeHintFromParse */
+/* ******************************************** */
+export const removeHintFromParse = (id) => {
+  return new Promise((resolve, reject) => {
+    let hint = new Hint()
+    hint.set('id', id)
+
+    hint.destroy().then(
+      success => resolve(),
+      error => reject()
+    )
+  })
+  /* end of promise */
+}

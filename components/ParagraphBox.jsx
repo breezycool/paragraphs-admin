@@ -14,7 +14,7 @@ let PropTypes = React.PropTypes;
 const paragraphTarget = {
   drop(props, monitor) {
   	//drop logic. get item from the dragged hint (which will be just the text as an object).
-  	//then map it to an array (should really be just a string...) 
+  	//then map it to an array (should really be just a string...)
   	//then concat the existing hint tags from the paragraph with the new proposed array and save them. (should really push a string.)
   	let hints = monitor.getItem()
   	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
@@ -58,17 +58,17 @@ export const ParagraphBox = React.createClass({
 						}}
 						onChangeBadTypeHandler={() => {
 							if(this.props.paragraph.isBadText)
-							{this.props.dispatch(toggleParagraphType(this.props.index)); 
+							{this.props.dispatch(toggleParagraphType(this.props.index));
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
-							} 
-							
+							}
+
 						}}
 						onChangeImprovedTypeHandler={() => {
 							if(!this.props.paragraph.isBadText)
-							{this.props.dispatch(toggleParagraphType(this.props.index)); 
+							{this.props.dispatch(toggleParagraphType(this.props.index));
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
-							} 
-							
+							}
+
 						}}
 					/>
 					: <EditBoxContainer
