@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import {removeParagraph, toggleEdit, saveText, toggleParagraphType, saveHintTags} from '../redux/actions'
+import {toggleEdit, saveText, toggleParagraphType, saveHintTags} from '../redux/actions'
 
 import {DisplayBoxContainer} from './DisplayBox'
 import {EditBoxContainer} from './EditBox'
@@ -52,10 +52,7 @@ export const ParagraphBox = React.createClass({
 						onClickHandler={() => {
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
-						onClickRemoveHandler={() => {
-							this.props.dispatch(removeParagraph(this.props.index))
-							this.displayBox.setState({ showModal: false });
-						}}
+						
 						onChangeBadTypeHandler={() => {
 							if(this.props.paragraph.isBadText)
 							{this.props.dispatch(toggleParagraphType(this.props.index)); 

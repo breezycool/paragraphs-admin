@@ -5,6 +5,9 @@ import Modal from 'react-overlays/lib/Modal';
 import {ItemTypes} from './ItemTypes'
 import { DragSource } from 'react-dnd';
 
+import {connect} from 'react-redux'
+import {hardDeleteHint} from '../redux/actions'
+
 const PropTypes = React.PropTypes;
 
 const hintSource = {
@@ -80,6 +83,10 @@ export const DisplayHintBox = React.createClass({
 	openDeleteAlert() {
 	  this.setState({ showModal: true });
 	},
+	onClickRemoveHandler() {
+		this.setState({ showModal: false });
+		this.props.dispatch(hardDeleteHint(this.props.text))
+	},
 
 	render() {
 		let connectDragSource = this.props.connectDragSource;
@@ -110,7 +117,7 @@ export const DisplayHintBox = React.createClass({
 				<div style={dialogStyle()} >
 				  <h4 style={{fontWeight: 'bold'}} id='modal-label'>Wait!</h4>
 				  <p>Are you sure you want to delete this hint? All matching hint tags associated with paragraphs will also be deleted.</p>
-				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.props.onClickRemoveHandler}>Yes</Button>
+				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.onClickRemoveHandler}>Yes</Button>
 				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.closeDeleteAlert}>No</Button>
 				</div>
 				</Modal>
@@ -121,4 +128,6 @@ export const DisplayHintBox = React.createClass({
 
 const DragDisplayHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(DisplayHintBox);
 
-export default DragDisplayHintBox;
+export const DisplayHintBoxContainer = connect()(DragDisplayHintBox)
+
+

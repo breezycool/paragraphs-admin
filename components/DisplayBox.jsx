@@ -3,6 +3,7 @@ import HintTag from './HintTag.jsx'
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 import {connect} from 'react-redux'
+import {removeParagraph} from '../redux/actions'
 
 const modalStyle = {
   position: 'fixed',
@@ -63,6 +64,11 @@ export const DisplayBox = React.createClass({
 	getClassNameB2() {		
 		return this.props.isBadText? "btn btn-default":"btn btn-default active"; 
 	},
+	onClickRemoveHandler() {
+		this.setState({ showModal: false });
+		this.props.dispatch(removeParagraph(this.props.index));	
+	},
+
 
 	render() { //
 		let hintTags = this.props.hintTags[this.props.index]
@@ -111,7 +117,7 @@ export const DisplayBox = React.createClass({
 				<div style={dialogStyle()} >
 				  <h4 style={{fontWeight: 'bold'}} id='modal-label'>Wait!</h4>
 				  <p align='center'>Are you sure you want to delete this paragraph?</p>
-				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.props.onClickRemoveHandler}>Yes</Button>
+				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.onClickRemoveHandler}>Yes</Button>
 				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.closeDeleteAlert}>No</Button>
 				</div>
 				</Modal>
