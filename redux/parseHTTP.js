@@ -37,7 +37,6 @@ export const getStateFromParse = () => {
     allHints.find().then((serverHints) => {
       server.hints = serverHints
       return allParagraphs.find()
-
     }).then((serverParagraphs) => {
       server.paragraphs = serverParagraphs
       return server
@@ -88,7 +87,7 @@ export const getStateFromParse = () => {
 
     }, (error) => {
       // error
-      resolve( "ERROR: "+error)
+      reject( "ERROR: "+error)
     })
   })
 
@@ -98,15 +97,12 @@ export const getStateFromParse = () => {
 /* postStateToParse */
 /* ******************************************** */
 export const postStateToParse = (state) => {
-
-  //TODO: completely reset parse state with existing.
   return new Promise((resolve, reject) => {
 
     console.log(state.hints)
     let serverHints = state.hints.map(h => {
       let hint = new Hint()
-      // if object is pulled from parse, set save to update
-      if (typeof h.id === 'string') hint.set('id', h.id)
+      hint.set('id', h.id)
       hint.set('text', h.text)
       return hint
     })
@@ -114,8 +110,7 @@ export const postStateToParse = (state) => {
     let serverParagraphs = state.paragraphs.map(p => {
 
       let paragraph = new Paragraph()
-      // if object is pulled from parse, set save to update
-      if (typeof p.id === 'string') paragraph.set('id', p.id)
+      paragraph.set('id', p.id)
       paragraph.set('badText', p.badText)
       paragraph.set('improvedText', p.improvedText)
       paragraph.set('hints', p.hintTags.map(t => t.id))
@@ -125,11 +120,32 @@ export const postStateToParse = (state) => {
     console.log(serverHints)
     console.log(serverParagraphs)
 
-    Parse.Object.saveAll(serverParagraphs).then(success => {
-      return Parse.Object.saveAll(serverHints)
-    }).then(
-      success => resolve(state),
-      error   => reject(error.message)
-    )
+    let old_paragraphs = Parse.Query(Paragraph)
+    let old_hints = Parse.Query(Hint)
+
+    /* delete existing data, and replace it with modified data */
+    // old_paragraphs.find().then(oldParagraphs => {
+    //   return Parse.Object.destroyAll(oldParagraphs)
+    // }).then(success => {
+    //   console.log("Old paragraphs destroyed.")
+    //   return old_hints.find()
+    // }).then(oldHints => {
+    //   return Parse.Object.destroyAll(oldHints)
+    // }).then(success => {
+    //   console.log("Old hints destroyed.")
+    //   return Parse.Object.saveAll(serverParagraphs)
+    // }).then(success => {
+    //   console.log("New paragraphs saved.")
+    //   return Parse.Object.saveAll(serverHints)
+    // }).then(success => {
+    //   console.log("New hints saved.")
+    //   resolve(state)
+    // }).catch(error => {
+    //   reject(error.message)
+    // })
+    /* end of chain */
+    resolve(state)
   })
+  /* end of returned promise */
 }
+/* end of function */
