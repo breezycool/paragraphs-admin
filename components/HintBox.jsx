@@ -3,9 +3,8 @@ import {connect} from 'react-redux'
 
 import {toggleHintEdit, hardDeleteHint} from '../redux/actions'
 
-import DisplayHintBox from './DisplayHintBox'
+import DragDisplayHintBox from './DisplayHintBox'
 import {EditHintBoxContainer} from './EditHintBox'
-
 
 
 export const HintBox = React.createClass({
@@ -17,11 +16,10 @@ export const HintBox = React.createClass({
 	},
 
 	render() {
-
 		return (
 			<div>
 				{!this.props.hint.isEditing
-					? <DisplayHintBox
+					? <DragDisplayHintBox
 						ref={(ref)=>{this.displayHintBox=ref}}
 						text={this.props.hint.text}
 						onClickHandler={() => {
@@ -38,12 +36,9 @@ export const HintBox = React.createClass({
 					/>
 				}
 				<br />
-
 			</div>
 		)
 	}
 })
-
-
 
 export const HintBoxContainer = connect()(HintBox)

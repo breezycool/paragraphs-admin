@@ -42,7 +42,8 @@ const EditHintBox = React.createClass({
 	getInitialState() {
 		return {
 			text: this.props.text,
-			showModal: false
+			showModal: false,
+			showLengthModal: false
 		}
 	},
 	closeAlert() {
@@ -52,15 +53,26 @@ const EditHintBox = React.createClass({
 	openAlert() {
 	  this.setState({ showModal: true });
 	},
+	closeLengthAlert() {
+	  this.setState({ showLengthModal: false });
+	},
+
+	openLengthAlert() {
+	  this.setState({ showLengthModal: true });
+	},
 
 	handleChange(e) {
-		this.setState({text: e.target.value})
+		this.setState({text: e.target.value})		
 	},
 	onClickHandler() {
 
 		//check if what we are trying to save already exists in the hints. give an alert if so.
 		let hintTextArray = this.props.hints.map(h => h.text);
-		if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
+		if(this.state.text.length>100)
+		{
+		this.openLengthAlert()		
+		}
+		else if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
 		{
 		this.props.dispatch(saveHintText(this.props.hints[this.props.index].text, this.state.text, this.props.index));
 		this.props.dispatch(toggleHintEdit(this.props.index))
@@ -91,6 +103,16 @@ const EditHintBox = React.createClass({
 				<div style={dialogStyle()} >
 				  <p align='center'>A hint with that name already exists.</p>
 				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeAlert}>Okay</Button>
+				</div>
+				</Modal>
+				<Modal  aria-labelledby='modal-label'
+				        style={modalStyle}
+				        backdropStyle={backdropStyle}
+				        show={this.state.showLengthModal}
+				        onHide={this.closeLengthAlert}>
+				<div style={dialogStyle()} >
+				  <p align='center'>Hints cannot be more than 100 characters. (Yours is {this.state.text.length})</p>
+				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.closeLengthAlert}>Okay</Button>
 				</div>
 				</Modal>
 			</div>
