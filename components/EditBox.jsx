@@ -42,7 +42,7 @@ const dialogStyle = function() {
 };
 
 export const EditBox = React.createClass({
-	getInitialState() {
+	getInitialState() { 
 		let initText = this.props.isBadText? this.props.badText : this.props.improvedText
 		return {
 			text: initText,
