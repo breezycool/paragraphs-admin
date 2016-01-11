@@ -13,6 +13,9 @@ let PropTypes = React.PropTypes;
 
 const paragraphTarget = {
   drop(props, monitor) {
+  	//drop logic. get item from the dragged hint (which will be just the text as an object).
+  	//then map it to an array (should really be just a string...) 
+  	//then concat the existing hint tags from the paragraph with the new proposed array and save them. (should really push a string.)
   	let hints = monitor.getItem()
   	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
     props.dispatch(saveHintTags(props.index, props.paragraph.hintTags.concat(extraHint)))
