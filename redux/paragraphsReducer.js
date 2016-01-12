@@ -1,35 +1,51 @@
-import {TOGGLE_EDIT, TOGGLE_PARAGRAPH_TYPE, SAVE_TEXT, ADD_PARAGRAPH,
-	REMOVE_PARAGRAPH, SAVE_HINT_TAGS, HARD_DELETE_HINT, SAVE_HINT_TEXT, LOAD_SUCCESS} from './actions'
+import {
+	TOGGLE_PARAGRAPH_EDIT,
+	TOGGLE_PARAGRAPH_TEXT_TYPE,
+	SET_PARAGRAPH_PUSHED,
+	SAVE_PARAGRAPH_TEXT,
+	ADD_PARAGRAPH,
+	REMOVE_PARAGRAPH,
+	SAVE_HINT_TAGS,
+	SAVE_HINT_TEXT,
+	LOAD_SUCCESS
+} from './actions'
 
 import {indexOf, pull} from 'lodash-node'
 
-/* paragraph reducer */
-export const newParagraph = (id, badText, improvedText, hints) => {
+// helper function; initializes a new paragraph to be added to the state.
+const newParagraph = (id, badText, improvedText, hintTags) => {
 	return {
 		id: id,
 		isEditing: false,
+		isPushed: false,
 		badText: badText,
 		improvedText: improvedText,
-		hintTags: hints
+		hintTags: hintTags
 	}
 }
 
+/* paragraph reducer */
+
 const paragraph = (state = {}, action) => {
 	switch(action.type) {
-	case TOGGLE_EDIT:
+	case TOGGLE_PARAGRAPH_EDIT:
 		return Object.assign({}, state, {
 			isEditing: !state.isEditing
 		})
-	case TOGGLE_PARAGRAPH_TYPE:
+	case TOGGLE_PARAGRAPH_TEXT_TYPE:
 		return Object.assign({}, state, {
 			isBadText: !state.isBadText
 		})
-	case SAVE_TEXT:
-		if (state.isBadText) {
+	case SET_PARAGRAPH_PUSHED:
+		return Object.assign({}, state, {
+			isPushed: true
+		})
+	case SAVE_PARAGRAPH_TEXT:
+		if (action.textType === 'badText') {
 			return Object.assign({}, state, {
 				badText: action.text
 			})
-		} else {
+		} else { // if action.textType === 'improvedText'
 			return Object.assign({}, state, {
 				improvedText: action.text
 			})
@@ -42,7 +58,7 @@ const paragraph = (state = {}, action) => {
 // dummy data; set to an empty list for realz
 const initialState = []
 
-export const paragraphs = (state = [], action) => {
+export const paragraphs = (state = initialState, action) => {
 
 	// if (action == undefined) return state
 
@@ -50,43 +66,31 @@ export const paragraphs = (state = [], action) => {
 
 	switch(action.type) {
 
-	case LOAD_SUCCESS:
-		return action.state.paragraphs
+	case TOGGLE_PARAGRAPH_EDIT:
+		newState[action.index] = paragraph(state[action.index], action)
+		return newState
+
+	case TOGGLE_PARAGRAPH_TEXT_TYPE:
+		newState[action.index] = paragraph(state[action.index], action)
+		return newState
+
+	case SET_PARAGRAPH_PUSHED:
+		newState[action.index] = paragraph(state[action.index], action)
 
 	case ADD_PARAGRAPH:
-		newState.push(newParagraph(state.length, 'bad Text', 'improved Text', []))
+		newState.push(newParagraph(action.id, action.badText, action.improvedText, action.hintTags))
 		return newState
 
-	case TOGGLE_EDIT:
-		newState[action.id] = paragraph(state[action.id], action)
-		return newState
-
-	case TOGGLE_PARAGRAPH_TYPE:
-		newState[action.id] = paragraph(state[action.id], action)
-		return newState
-
-	case SAVE_TEXT:
+	case SAVE_PARAGRAPH_TEXT:
 		newState[action.id] = paragraph(state[action.id], action)
 		return newState
 
 	case REMOVE_PARAGRAPH:
-		newState.splice(action.id, 1)
+		newState.splice(action.index, 1)
 		return newState
 
 	case SAVE_HINT_TAGS:
-		newState[action.id].hintTags = action.hints
-		return newState
-
-	case HARD_DELETE_HINT:
-		state.forEach((p, ind) => {
-			let tags = p.hintTags
-			// if hint to delete is in tags
-			let tagIndex = indexOf(tags, action.hint)
-			if (tagIndex != -1) {
-				// remove from tags in newState
-				newState[ind].hintTags.splice(tagIndex, 1)
-			}
-		})
+		newState[action.paragraphId].hintTags = action.hintTags
 		return newState
 
 	case SAVE_HINT_TEXT:

@@ -103,10 +103,19 @@ export const postStateToParse = (state) => {
     console.log(state.hints)
     let serverHints = state.hints.map(h => {
       let hint = new Hint()
-      hint.set('id', h.id)
+      if (typeof h.id == 'string') hint.set('id', h.id)
       hint.set('text', h.text)
       return hint
     })
+
+    const mapNameToId = (name) => {
+      let id
+      serverHints.forEach(h => {
+        if (h.text = name) id = h.id
+      })
+      if (typeof id == 'string') return id
+      else { return null }
+    }
 
     let serverParagraphs = state.paragraphs.map(p => {
 
@@ -114,19 +123,20 @@ export const postStateToParse = (state) => {
       if (typeof p.id == 'string') paragraph.set('id', p.id)
       paragraph.set('badText', p.badText)
       paragraph.set('improvedText', p.improvedText)
-      paragraph.set('hints', p.hintTags.map(t => t.id))
+      paragraph.set('hints', p.hintTags.map(mapNameToId)) // SIAMO QUI (mapNameToId needs an argument)
       return paragraph
     })
 
     console.log(serverHints)
     console.log(serverParagraphs)
 
-    Parse.Object.saveAll(serverParagraphs).then(success => {
-      return Parse.Object.saveAll(serverHints)
-    }).then(
-      success => resolve(state),
-      error   => reject(error.message)
-    )
+    // Parse.Object.saveAll(serverParagraphs).then(success => {
+    //   return Parse.Object.saveAll(serverHints)
+    // }).then(
+    //   success => resolve(state),
+    //   error   => reject(error.message)
+    // )
+    resolve(state)
   })
 }
 /* ******************************************** */

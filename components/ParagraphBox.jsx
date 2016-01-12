@@ -53,8 +53,8 @@ export const ParagraphBox = React.createClass({
 							this.props.dispatch(toggleEdit(this.props.index))
 						}}
 						onClickRemoveHandler={() => {
+							this.displayBox.setState({ showModal: false })
 							this.props.dispatch(removeParagraph(this.props.index))
-							this.displayBox.setState({ showModal: false });
 						}}
 						onChangeBadTypeHandler={() => {
 							if(this.props.paragraph.isBadText)

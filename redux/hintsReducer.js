@@ -1,4 +1,10 @@
-import {ADD_HINTS, SAVE_HINT_TEXT, TOGGLE_HINT_EDIT, HARD_DELETE_HINT, LOAD_SUCCESS} from './actions'
+import {
+	ADD_HINTS,
+	SAVE_HINT_TEXT,
+	TOGGLE_HINT_EDIT,
+	REMOVE_HINT,
+	LOAD_SUCCESS
+} from './actions'
 
 /* hint reducer */
 const newHint = (id, text) => {
@@ -9,7 +15,7 @@ const newHint = (id, text) => {
 	}
 }
 
-const hint = (state = newHint(0), action) => {
+const hint = (state = newHint(0,'new hint'), action) => {
 	switch(action.type) {
 		case TOGGLE_HINT_EDIT:
 			return Object.assign({}, state, {
@@ -34,9 +40,9 @@ export const hints = (state = initialState, action) => {
 		return action.state.hints
 
 	case ADD_HINTS:
-		action.hints.forEach((hintText, index) => {
+		action.hintTags.forEach((hintText, index) => {
+
 			var alreadyExists = false
-			// NOTE: nested loops, but shouldn't matter with no. of hints in practice.
 			state.map((hint) => {
 				if (hint.text == hintText) alreadyExists = true
 			})
@@ -47,14 +53,14 @@ export const hints = (state = initialState, action) => {
 		return newState
 
 	case TOGGLE_HINT_EDIT:
-		newState[action.id] = hint(state[action.id], action)
+		newState[action.index] = hint(state[action.index], action)
 		return newState
 
 	case SAVE_HINT_TEXT:
 		newState[action.id].text = action.text
 		return newState
 
-	case HARD_DELETE_HINT:
+	case REMOVE_HINT:
 		//TODO: improve this logic
 		let ind
 		newState.forEach((p, index) => {
