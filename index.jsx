@@ -1,42 +1,42 @@
 require("./node_modules/bootstrap/dist/css/bootstrap.min.css")
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Map} from 'immutable';
 
 /* REDUX */
 import {Provider} from 'react-redux'
 import {configureStore} from './redux/store'
-
-import DevTools from './redux/devtools'
-import {ParagraphListContainer} from './components/ParagraphList'
-import {HintListContainer} from './components/HintList'
-import {ServerControlsContainer} from './components/ServerControls'
-
 import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux';
+import DevTools from './redux/devtools'
+import * as allActions from './redux/actions'
 
-import {LoginFormContainer} from './components/LoginForm'
+//components
+import {ParagraphList} from './components/ParagraphList'
+import {HintList} from './components/HintList'
+import {LoginForm} from './components/LoginForm'
 
+//dragndrop
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+const actions = [allActions];
 
 /* create container as stateless function to indicate pure component */
 export const App = React.createClass ({
 	render() {
 		return (
 			<div>
-			{!this.props.loggedIn?
+			{!this.props.server.loggedIn?
 			<div>
-				<LoginFormContainer />
+				<LoginForm actions={this.props.actions} error={this.props.server.error} />
 			</div>
 			:	<div>
-					<div>
-						<ServerControlsContainer />
-					</div>
 					<span>
-						<ParagraphListContainer />
+						<ParagraphList actions={this.props.actions} paragraphs={this.props.paragraphs} />
 					</span>
 					<span>
-						<HintListContainer />
+						<HintList actions={this.props.actions} hints={this.props.hints}/>
 					</span>
 				</div>}
 			<DevTools />
@@ -45,15 +45,27 @@ export const App = React.createClass ({
 	}
 })
 
-const mapStateToProps = (state) => {
-	return {
-		loggedIn: state.server.loggedIn
-	}
+function mapStateToProps(state) {
+  return {
+      ...state
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  const creators = Map()
+          .merge(...actions)
+          .filter(value => typeof value === 'function')
+          .toObject();
+
+  return {
+    actions: bindActionCreators(creators, dispatch),
+    dispatch
+  };
 }
 
 const DragApp = DragDropContext(HTML5Backend)(App);
 
-export const AppContainer = connect(mapStateToProps)(DragApp)
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(DragApp)
 
 ReactDOM.render(
 	<Provider store={configureStore()}>

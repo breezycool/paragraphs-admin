@@ -5,8 +5,6 @@ import Modal from 'react-overlays/lib/Modal';
 import {ItemTypes} from './ItemTypes'
 import { DragSource } from 'react-dnd';
 
-import {connect} from 'react-redux'
-import {hardDeleteHint} from '../redux/actions'
 
 const PropTypes = React.PropTypes;
 
@@ -85,7 +83,7 @@ export const DisplayHintBox = React.createClass({
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });
-		this.props.dispatch(hardDeleteHint(this.props.text))
+		this.props.actions.hardDeleteHint(this.props.text)
 	},
 
 	render() {
@@ -126,8 +124,7 @@ export const DisplayHintBox = React.createClass({
 	}
 })
 
-const DragDisplayHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(DisplayHintBox);
+export const DragDisplayHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(DisplayHintBox);
 
-export const DisplayHintBoxContainer = connect()(DragDisplayHintBox)
 
 

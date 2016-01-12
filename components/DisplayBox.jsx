@@ -2,8 +2,6 @@ import React from 'react';
 import HintTag from './HintTag.jsx'
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
-import {connect} from 'react-redux'
-import {removeParagraph} from '../redux/actions'
 
 const modalStyle = {
   position: 'fixed',
@@ -66,16 +64,16 @@ export const DisplayBox = React.createClass({
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });
-		this.props.dispatch(removeParagraph(this.props.index));	
+		this.props.actions.removeParagraph(this.props.index);	
 	},
 
 
 	render() { //
-		let hintTags = this.props.hintTags[this.props.index]
+		let hintTags = this.props.hintTags
 		let hintTagsArr = [];
 		for (let i = 0; i < hintTags.length; i++) {
-		  hintTagsArr.push(<HintTag text={hintTags[i]}/>);
-		};
+			 hintTagsArr.push(<HintTag text={hintTags[i]}/>);
+			};
 		return (
 			<div>
 				<div className="btn-group">
@@ -126,11 +124,3 @@ export const DisplayBox = React.createClass({
 	}
 
 })
-
-const mapStateToProps = (state) => {
-	return {
-		hintTags: state.paragraphs.map(p => p.hintTags)
-	}
-}
-
-export const DisplayBoxContainer = connect(mapStateToProps)(DisplayBox)

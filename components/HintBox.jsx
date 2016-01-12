@@ -1,10 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux'
-
-import {toggleHintEdit} from '../redux/actions'
-
-import {DisplayHintBoxContainer} from './DisplayHintBox'
-import {EditHintBoxContainer} from './EditHintBox'
+import {DragDisplayHintBox} from './DisplayHintBox'
+import {EditHintBox} from './EditHintBox'
 
 
 export const HintBox = React.createClass({
@@ -19,17 +15,18 @@ export const HintBox = React.createClass({
 		return (
 			<div>
 				{!this.props.hint.isEditing
-					? <DisplayHintBoxContainer
+					? <DragDisplayHintBox
 						ref={(ref)=>{this.displayHintBox=ref}}
 						text={this.props.hint.text}
 						onClickHandler={() => {
-							this.props.dispatch(toggleHintEdit(this.props.index))
+							this.props.actions.toggleHintEdit(this.props.index)
 						}}
-						
+						actions={this.props.actions}
 					/>
-					: <EditHintBoxContainer
+					: <EditHintBox
 							text={this.props.hint.text}
 							index={this.props.index}
+							actions={this.props.actions}
 					/>
 				}
 				<br />
@@ -38,4 +35,3 @@ export const HintBox = React.createClass({
 	}
 })
 
-export const HintBoxContainer = connect()(HintBox)

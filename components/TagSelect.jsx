@@ -16,7 +16,7 @@ const TagSelect = React.createClass({
 		});
 
 		let options = [
-		 this.props.hints.text
+		 
 		  ].map(function(name) {
 		  return {
 			id: name,

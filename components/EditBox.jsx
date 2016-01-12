@@ -1,7 +1,5 @@
 import React from 'react';
 import TagSelect from './TagSelect.jsx'
-import {connect} from 'react-redux'
-import {saveText, toggleEdit, saveHintTags, addHints} from '../redux/actions'
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 
@@ -78,13 +76,13 @@ export const EditBox = React.createClass({
 		}
 		else
 		{
-		this.props.dispatch(saveText(this.state.text, this.props.index))
-		this.props.dispatch(toggleEdit(this.props.index))
+		this.props.actions.saveText(this.state.text, this.props.index)
+		this.props.actions.toggleEdit(this.props.index)
 		//save hint tags associated with paragraph
 
-		this.props.dispatch(saveHintTags(this.props.index, hintTagArr ))
+		this.props.actions.saveHintTags(this.props.index, hintTagArr)
 		//add any new hints to the hint list on the right.
-		this.props.dispatch(addHints(this.tagSelect.state.selected.map((each)=>{return each.name})))
+		this.props.actions.addHints(this.tagSelect.state.selected.map((each)=>{return each.name}))
 		}
 	},
 	render() {
@@ -100,7 +98,7 @@ export const EditBox = React.createClass({
 					style={textareaStyle}
 				/>
 				<div>
-					<TagSelect ref={(ref)=>{this.tagSelect=ref}} hintTags={this.props.hintTags} hints={this.props.hints}/>
+					<TagSelect ref={(ref)=>{this.tagSelect=ref}} hintTags={this.props.hintTags} />
 				</div>
 				<div>
 					<button
@@ -124,11 +122,3 @@ export const EditBox = React.createClass({
 	}
 })
 
-const mapStateToProps = (state) => {
-	return {
-		hints: state.hints
-	}
-}
-
-
-export const EditBoxContainer = connect(mapStateToProps)(EditBox)
