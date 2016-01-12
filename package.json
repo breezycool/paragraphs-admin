@@ -60,6 +60,7 @@
     "file-loader": "0.8.4",
     "jsdom": "^7.2.1",
     "mocha": "^2.3.4",
+    "mockery": "^1.4.0",
     "nock": "^3.6.0",
     "react-hot-loader": "1.2.7",
     "redux-devtools": "^3.0.0",

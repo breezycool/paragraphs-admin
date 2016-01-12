@@ -56,11 +56,11 @@ export const DisplayBox = React.createClass({
 	openDeleteAlert() {
 	  this.setState({ showModal: true });
 	},
-	getClassNameB1() {		
-		return this.props.isBadText? "btn btn-default active":"btn btn-default"; 
+	getClassNameB1() {
+		return this.props.isBadText? "btn btn-default active":"btn btn-default";
 	},
-	getClassNameB2() {		
-		return this.props.isBadText? "btn btn-default":"btn btn-default active"; 
+	getClassNameB2() {
+		return this.props.isBadText? "btn btn-default":"btn btn-default active";
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });

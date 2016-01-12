@@ -103,29 +103,71 @@ export const postStateToParse = (state) => {
     console.log(state.hints)
     let serverHints = state.hints.map(h => {
       let hint = new Hint()
-      hint.set('id', h.id)
+      if (typeof h.id == 'string') hint.set('id', h.id)
       hint.set('text', h.text)
       return hint
     })
 
+    const mapNameToId = (name) => {
+      let id
+      serverHints.forEach(h => {
+        if (h.text = name) id = h.id
+      })
+      if (typeof id == 'string') return id
+      else { return null }
+    }
+
     let serverParagraphs = state.paragraphs.map(p => {
 
       let paragraph = new Paragraph()
-      paragraph.set('id', p.id)
+      if (typeof p.id == 'string') paragraph.set('id', p.id)
       paragraph.set('badText', p.badText)
       paragraph.set('improvedText', p.improvedText)
-      paragraph.set('hints', p.hintTags.map(t => t.id))
+      paragraph.set('hints', p.hintTags.map(mapNameToId)) // SIAMO QUI (mapNameToId needs an argument)
       return paragraph
     })
 
     console.log(serverHints)
     console.log(serverParagraphs)
 
-    Parse.Object.saveAll(serverParagraphs).then(success => {
-      return Parse.Object.saveAll(serverHints)
-    }).then(
-      success => resolve(state),
-      error   => reject(error.message)
+    // Parse.Object.saveAll(serverParagraphs).then(success => {
+    //   return Parse.Object.saveAll(serverHints)
+    // }).then(
+    //   success => resolve(state),
+    //   error   => reject(error.message)
+    // )
+    resolve(state)
+  })
+}
+/* ******************************************** */
+
+/* removeParagraphFromParse */
+/* ******************************************** */
+export const removeParagraphFromParse = (id) => {
+  return new Promise((resolve, reject) => {
+    let paragraph = new Paragraph()
+    paragraph.set('id', id)
+
+    paragraph.destroy().then(
+      success => resolve(),
+      error => reject()
     )
   })
+  /* end of promise */
+}
+/* ******************************************** */
+
+/* removeHintFromParse */
+/* ******************************************** */
+export const removeHintFromParse = (id) => {
+  return new Promise((resolve, reject) => {
+    let hint = new Hint()
+    hint.set('id', id)
+
+    hint.destroy().then(
+      success => resolve(),
+      error => reject()
+    )
+  })
+  /* end of promise */
 }
