@@ -257,10 +257,17 @@ export const SAVE_ERROR = 'SAVE_ERROR'
 export const LOAD_SUCCESS = 'LOAD_SUCCESS'
 export const LOAD_ERROR = 'LOAD_ERROR'
 export const RESET_STATUS = 'RESET_STATUS'
+export const RESET_ERROR = 'RESET_ERROR'
 
 export const resetStatus = () => {
 	return {
 		type: RESET_STATUS
+	}
+}
+
+export const resetError = () => {
+	return {
+		type: RESET_ERROR
 	}
 }
 
