@@ -253,13 +253,13 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 
 			// NOTE: slightly convoluted logic here, but it works.
 			if (paragraph.isPushed) {
-				theBackend.updateDeviceParagraph(paragraph).then(
+				return theBackend.updateDeviceParagraph(paragraph).then(
 					success => dispatch(serverSuccess()),
 					error      => dispatch(serverError(error))
 				)
 			}
 			else {
-				dispatch(serverSuccess())
+				return dispatch(serverSuccess())
 			}
 		}).catch(error => serverError(error))
 	})
