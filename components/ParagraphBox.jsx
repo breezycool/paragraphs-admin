@@ -14,7 +14,7 @@ const paragraphTarget = {
   	//then map it to an array (should really be just a string...)
   	//then concat the existing hint tags from the paragraph with the new proposed array and save them. (should really push a string.)
   	let hints = monitor.getItem()
-  	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
+  	let extraHint = Object.keys(hints).map(function (key) {return hints[key]})
     props.actions.saveParagraph(
     	props.index,
     	props.paragraph.badText,
@@ -46,6 +46,7 @@ export const ParagraphBox = React.createClass({
 					? <DisplayBox
 						ref={(ref)=>{this.displayBox=ref}}
 						badText={this.props.paragraph.badText}
+						isPushed={this.props.paragraph.isPushed}
 						improvedText={this.props.paragraph.improvedText}
 						hintTags={this.props.paragraph.hintTags}
 						isBadText={this.props.paragraph.isBadText}

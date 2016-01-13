@@ -38,6 +38,7 @@ const paragraph = (state = {}, action) => {
 			isBadText: !state.isBadText
 		})
 	case SET_PARAGRAPH_PUSHED:
+		console.log(state)
 		return Object.assign({}, state, {
 			isPushed: true
 		})
@@ -79,6 +80,7 @@ export const paragraphs = (state = initialState, action) => {
 
 	case SET_PARAGRAPH_PUSHED:
 		newState[action.index] = paragraph(state[action.index], action)
+		return newState
 
 	case ADD_PARAGRAPH:
 		newState.push(newParagraph(action.id, action.badText, action.improvedText, action.hintTags))
