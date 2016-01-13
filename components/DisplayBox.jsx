@@ -2,7 +2,6 @@ import React from 'react';
 import HintTag from './HintTag.jsx'
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
-import {connect} from 'react-redux'
 
 const modalStyle = {
   position: 'fixed',
@@ -63,13 +62,18 @@ export const DisplayBox = React.createClass({
 	getClassNameB2() {
 		return this.props.isBadText? "btn btn-default":"btn btn-default active";
 	},
+	onClickRemoveHandler() {
+		this.setState({ showModal: false });
+		this.props.actions.deleteParagraph(this.props.index);
+	},
+
 
 	render() { //
-		let hintTags = this.props.hintTags[this.props.index]
+		let hintTags = this.props.hintTags
 		let hintTagsArr = [];
 		for (let i = 0; i < hintTags.length; i++) {
-		  hintTagsArr.push(<HintTag text={hintTags[i]}/>);
-		};
+			 hintTagsArr.push(<HintTag key={i} text={hintTags[i]}/>);
+			};
 		return (
 			<div>
 				<div className="btn-group">
@@ -111,7 +115,7 @@ export const DisplayBox = React.createClass({
 				<div style={dialogStyle()} >
 				  <h4 style={{fontWeight: 'bold'}} id='modal-label'>Wait!</h4>
 				  <p align='center'>Are you sure you want to delete this paragraph?</p>
-				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.props.onClickRemoveHandler}>Yes</Button>
+				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.onClickRemoveHandler}>Yes</Button>
 				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.closeDeleteAlert}>No</Button>
 				</div>
 				</Modal>
@@ -120,11 +124,3 @@ export const DisplayBox = React.createClass({
 	}
 
 })
-
-const mapStateToProps = (state) => {
-	return {
-		hintTags: state.paragraphs.map(p => p.hintTags)
-	}
-}
-
-export const DisplayBoxContainer = connect(mapStateToProps)(DisplayBox)

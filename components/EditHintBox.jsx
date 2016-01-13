@@ -1,9 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
-import {connect} from 'react-redux'
-
-import {saveHintText, hardDeleteHint, toggleHintEdit} from '../redux/actions'
 
 const modalStyle = {
   position: 'fixed',
@@ -38,7 +35,7 @@ const dialogStyle = function() {
 };
 
 
-const EditHintBox = React.createClass({
+export const EditHintBox = React.createClass({
 	getInitialState() {
 		return {
 			text: this.props.text,
@@ -62,29 +59,32 @@ const EditHintBox = React.createClass({
 	},
 
 	handleChange(e) {
-		this.setState({text: e.target.value})		
+		this.setState({text: e.target.value})
 	},
 	onClickHandler() {
 
 		//check if what we are trying to save already exists in the hints. give an alert if so.
-		let hintTextArray = this.props.hints.map(h => h.text);
+		//let hintTextArray = this.props.hints.map(h => h.text);
 		if(this.state.text.length>100)
 		{
-		this.openLengthAlert()		
+		this.openLengthAlert()
 		}
-		else if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
-		{
-		this.props.dispatch(saveHintText(this.props.hints[this.props.index].text, this.state.text, this.props.index));
-		this.props.dispatch(toggleHintEdit(this.props.index))
-		}
-		else{
-		this.openAlert()
-		}
+		//this checks if hint already exists in the array. this is going to be done in the redux actions so that
+		//this editbox doesnt need to know what all the hints are (state.hints).
+
+		// else if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
+		// {
+		this.props.actions.saveHint(this.props.index, this.state.text);
+		this.props.actions.toggleHintEdit(this.props.index)
+		// }
+		// else{
+		// this.openAlert()
+		// }
 	},
 	render() {
 		return (
 			<div>
-				
+
 				<textarea
 					defaultValue={this.props.text}
 					onChange={this.handleChange}
@@ -119,11 +119,3 @@ const EditHintBox = React.createClass({
 		);
 	}
 })
-
-const mapStateToProps = (state) => {
-	return {
-		hints: state.hints
-	}
-}
-
-export const EditHintBoxContainer = connect(mapStateToProps)(EditHintBox)

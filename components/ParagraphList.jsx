@@ -1,9 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux'
 
-import {toggleEdit, saveText, addParagraph} from '../redux/actions'
-
-import {ParagraphBoxContainer} from './ParagraphBox'
+import {DropParagraphBox} from './ParagraphBox'
 
 export const ParagraphList = React.createClass({
 	render() {
@@ -11,16 +8,18 @@ export const ParagraphList = React.createClass({
 			<div className="col-md-6 text-center">
 				<h3> Paragraphs </h3>
 				{Object.keys(this.props.paragraphs).map((index) => {
-					return <ParagraphBoxContainer
+					return <DropParagraphBox
 						key={index}
 						index={index}
 						paragraph={this.props.paragraphs[index]}
+						actions={this.props.actions}
+
 					/>
 				})}
 				<button
 					className="btn btn-sm btn-info glyphicon glyphicon-plus"
 					onClick={()=>{
-						this.props.dispatch(addParagraph())
+						this.props.actions.saveNewParagraph('write your bad text here', 'write your improved text here', [])
 					}}
 				 > </button>
 				 <hr />
@@ -28,11 +27,3 @@ export const ParagraphList = React.createClass({
 		)
 	}
 })
-
-const mapStateToProps = (state) => {
-	return {
-		paragraphs: state.paragraphs
-	}
-}
-
-export const ParagraphListContainer = connect(mapStateToProps)(ParagraphList)

@@ -5,6 +5,7 @@ import {
 	SAVE_ERROR,
 	LOAD_SUCCESS,
 	LOAD_ERROR,
+	RESET_ERROR,
 	RESET_STATUS} from './actions'
 
 let initialState = {
@@ -56,6 +57,11 @@ export const server = (state = initialState, action) => {
 		case RESET_STATUS:
 			return Object.assign({}, state, {
 				status: 0
+			})
+
+		case RESET_ERROR:
+			return Object.assign({}, state, {
+				error: null
 			})
 
 		default:

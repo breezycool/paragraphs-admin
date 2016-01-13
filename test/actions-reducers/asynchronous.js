@@ -21,9 +21,21 @@ describe('asynchronous ACs', () => {
 		return store.dispatch(actions.pushParagraph(0))
 	})
 
-	describe('saveParagraph', () => {
+	it('saveNewParagraph', () => {
+		const expectedActions = [
+			{ type: actions.ADD_PARAGRAPH }
+		]
 
-		it('works with an existing paragraph', () => {
+		const initialState = {
+			paragraphs: []
+		}
+
+		const store = mockStore(initialState, expectedActions)
+		return store.dispatch(actions.saveNewParagraph('new bad', 'new improved', []))
+	})
+
+	describe('saveParagraph', () => {
+		it('flushes newly saved paragraph to state', () => {
 			const expectedActions = [
 				{ type:  actions.SAVE_PARAGRAPH_TEXT },
 				{ type:  actions.SAVE_PARAGRAPH_TEXT },
@@ -32,28 +44,12 @@ describe('asynchronous ACs', () => {
 			]
 
 			const initialState = {
-				paragraphs: paragraphs(undefined, actions.addParagraph(0, 'bad text', 'improved text', []))
+				paragraphs: paragraphs(undefined, actions.addParagraph(0, 'bad text', 'improved text', [])),
+				hints: []
 			}
 
 			const store = mockStore(initialState, expectedActions)
 			return store.dispatch(actions.saveParagraph(0, 'badText', 'improvedText', []))
-		})
-
-		it('works with a non-exisiting paragraph', () => {
-			const expectedActions = [
-				{ type:  actions.ADD_PARAGRAPH },
-				{ type:  actions.SAVE_PARAGRAPH_TEXT },
-				{ type:  actions.SAVE_PARAGRAPH_TEXT },
-				{ type:  actions.SAVE_HINT_TAGS },
-				{ type:  actions.ADD_HINTS },
-			]
-
-			const initialState = {
-				paragraphs: paragraphs(undefined, actions.addParagraph(0, 'bad text', 'improved text', []))
-			}
-
-			const store = mockStore(initialState, expectedActions)
-			return store.dispatch(actions.saveParagraph(1, 'badText', 'improvedText', []))
 		})
 	})
 
@@ -101,21 +97,21 @@ describe('asynchronous ACs', () => {
 
 	})
 
-	describe('deleteHint', () => {
+	it('saveNewHint', () => {
+		const expectedActions = [
+			{ type: actions.UPDATE_HINTS }
+		]
 
-		it('works with an existing hint in backend', () => {
-			const expectedActions = [
-				{ type: actions.REMOVE_HINT }
-			]
+		const initialState = {
+			hints: []
+		}
 
-			const initialState = {
-				paragraphs: paragraphs(undefined, actions.addParagraph(0, 'bad text', 'improved text', [])),
-				hints: hints(undefined, actions.addHints(['Hint 1', 'Hint 2']))
-			}
+		const store = mockStore(initialState, expectedActions)
+		return store.dispatch(actions.saveNewHint('new hint'))
+	})
 
-			// TODO: some freaky bug here with Promises and mockState...
-			const store = mockStore(initialState, expectedActions)
-			return store.dispatch(actions.deleteHint(0))
-		})
+	it('deleteHint', () => {
+
+		throw new Error('not yet implemented')
 	})
 })

@@ -5,6 +5,7 @@ import Modal from 'react-overlays/lib/Modal';
 import {ItemTypes} from './ItemTypes'
 import { DragSource } from 'react-dnd';
 
+
 const PropTypes = React.PropTypes;
 
 const hintSource = {
@@ -80,6 +81,10 @@ export const DisplayHintBox = React.createClass({
 	openDeleteAlert() {
 	  this.setState({ showModal: true });
 	},
+	onClickRemoveHandler() {
+		this.setState({ showModal: false });
+		this.props.actions.deleteHint(this.props.index)
+	},
 
 	render() {
 		let connectDragSource = this.props.connectDragSource;
@@ -88,8 +93,8 @@ export const DisplayHintBox = React.createClass({
 		return connectDragSource(
 			<div style={{cursor: "pointer", opacity: isDragging ? 0.5 : 1}}>
 				<span onClick={this.props.onClickHandler}>
-					{this.props.text}  
-				</span>	
+					{this.props.text}
+				</span>
 				<span>
 				<span style={{margin: '0.2em', paddingRight: '0.08em'}}>
 					<button style={{margin: '0em'}}
@@ -110,7 +115,7 @@ export const DisplayHintBox = React.createClass({
 				<div style={dialogStyle()} >
 				  <h4 style={{fontWeight: 'bold'}} id='modal-label'>Wait!</h4>
 				  <p>Are you sure you want to delete this hint? All matching hint tags associated with paragraphs will also be deleted.</p>
-				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.props.onClickRemoveHandler}>Yes</Button>
+				  <Button style={{margin: '0.2em'}} bsStyle="primary" onClick={this.onClickRemoveHandler}>Yes</Button>
 				  <Button style={{margin: '0.2em'}} bsStyle="default" onClick={this.closeDeleteAlert}>No</Button>
 				</div>
 				</Modal>
@@ -119,6 +124,7 @@ export const DisplayHintBox = React.createClass({
 	}
 })
 
-const DragDisplayHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(DisplayHintBox);
+export const DragDisplayHintBox = DragSource(ItemTypes.HINT, hintSource, collect)(DisplayHintBox);
 
-export default DragDisplayHintBox;
+
+

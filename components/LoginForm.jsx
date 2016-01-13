@@ -1,16 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {login} from '../redux/actions'
 
-const LoginForm = React.createClass({
+export const LoginForm = React.createClass({
   getInitialState() {
     return {
       username: "",
-      password: ""
+      password: "",
+      loading: false
     }
   },
   login() {
-    this.props.dispatch(login(this.state.username,this.state.password))
+    this.props.actions.login(this.state.username,this.state.password)
   },
   handleUChange(e) {
     this.setState({username: e.target.value})
@@ -21,6 +20,7 @@ const LoginForm = React.createClass({
   onEnter(e) {
     if(e.keyCode == 13){
       this.login() //13 is enter
+      this.setState({loading: true})
     }
   },
   render() {
@@ -33,15 +33,18 @@ const LoginForm = React.createClass({
           <div>
         	<button onClick={this.login} className="btn btn-primary">Log In</button>
           </div>
+          {this.state.loading && !this.props.error?
+          <div>
+            <div className="spinner">
+            <div className="double-bounce1"></div>
+            <div className="double-bounce2"></div>
+            </div>
+           </div>
+           :
+           <div></div>
+          }
       </div>
     );
   }
 })
 
-const mapStateToProps = (state) => {
-  return {
-    error: state.server.error
-  }
-}
-
-export const LoginFormContainer = connect(mapStateToProps)(LoginForm)

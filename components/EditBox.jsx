@@ -1,7 +1,5 @@
 import React from 'react';
 import TagSelect from './TagSelect.jsx'
-import {connect} from 'react-redux'
-import {saveText, toggleEdit, saveHintTags, addHints} from '../redux/actions'
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-overlays/lib/Modal';
 
@@ -42,7 +40,7 @@ const dialogStyle = function() {
 };
 
 export const EditBox = React.createClass({
-	getInitialState() { 
+	getInitialState() {
 		let initText = this.props.isBadText? this.props.badText : this.props.improvedText
 		return {
 			text: initText,
@@ -65,8 +63,8 @@ export const EditBox = React.createClass({
 		//also adds any new hints added to the hint list on the right.
 		let hintTagArr = this.tagSelect.state.selected.map((each)=>{return each.name})
 		let lengthModal=false
-		
-		for(let i in hintTagArr) {		
+
+		for(let i in hintTagArr) {
 		    if (hintTagArr[i].length>100) {
 		        lengthModal=true;
 		        break;
@@ -78,13 +76,14 @@ export const EditBox = React.createClass({
 		}
 		else
 		{
-		this.props.dispatch(saveText(this.state.text, this.props.index))
-		this.props.dispatch(toggleEdit(this.props.index))
-		//save hint tags associated with paragraph
+		if (this.props.isBadText) {
+			this.props.actions.saveParagraph(this.props.index, this.state.text, this.props.improvedText, hintTagArr)
+		} else {
+			this.props.actions.saveParagraph(this.props.index, this.props.badText, this.state.text, hintTagArr)
+		}
 
-		this.props.dispatch(saveHintTags(this.props.index, hintTagArr ))
-		//add any new hints to the hint list on the right.
-		this.props.dispatch(addHints(this.tagSelect.state.selected.map((each)=>{return each.name})))
+		// TODO: call as a result of saveParagraph promise
+		this.props.actions.toggleParagraphEdit(this.props.index)
 		}
 	},
 	render() {
@@ -100,7 +99,7 @@ export const EditBox = React.createClass({
 					style={textareaStyle}
 				/>
 				<div>
-					<TagSelect ref={(ref)=>{this.tagSelect=ref}} hintTags={this.props.hintTags} hints={this.props.hints}/>
+					<TagSelect ref={(ref)=>{this.tagSelect=ref}} hintTags={this.props.hintTags} />
 				</div>
 				<div>
 					<button
@@ -124,11 +123,3 @@ export const EditBox = React.createClass({
 	}
 })
 
-const mapStateToProps = (state) => {
-	return {
-		hints: state.hints
-	}
-}
-
-
-export const EditBoxContainer = connect(mapStateToProps)(EditBox)

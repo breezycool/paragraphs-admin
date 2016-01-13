@@ -2,11 +2,11 @@ import {
 	TOGGLE_PARAGRAPH_EDIT,
 	TOGGLE_PARAGRAPH_TEXT_TYPE,
 	SET_PARAGRAPH_PUSHED,
-	SAVE_PARAGRAPH_TEXT,
+	UPDATE_PARAGRAPH_TEXT,
 	ADD_PARAGRAPH,
 	REMOVE_PARAGRAPH,
-	SAVE_HINT_TAGS,
-	SAVE_HINT_TEXT,
+	UPDATE_HINT_TAGS,
+	UPDATE_HINT_TEXT,
 	LOAD_SUCCESS
 } from './actions'
 
@@ -18,6 +18,7 @@ const newParagraph = (id, badText, improvedText, hintTags) => {
 		id: id,
 		isEditing: false,
 		isPushed: false,
+		isBadText: true,
 		badText: badText,
 		improvedText: improvedText,
 		hintTags: hintTags
@@ -40,8 +41,8 @@ const paragraph = (state = {}, action) => {
 		return Object.assign({}, state, {
 			isPushed: true
 		})
-	case SAVE_PARAGRAPH_TEXT:
-		if (action.textType === 'badText') {
+	case UPDATE_PARAGRAPH_TEXT:
+		if (action.textType == 'badText') {
 			return Object.assign({}, state, {
 				badText: action.text
 			})
@@ -55,7 +56,6 @@ const paragraph = (state = {}, action) => {
 	}
 }
 
-// dummy data; set to an empty list for realz
 const initialState = []
 
 export const paragraphs = (state = initialState, action) => {
@@ -65,6 +65,9 @@ export const paragraphs = (state = initialState, action) => {
 	let newState = state.slice()
 
 	switch(action.type) {
+
+	case LOAD_SUCCESS:
+		return action.state.paragraphs
 
 	case TOGGLE_PARAGRAPH_EDIT:
 		newState[action.index] = paragraph(state[action.index], action)
@@ -81,27 +84,27 @@ export const paragraphs = (state = initialState, action) => {
 		newState.push(newParagraph(action.id, action.badText, action.improvedText, action.hintTags))
 		return newState
 
-	case SAVE_PARAGRAPH_TEXT:
-		newState[action.id] = paragraph(state[action.id], action)
+	case UPDATE_PARAGRAPH_TEXT:
+		newState[action.index] = paragraph(state[action.index], action)
 		return newState
 
 	case REMOVE_PARAGRAPH:
 		newState.splice(action.index, 1)
 		return newState
 
-	case SAVE_HINT_TAGS:
-		newState[action.paragraphId].hintTags = action.hintTags
+	case UPDATE_HINT_TAGS:
+		newState[action.paragraphIndex].hintTags = action.hintTags
 		return newState
 
-	case SAVE_HINT_TEXT:
-		state.forEach((p, ind) => {
-			p.hintTags.forEach((t, innerIndex) => {
-				if (t == action.oldText) {
-					newState[ind].hintTags[innerIndex] = action.text
-				}
-			})
-		})
-		return newState
+	// case UPDATE_HINT_TEXT:
+	// 	state.forEach((p, ind) => {
+	// 		p.hintTags.forEach((t, innerIndex) => {
+	// 			if (t == action.oldText) {
+	// 				newState[ind].hintTags[innerIndex] = action.text
+	// 			}
+	// 		})
+	// 	})
+	// 	return newState
 
 	default:
 		return state

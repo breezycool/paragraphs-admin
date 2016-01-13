@@ -1,10 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux'
 
-import {removeParagraph, toggleEdit, saveText, toggleParagraphType, saveHintTags} from '../redux/actions'
-
-import {DisplayBoxContainer} from './DisplayBox'
-import {EditBoxContainer} from './EditBox'
+import {DisplayBox} from './DisplayBox'
+import {EditBox} from './EditBox'
 
 import { ItemTypes } from './ItemTypes';
 import { DropTarget } from 'react-dnd';
@@ -18,7 +15,12 @@ const paragraphTarget = {
   	//then concat the existing hint tags from the paragraph with the new proposed array and save them. (should really push a string.)
   	let hints = monitor.getItem()
   	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
-    props.dispatch(saveHintTags(props.index, props.paragraph.hintTags.concat(extraHint)))
+    props.actions.saveParagraph(
+    	props.index,
+    	props.paragraph.badText,
+    	props.paragraph.improvedText,
+    	props.paragraph.hintTags.concat(extraHint)
+    )
   }
 };
 
@@ -38,11 +40,10 @@ export const ParagraphBox = React.createClass({
 	render() {
 		let connectDropTarget = this.props.connectDropTarget;
 		let isOver = this.props.isOver;
-
 		return connectDropTarget(
 			<div>
 				{!this.props.paragraph.isEditing
-					? <DisplayBoxContainer
+					? <DisplayBox
 						ref={(ref)=>{this.displayBox=ref}}
 						badText={this.props.paragraph.badText}
 						improvedText={this.props.paragraph.improvedText}
@@ -50,33 +51,29 @@ export const ParagraphBox = React.createClass({
 						isBadText={this.props.paragraph.isBadText}
 						index={this.props.index}
 						onClickHandler={() => {
-							this.props.dispatch(toggleEdit(this.props.index))
+							this.props.actions.toggleParagraphEdit(this.props.index)
 						}}
-						onClickRemoveHandler={() => {
-							this.displayBox.setState({ showModal: false })
-							this.props.dispatch(removeParagraph(this.props.index))
-						}}
+						actions={this.props.actions}
 						onChangeBadTypeHandler={() => {
 							if(this.props.paragraph.isBadText)
-							{this.props.dispatch(toggleParagraphType(this.props.index));
+							{this.props.actions.toggleParagraphTextType(this.props.index);
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
 							}
-
 						}}
 						onChangeImprovedTypeHandler={() => {
 							if(!this.props.paragraph.isBadText)
-							{this.props.dispatch(toggleParagraphType(this.props.index));
+							{this.props.actions.toggleParagraphTextType(this.props.index);
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
 							}
-
 						}}
 					/>
-					: <EditBoxContainer
+					: <EditBox
 						hintTags={this.props.paragraph.hintTags}
 						badText={this.props.paragraph.badText}
 						improvedText={this.props.paragraph.improvedText}
 						isBadText={this.props.paragraph.isBadText}
 						index={this.props.index}
+						actions={this.props.actions}
 					/>}
 				<br/>
 			</div>
@@ -84,6 +81,6 @@ export const ParagraphBox = React.createClass({
 	}
 })
 
-const DropParagraphBox = DropTarget(ItemTypes.HINT, paragraphTarget, collect)(ParagraphBox);
+export const DropParagraphBox = DropTarget(ItemTypes.HINT, paragraphTarget, collect)(ParagraphBox);
 
-export const ParagraphBoxContainer = connect()(DropParagraphBox)
+
