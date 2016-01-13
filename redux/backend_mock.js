@@ -11,7 +11,10 @@ export default class Backend {
 	login(username, password) {
 		return new Promise((resolve, reject) => {
 			// TODO: parse
-			resolve(username)
+			resolve({
+				paragraphs: [],
+				hints: []
+			})
 		})
 	}
 
