@@ -6,6 +6,18 @@ import Promise from 'bluebird'
 
 export default class Backend {
 
+	/* LOGIN FUNCTIONS */
+
+	login(username, password) {
+		return new Promise((resolve, reject) => {
+			// TODO: parse
+			resolve(username)
+		})
+	}
+
+
+	/* UPDATE FUNCTIONS */
+
 	newWebParagraph(badText, improvedText, hintTags) {
 		return new Promise((resolve, reject) => {
 			console.log('NEW_WEB_PARAGRAPH')
