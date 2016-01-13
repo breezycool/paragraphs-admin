@@ -69,17 +69,11 @@ export const EditHintBox = React.createClass({
 		{
 		this.openLengthAlert()
 		}
-		//this checks if hint already exists in the array. this is going to be done in the redux actions so that
-		//this editbox doesnt need to know what all the hints are (state.hints).
-
-		// else if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
-		// {
+		else{
 		this.props.actions.saveHint(this.props.index, this.state.text);
 		this.props.actions.toggleHintEdit(this.props.index)
-		// }
-		// else{
-		// this.openAlert()
-		// }
+		}
+		
 	},
 	render() {
 		return (
@@ -91,9 +85,9 @@ export const EditHintBox = React.createClass({
 				/>
 				<div>
 					<button
-						className="btn btn-success glyphicon glyphicon-floppy-disk"
+						className="btn btn-success btn-sm"
 						onClick={this.onClickHandler}
-					> Save</button>
+					> Save <span className="glyphicon glyphicon-floppy-disk"></span></button>
 				</div>
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}
