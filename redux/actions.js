@@ -1,7 +1,7 @@
 
 import thunk from 'redux-thunk'
 import Promise from 'bluebird'
-import Backend from './backend_mock'
+import Backend from './danBackend'
 
 let theBackend = new Backend()
 

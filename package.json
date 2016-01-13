@@ -68,6 +68,7 @@
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-mock-store": "0.0.4",
+    "rewire": "^2.5.1",
     "style-loader": "0.13.0",
     "underscore": "^1.8.3",
     "url-loader": "0.5.6",
