@@ -66,8 +66,9 @@ export const DisplayBox = React.createClass({
 		this.setState({ showModal: false });
 		this.props.actions.deleteParagraph(this.props.index);
 	},
-
-
+	onClickPushHandler() {
+		this.props.actions.pushParagraph(this.props.index);
+	},
 	render() { //
 		let hintTags = this.props.hintTags
 		let hintTagsArr = [];
@@ -90,21 +91,27 @@ export const DisplayBox = React.createClass({
 				<hr style={{marginTop: '5px', marginBottom: '5px'}}/>
 				<div>
 					<span style={{fontWeight: 'bold'}}> Hints: </span>
-					{hintTagsArr.length===0
-					? <span style={{color: 'grey'}} className="btn btn-xs"> No hints to display.</span>
+					{hintTagsArr.length===0?
+					 <span style={{color: 'grey'}} className="btn btn-xs"> No hints to display.</span>
 					: hintTagsArr }
 				</div>
 				<div>
 					<span style={{margin: '0.2em', paddingRight: '1em'}}>
 					<button style={{margin: '0.2em'}}
-						className="btn btn-primary glyphicon glyphicon-pencil"
+						className="btn btn-primary btn-sm"
 						onClick={this.props.onClickHandler}
-					/>
-					</span>
-					<button style={{margin: '0.2em'}} className="btn btn-danger glyphicon glyphicon-trash"
+					> Edit <span className="glyphicon glyphicon-pencil"></span></button>
+					<button style={{margin: '0.2em'}} className="btn btn-danger btn-sm"
 						onClick={this.openDeleteAlert}
-					/>
-
+					> Delete <span className="glyphicon glyphicon-trash"></span></button>
+					{!this.props.isPushed?
+						<button style={{margin: '0.2em', color:'black'}} className="btn btn-info btn-sm"
+							onClick={this.onClickPushHandler}
+						> Push paragraph to app <span className="glyphicon glyphicon-hand-up"></span></button>
+						:<button style={{margin: '0.2em', color:'black'}} className="btn btn-info btn-sm active"
+						> Paragraph is pushed <span className="glyphicon glyphicon-thumbs-up"></span></button>
+					}
+					</span>
 				</div>
 				<hr style={{marginTop: '5px', marginBottom: '5px', borderColor: '#D8CFCF'}}/>
 				<Modal  aria-labelledby='modal-label'

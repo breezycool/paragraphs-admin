@@ -103,9 +103,9 @@ export const EditBox = React.createClass({
 				</div>
 				<div>
 					<button
-						className="btn btn-success glyphicon glyphicon-floppy-disk"
+						className="btn btn-success btn-sm"
 						onClick={this.onClickHandler}
-					></button>
+					> Save <span className="glyphicon glyphicon-floppy-disk"></span></button>
 				</div>
 				<Modal  aria-labelledby='modal-label'
 				        style={modalStyle}

@@ -96,15 +96,13 @@ export const DisplayHintBox = React.createClass({
 					{this.props.text}
 				</span>
 				<span>
-				<span style={{margin: '0.2em', paddingRight: '0.08em'}}>
-					<button style={{margin: '0em'}}
-						className="btn btn-primary glyphicon glyphicon-pencil"
+					<button style={{margin: '0.2em'}}
+						className="btn btn-primary btn-sm"
 						onClick={this.props.onClickHandler}
-					> </button>
-				</span>
-					<button style={{margin: '0em'}} className="btn btn-danger glyphicon glyphicon-trash"
+					> Edit <span className="glyphicon glyphicon-pencil"></span></button>
+					<button style={{margin: '0.2em'}} className="btn btn-danger btn-sm"
 						onClick={this.openDeleteAlert}
-					> </button>
+					> Delete <span className="glyphicon glyphicon-trash"></span> </button>
 				</span>
 				<hr style={{marginTop: '5px', marginBottom: '5px', borderColor: '#D8CFCF'}}/>
 				<Modal  aria-labelledby='modal-label'
