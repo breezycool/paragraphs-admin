@@ -142,10 +142,44 @@ export const userError = (error) => {
 	}
 }
 
+export const RESET_STATUS = 'RESET_STATUS'
+export const resetStatus = () => {
+	return {
+		type: RESET_STATUS
+	}
+}
+
+export const RESET_ERROR = 'RESET_ERROR'
+export const resetError = () => {
+	return {
+		type: RESET_ERROR
+	}
+}
+
 /* *************************** */
 
 /* backend actions */
 /* *************************** */
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const login = (username, password) => {
+	return dispatch => {
+		// loginToParse
+		theBackend.login(username,password).then(state => {
+			return dispatch({
+				type: LOGIN_SUCCESS,
+				state: state
+			})
+		}).catch(error => {
+			return dispatch({
+				type: LOGIN_ERROR,
+				error: error
+			})
+		})
+	}
+}
+
 export const pushParagraph = (index) => {
 	return ((dispatch, getState) => {
 		const state = getState()
@@ -334,62 +368,41 @@ export const deleteHint = (index) => {
 
 /* ************************* */
 
-
-/* server reducer */
-/* ************* */
-export const SAVE_SUCCESS = 'SAVE_SUCCESS'
-export const SAVE_ERROR = 'SAVE_ERROR'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
-
-export const RESET_STATUS = 'RESET_STATUS'
-export const resetStatus = () => {
-	return {
-		type: RESET_STATUS
-	}
-}
-
-export const RESET_ERROR = 'RESET_ERROR'
-export const resetError = () => {
-	return {
-		type: RESET_ERROR
-	}
-}
-
-import {
-	getStateFromParse,
-	postStateToParse,
-	loginToParse,
-	removeParagraphFromParse,
-	removeHintFromParse
-} from './parseHTTP'
+// import {
+// 	getStateFromParse,
+// 	postStateToParse,
+// 	loginToParse,
+// 	removeParagraphFromParse,
+// 	removeHintFromParse
+// } from './parseHTTP'
 
 
-export const login = (username, password) => {
-	return ((dispatch) => {
-		loginToParse(username, password).then(
-			success => dispatch(loadFromServer()),
-			error   => dispatch({type: LOGIN_ERROR, error: error.message})
-		)
-	})
-}
 
-export const loadFromServer = () => {
-	return ((dispatch) => {
-		return getStateFromParse().then(
-			state => dispatch({type: LOGIN_SUCCESS, state: state}),
-			error => dispatch({type: LOGIN_ERROR})
-		)
-	})
-}
+// export const login = (username, password) => {
+// 	return ((dispatch) => {
+// 		loginToParse(username, password).then(
+// 			success => dispatch(loadFromServer()),
+// 			error   => dispatch({type: LOGIN_ERROR, error: error.message})
+// 		)
+// 	})
+// }
 
-export const saveToServer = () => {
-	// thunk syntax
-	return ((dispatch, getState) => {
-		let state = getState()
-		postStateToParse(state).then(
-			saved => dispatch({type: SAVE_SUCCESS}),
-			error => dispatch({type: SAVE_ERROR, error: error})
-		)
-	})
-}
+// export const loadFromServer = () => {
+// 	return ((dispatch) => {
+// 		return getStateFromParse().then(
+// 			state => dispatch({type: LOGIN_SUCCESS, state: state}),
+// 			error => dispatch({type: LOGIN_ERROR})
+// 		)
+// 	})
+// }
+
+// export const saveToServer = () => {
+// 	// thunk syntax
+// 	return ((dispatch, getState) => {
+// 		let state = getState()
+// 		postStateToParse(state).then(
+// 			saved => dispatch({type: SAVE_SUCCESS}),
+// 			error => dispatch({type: SAVE_ERROR, error: error})
+// 		)
+// 	})
+// }

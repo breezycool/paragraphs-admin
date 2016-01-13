@@ -2,11 +2,22 @@ import {expect} from 'chai'
 
 import { paragraphs } from '../../redux/paragraphsReducer'
 import { hints } from '../../redux/hintsReducer'
-import {dispatch, getState} from 'redux'
+
 import mockStore from '../mocks/store'
 import * as actions from '../../redux/actions'
 
 describe('asynchronous ACs', () => {
+
+	it('login', () => {
+		const expectedActions = [
+			{ type: actions.LOGIN_SUCCESS }
+		]
+
+		const initialState = {}
+
+		const store = mockStore(initialState, expectedActions)
+		return store.dispatch(actions.login('username', 'password'))
+	})
 
 	it('pushParagraph', () => {
 		const expectedActions = [
@@ -111,7 +122,24 @@ describe('asynchronous ACs', () => {
 	})
 
 	it('deleteHint', () => {
+		// all saveParagraph actions, and a REMOVE_HINT action
+		const expectedActions = [
+			{ type:  actions.SAVE_PARAGRAPH_TEXT },
+			{ type:  actions.SAVE_PARAGRAPH_TEXT },
+			{ type:  actions.SAVE_HINT_TAGS },
+			{ type:  actions.ADD_HINTS },
+			{ type: actions.REMOVE_HINT }
+		]
 
 		throw new Error('not yet implemented')
+
+		// const initialState = {
+		// 	paragraphs: paragraphs(undefined, actions.addParagraph(0, 'bad text', 'improved text', [])),
+		// 	hints
+
+		// }
+
+		// const store = mockStore(initialState, expectedActions)
+		// return store.dispatch('SOME_ACTION')
 	})
 })
