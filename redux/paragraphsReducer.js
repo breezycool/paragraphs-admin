@@ -38,7 +38,6 @@ const paragraph = (state = {}, action) => {
 			isBadText: !state.isBadText
 		})
 	case SET_PARAGRAPH_PUSHED:
-		console.log(state)
 		return Object.assign({}, state, {
 			isPushed: true
 		})
