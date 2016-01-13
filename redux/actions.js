@@ -111,7 +111,7 @@ export const REMOVE_HINT = 'REMOVE_HINT'
 export const removeHint = (index) => {
 	return ({
 		type: REMOVE_HINT,
-		index: parseInt(index)
+		index
 	})
 }
 
@@ -133,49 +133,6 @@ export const serverError = (error) => {
 		error
 	}
 }
-/* *************************** */
-
-/* asynchronous actions HOPEFULLY UNNECESSARY ACTIONS, ALL TRAFFIC THROUGH saveParagraph. */
-/* *************************** */
-
-// export const saveParagraphText = (text, index, textType) => {
-// 	return ((dispatch, getState) => {
-// 		let state = getState()
-// 		let p = state.paragraphs[index]
-
-// 		let badText
-// 		let improvedText
-// 		if (textType == 'badText') {
-// 			badText = text
-// 			improvedText = p.improvedText
-// 		} else { // textType == 'improvedText'
-// 			badText = p.badText
-// 			improvedText = text
-// 		}
-
-// 		saveParagraph(index, badText, improvedText, p.hintTags)
-// 		.then(success => {
-// 			updateParagraphText(text, index, textType)
-// 		}).catch((error) => {
-// 			dispatch(serverError(error))
-// 		})
-// 	})
-// }
-
-// export const saveHintTags = (paragraphIndex, hintTags) => {
-// 	return ((dispatch, getState) => {
-// 		dispatch(updateHintTags(paragraphIndex, hintTags))
-// 	})
-// }
-
-// export const saveHintText = (oldText, text, index) => {
-// 	// TODO: update to include saveParagraph
-// 	// TODO: update to pass error:
-// 	// 			if a hint text already exists in current state (not including this hint)
-// 	return (dispatch, getState) => {
-// 		dispatch(updateHintText(oldText, text, index))
-// 	}
-// }
 
 /* *************************** */
 
@@ -193,66 +150,118 @@ export const pushParagraph = (index) => {
 	})
 }
 
+// just save a new paragraph.
+export const saveNewParagraph = (badText, improvedText, hintTags) => {
+	return (dispatch => {
+		theBackend.newWebParagraph(badText, improvedText, hintTags)
+		.then(savedP => {
+			dispatch(
+				addParagraph(
+					savedP.id,
+					savedP.badText,
+					savedP.improvedText,
+					savedP.hintTags
+				)
+			)
+		}).catch(error => dispatch(serverError(error)))
+	})
+}
+
+// HELPER : return an array with hintTags listed in hintTags that
+// are not already in state.
+const getNewHintTags = (hintTags, state) => {
+	let hintNamesInState = state.hints.map(h => h.text)
+	return hintTags.filter(tag => {
+		return hintNamesInState.indexOf(tag) == -1
+	})
+}
+
 export const saveParagraph = (index, badText, improvedText, hintTags) => {
 	return ((dispatch, getState) => {
 		let state = getState()
 
-		// if paragraph doesn't exist, add it and update state
-		// NOTE: this is a bit messy
-		if (Object.keys(state.paragraphs).indexOf(String(index)) == -1) {
-			dispatch(addParagraph(state.paragraphs.length, badText, improvedText, hintTags))
-			state = getState()
-		}
-
 		const p = state.paragraphs[index]
 
+		// check for new hints in hintTags
+		let newHintTags = getNewHintTags(hintTags, state)
 
-		// NOTE: slightly convoluted logic here, but it works.
-		theBackend.updateWebParagraph(p).then(
-			paragraph => {
+		// save new Hints in Backend,
+		// update WebParagraph,
+		// update DeviceParagraph if pushed,
+		// flush new state to app
+		Promise.all(newHintTags.map((hintTag) => {
+			// NOTE: need to curry this function bc redux-thunk
+			// doesn't seem to be working properly.
+			return dispatch(saveNewHint(hintTag))
+		})).then(success => {
+			return theBackend.updateWebParagraph(p)
+		}).then(paragraph => {
 
-				const sendActions = () => {
-					return [
-						updateParagraphText(badText, index, 'badText'),
-						updateParagraphText(improvedText, index, 'improvedText'),
-						updateHintTags(parseInt(index), hintTags),
-						updateHints(hintTags)
-					]
-				}
+			dispatch([
+				updateParagraphText(badText, index, 'badText'),
+				updateParagraphText(improvedText, index, 'improvedText'),
+				updateHintTags(parseInt(index), hintTags),
+			])
 
-				dispatch(sendActions())
-
-				if (paragraph.isPushed) {
-					theBackend.updateDeviceParagraph(paragraph).then(
-						success => dispatch(serverSuccess()),
-						error      => dispatch(serverError(error))
-					)
-				}
-				else {
-					dispatch(serverSuccess())
-				}
+			// NOTE: slightly convoluted logic here, but it works.
+			if (paragraph.isPushed) {
+				theBackend.updateDeviceParagraph(paragraph).then(
+					success => dispatch(serverSuccess()),
+					error      => dispatch(serverError(error))
+				)
 			}
-		).catch(
-			error => serverError(error)
-		)
+			else {
+				dispatch(serverSuccess())
+			}
+		}).catch(error => serverError(error))
 	})
 }
 
+// just save a new hint.
+export const saveNewHint = (text) => {
+	return ((dispatch) => {
+		theBackend.newHint(text).then(savedHint => {
+			dispatch(updateHints([savedHint.text]))
+			resolve()
+		}).catch(error => dispatch(serverError(error)))
+	})
+}
+
+// TODO: check that hint with same text doesn't already exist
+// in state (excluding current hint).
 export const saveHint  = (index, text) => {
 	return ((dispatch, getState) => {
 		let state = getState()
+		const oldHintText = state.hints[index].text
+
+		// NOTE: need to update the state with this hint before
+		// calling saveParagraph, so that saveParagraph does
+		// not think there are any new hints to create.
+		dispatch(updateHintText(oldHintText, text, index))
+
+		state = getState()
 		let hint = state.hints[index]
 
-		theBackend.updateHint(hint).then(
-			hint => {
+		// update Hint in Backend,
+		// update each Paragraph with Hint as tag in Backend, flushing to state after each.
+		theBackend.updateHint(hint).then(hint => {
+			return Promise.all(state.paragraphs.map((p, pIndex) => {
+				if (p.hintTags.includes(oldHintText)) {
+					let modifiedHintTags = p.hintTags.map(tag => {
+						return (tag == oldHintText) ? hint.text : tag
+					})
 
-				const sendActions = () => {
-					return [
-						// SIAMO QUI: abstracting all of updateHints and updateHintTags to saveHint here.
-					]
+					// NOTE: this dispatches before saveSuccess....
+					return dispatch([
+						saveParagraph(pIndex, p.badText, p.improvedText, modifiedHintTags),
+						dispatch(updateHintTags(pIndex, modifiedHintTags))
+					])
+				} else {
+					console.log('not updating paragraph at '+pIndex)
+					return
 				}
-			}
-		)
+			}))
+		}).catch(error => dispatch(serverError(error)))
 	})
 }
 
@@ -292,18 +301,22 @@ export const deleteHint = (index) => {
 		let state = getState()
 		let hint = state.hints[index]
 
-		Promise.each(state.paragraphs, (p) => {
-			let newHintTags = p.hintTags.filter(ht => ht != hint.text)
-			dispatch(saveHintTags(p.id, newHintTags))
-		}).then(success => {
+		// save each Paragraph to Backend without Hint tag,
+		// delete Hint from Backend,
+		// flush changes to state.
+		Promise.all(state.paragraphs.map((p, pIndex) => {
+			if (p.hintTags.includes(hint.text)) {
+				let newHintTags = p.hintTags.filter(ht => ht != hint.text)
+				return dispatch(saveParagraph(pIndex, p.badText, p.improvedText, newHintTags))
+			} else {
+				console.log('not updating paragraph at '+pIndex)
+				return
+			}
+		})).then(success => {
 			return theBackend.deleteHint(hint)
 		}).then(success => {
-			dispatch(removeHint(index))
-			return getState()
-		}).catch(error => {
-			dispatch(serverError(error))
-			throw new Error()
-		})
+			return dispatch(removeHint(index))
+		}).catch(error => dispatch(serverError(error)))
 	})
 }
 
@@ -351,7 +364,7 @@ export const login = (username, password) => {
 
 export const loadFromServer = () => {
 	return ((dispatch) => {
-		getStateFromParse().then(
+		return getStateFromParse().then(
 			state => dispatch({type: LOAD_SUCCESS, state: state}),
 			error => dispatch({type: LOAD_ERROR})
 		)

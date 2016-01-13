@@ -72,7 +72,7 @@ export const DisplayBox = React.createClass({
 		let hintTags = this.props.hintTags
 		let hintTagsArr = [];
 		for (let i = 0; i < hintTags.length; i++) {
-			 hintTagsArr.push(<HintTag text={hintTags[i]}/>);
+			 hintTagsArr.push(<HintTag key={i} text={hintTags[i]}/>);
 			};
 		return (
 			<div>

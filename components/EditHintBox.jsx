@@ -59,7 +59,7 @@ export const EditHintBox = React.createClass({
 	},
 
 	handleChange(e) {
-		this.setState({text: e.target.value})		
+		this.setState({text: e.target.value})
 	},
 	onClickHandler() {
 
@@ -67,14 +67,14 @@ export const EditHintBox = React.createClass({
 		//let hintTextArray = this.props.hints.map(h => h.text);
 		if(this.state.text.length>100)
 		{
-		this.openLengthAlert()		
+		this.openLengthAlert()
 		}
 		//this checks if hint already exists in the array. this is going to be done in the redux actions so that
-		//this editbox doesnt need to know what all the hints are (state.hints). 
+		//this editbox doesnt need to know what all the hints are (state.hints).
 
 		// else if(hintTextArray.indexOf(this.state.text) === -1 || hintTextArray[this.props.index] === this.state.text)
 		// {
-		this.props.actions.saveHintText(this.props.text, this.state.text, this.props.index);
+		this.props.actions.saveHint(this.props.index, this.state.text);
 		this.props.actions.toggleHintEdit(this.props.index)
 		// }
 		// else{
@@ -84,7 +84,7 @@ export const EditHintBox = React.createClass({
 	render() {
 		return (
 			<div>
-				
+
 				<textarea
 					defaultValue={this.props.text}
 					onChange={this.handleChange}
