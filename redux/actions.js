@@ -134,6 +134,14 @@ export const serverError = (error) => {
 	}
 }
 
+export const USER_ERROR = 'USER_ERROR'
+export const userError = (error) => {
+	return {
+		type: USER_ERROR,
+		error
+	}
+}
+
 /* *************************** */
 
 /* backend actions */
@@ -234,6 +242,10 @@ export const saveHint  = (index, text) => {
 		let state = getState()
 		const oldHintText = state.hints[index].text
 
+		state.hints.forEach((h) => {
+			if (h.text == text) dispatch(userError('hint already exists'))
+		})
+
 		// NOTE: need to update the state with this hint before
 		// calling saveParagraph, so that saveParagraph does
 		// not think there are any new hints to create.
@@ -327,17 +339,17 @@ export const deleteHint = (index) => {
 /* ************* */
 export const SAVE_SUCCESS = 'SAVE_SUCCESS'
 export const SAVE_ERROR = 'SAVE_ERROR'
-export const LOAD_SUCCESS = 'LOAD_SUCCESS'
-export const LOAD_ERROR = 'LOAD_ERROR'
-export const RESET_STATUS = 'RESET_STATUS'
-export const RESET_ERROR = 'RESET_ERROR'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
 
+export const RESET_STATUS = 'RESET_STATUS'
 export const resetStatus = () => {
 	return {
 		type: RESET_STATUS
 	}
 }
 
+export const RESET_ERROR = 'RESET_ERROR'
 export const resetError = () => {
 	return {
 		type: RESET_ERROR
@@ -357,7 +369,7 @@ export const login = (username, password) => {
 	return ((dispatch) => {
 		loginToParse(username, password).then(
 			success => dispatch(loadFromServer()),
-			error   => dispatch({type: LOAD_ERROR, error: error.message})
+			error   => dispatch({type: LOGIN_ERROR, error: error.message})
 		)
 	})
 }
@@ -365,8 +377,8 @@ export const login = (username, password) => {
 export const loadFromServer = () => {
 	return ((dispatch) => {
 		return getStateFromParse().then(
-			state => dispatch({type: LOAD_SUCCESS, state: state}),
-			error => dispatch({type: LOAD_ERROR})
+			state => dispatch({type: LOGIN_SUCCESS, state: state}),
+			error => dispatch({type: LOGIN_ERROR})
 		)
 	})
 }

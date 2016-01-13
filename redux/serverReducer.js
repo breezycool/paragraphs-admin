@@ -1,17 +1,18 @@
 import {
 	SERVER_SUCCESS,
 	SERVER_ERROR,
-	SAVE_SUCCESS,
-	SAVE_ERROR,
-	LOAD_SUCCESS,
-	LOAD_ERROR,
+	USER_ERROR,
+	LOGIN_SUCCESS,
+	LOGIN_ERROR,
 	RESET_ERROR,
-	RESET_STATUS} from './actions'
+	RESET_STATUS
+} from './actions'
 
 let initialState = {
 	status: 0,
 	loggedIn: false,
-	error: null
+	serverError: null,
+	userError: null
 }
 
 export const server = (state = initialState, action) => {
@@ -23,36 +24,33 @@ export const server = (state = initialState, action) => {
 		case SERVER_SUCCESS:
 			return Object.assign({}, state, {
 				status: 1,
-				error: null
+				serverError: null
 			})
 
 		case SERVER_ERROR:
 			return Object.assign({}, state, {
 				status: 2,
-				error: action.error
+				serverError: action.error
 			})
 
-		case SAVE_SUCCESS:
-			return Object.assign({}, state, {
-				status: 1,
-				error: null
-			})
+		case USER_ERROR:
+			return  {
+				...state,
+				status: 2,
+				userError: action.error
+			}
 
-		case SAVE_ERROR:
-		return Object.assign({}, state, {
-			status: 2,
-			error: action.error
-		})
-
-		case LOAD_SUCCESS:
+		case LOGIN_SUCCESS:
 			return {
+				...state,
 				loggedIn: true
 			}
 
-		case LOAD_ERROR:
-			return {
-				error: action.error
-			}
+		case LOGIN_ERROR:
+			return Object.assign({}, state, {
+				status: 2,
+				serverError: action.error
+			})
 
 		case RESET_STATUS:
 			return Object.assign({}, state, {
@@ -61,7 +59,8 @@ export const server = (state = initialState, action) => {
 
 		case RESET_ERROR:
 			return Object.assign({}, state, {
-				error: null
+				serverError: null,
+				userError: null
 			})
 
 		default:
