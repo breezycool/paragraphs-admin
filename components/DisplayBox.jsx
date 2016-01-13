@@ -64,7 +64,7 @@ export const DisplayBox = React.createClass({
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });
-		this.props.actions.removeParagraph(this.props.index);	
+		this.props.actions.deleteParagraph(this.props.index);
 	},
 
 

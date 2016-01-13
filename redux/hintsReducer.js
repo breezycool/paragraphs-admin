@@ -1,6 +1,6 @@
 import {
-	ADD_HINTS,
-	SAVE_HINT_TEXT,
+	UPDATE_HINTS,
+	UPDATE_HINT_TEXT,
 	TOGGLE_HINT_EDIT,
 	REMOVE_HINT,
 	LOAD_SUCCESS
@@ -28,7 +28,6 @@ const hint = (state = newHint(0,'new hint'), action) => {
 }
 
 const initialState = [
-	// newHint(0,"Zombie Nouns")
 ]
 
 export const hints = (state = initialState, action) => {
@@ -39,7 +38,7 @@ export const hints = (state = initialState, action) => {
 	case LOAD_SUCCESS:
 		return action.state.hints
 
-	case ADD_HINTS:
+	case UPDATE_HINTS:
 		action.hintTags.forEach((hintText, index) => {
 
 			var alreadyExists = false
@@ -56,17 +55,12 @@ export const hints = (state = initialState, action) => {
 		newState[action.index] = hint(state[action.index], action)
 		return newState
 
-	case SAVE_HINT_TEXT:
-		newState[action.id].text = action.text
+	case UPDATE_HINT_TEXT:
+		newState[action.index].text = action.text
 		return newState
 
 	case REMOVE_HINT:
-		//TODO: improve this logic
-		let ind
-		newState.forEach((p, index) => {
-			if (p.text == action.hint) ind = index
-		})
-		newState.splice(ind,1)
+		newState.splice(action.index,1)
 		return newState
 
 	default:

@@ -83,7 +83,7 @@ export const DisplayHintBox = React.createClass({
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });
-		this.props.actions.hardDeleteHint(this.props.text)
+		this.props.actions.removeHint(this.props.index)
 	},
 
 	render() {
@@ -93,8 +93,8 @@ export const DisplayHintBox = React.createClass({
 		return connectDragSource(
 			<div style={{cursor: "pointer", opacity: isDragging ? 0.5 : 1}}>
 				<span onClick={this.props.onClickHandler}>
-					{this.props.text}  
-				</span>	
+					{this.props.text}
+				</span>
 				<span>
 				<span style={{margin: '0.2em', paddingRight: '0.08em'}}>
 					<button style={{margin: '0em'}}

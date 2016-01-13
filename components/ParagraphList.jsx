@@ -13,13 +13,13 @@ export const ParagraphList = React.createClass({
 						index={index}
 						paragraph={this.props.paragraphs[index]}
 						actions={this.props.actions}
-						
+
 					/>
 				})}
 				<button
 					className="btn btn-sm btn-info glyphicon glyphicon-plus"
 					onClick={()=>{
-						this.props.actions.addParagraph()
+						this.props.actions.addParagraph(this.props.paragraphs.length, 'write your bad text here', 'write your improved text here', [])
 					}}
 				 > </button>
 				 <hr />

@@ -7,7 +7,7 @@ export const HintBox = React.createClass({
 
 	getInitialState() {
 		return {
-			text: this.props.hint.text	
+			text: this.props.hint.text
 		}
 	},
 
@@ -18,6 +18,7 @@ export const HintBox = React.createClass({
 					? <DragDisplayHintBox
 						ref={(ref)=>{this.displayHintBox=ref}}
 						text={this.props.hint.text}
+						index={this.props.index}
 						onClickHandler={() => {
 							this.props.actions.toggleHintEdit(this.props.index)
 						}}

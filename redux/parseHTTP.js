@@ -73,6 +73,7 @@ export const getStateFromParse = () => {
           id: p.id,
           badText: p.get('badText'),
           improvedText: p.get('improvedText'),
+          isBadText: p.get('isBadText'),
           isEditing: false,
           hintTags: hintTags
         }

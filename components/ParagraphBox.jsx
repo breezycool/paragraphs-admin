@@ -15,7 +15,12 @@ const paragraphTarget = {
   	//then concat the existing hint tags from the paragraph with the new proposed array and save them. (should really push a string.)
   	let hints = monitor.getItem()
   	let extraHint = Object.keys(hints).map(function (key) {return hints[key]});
-    props.actions.saveHintTags(props.index, props.paragraph.hintTags.concat(extraHint))
+    props.actions.saveParagraph(
+    	props.index,
+    	props.paragraph.badText,
+    	props.paragraph.improvedText,
+    	props.paragraph.hintTags.concat(extraHint)
+    )
   }
 };
 
@@ -46,18 +51,18 @@ export const ParagraphBox = React.createClass({
 						isBadText={this.props.paragraph.isBadText}
 						index={this.props.index}
 						onClickHandler={() => {
-							this.props.actions.toggleEdit(this.props.index)
+							this.props.actions.toggleParagraphEdit(this.props.index)
 						}}
 						actions={this.props.actions}
 						onChangeBadTypeHandler={() => {
 							if(this.props.paragraph.isBadText)
-							{this.props.actions.toggleParagraphType(this.props.index);
+							{this.props.actions.toggleParagraphTextType(this.props.index);
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
 							}
 						}}
 						onChangeImprovedTypeHandler={() => {
 							if(!this.props.paragraph.isBadText)
-							{this.props.actions.toggleParagraphType(this.props.index);
+							{this.props.actions.toggleParagraphTextType(this.props.index);
 							this.displayBox.setState({ showModal: false, typeBad: this.props.paragraph.isBadText })
 							}
 						}}

@@ -32,29 +32,26 @@ export const setParagraphPushed = (index) => {
 	}
 }
 
-// TODO: update to include saveParagraph
-export const SAVE_PARAGRAPH_TEXT = 'SAVE_PARAGRAPH_TEXT'
-export const saveParagraphText = (text, id, textType) => {
-	return { // improvedText
-		type: SAVE_PARAGRAPH_TEXT,
+export const UPDATE_PARAGRAPH_TEXT = 'UPDATE_PARAGRAPH_TEXT'
+export const updateParagraphText = (text, index, textType) => {
+	return({
+		type: UPDATE_PARAGRAPH_TEXT,
 		text: text,
-		id: id,
+		index: index,
 		textType: textType
-	}
+	})
 }
 
-// TODO: update to include saveParagraph
-export const SAVE_HINT_TAGS = 'SAVE_HINT_TAGS'
-export const saveHintTags = (paragraphId, hintTags) => {
+export const UPDATE_HINT_TAGS = 'UPDATE_HINT_TAGS'
+export const updateHintTags = (paragraphIndex, hintTags) => {
 
-	// filter duplicates in hint sent to reducer
 	function onlyUnique(value, index, self) {
 		return self.indexOf(value) === index;
 	}
 
 	return {
-		type: SAVE_HINT_TAGS,
-		paragraphId: paragraphId, // of current paragraph
+		type: UPDATE_HINT_TAGS,
+		paragraphIndex: paragraphIndex, // of current paragraph
 		hintTags: hintTags.filter(onlyUnique) // expect array of strings
 	}
 }
@@ -86,28 +83,26 @@ export const toggleHintEdit = (index) => {
 	}
 }
 
-// TODO: update to include saveParagraph
-export const SAVE_HINT_TEXT = 'SAVE_HINT_TEXT'
-export const saveHintText = (oldText, text, id) => {
+export const UPDATE_HINT_TEXT = 'UPDATE_HINT_TEXT'
+export const updateHintText = (oldText, text, index) => {
 	return {
-		type: SAVE_HINT_TEXT,
+		type: UPDATE_HINT_TEXT,
 		oldText,
 		text,
-		id
+		index
 	}
 }
 
-export const ADD_HINTS = 'ADD_HINTS'
-export const addHints = (hintTags) => {
+export const UPDATE_HINTS = 'UPDATE_HINTS'
+export const updateHints = (hintTags) => {
 
 	// remove duplicates in array
 	function onlyUnique(value, index, self) {
 		return self.indexOf(value) === index;
 	}
 
-	// TODO: check whether hints exist in state, and add to Parse if they don't
 	return {
-		type: ADD_HINTS,
+		type: UPDATE_HINTS,
 		hintTags: hintTags.filter(onlyUnique)
 	}
 }
@@ -116,7 +111,7 @@ export const REMOVE_HINT = 'REMOVE_HINT'
 export const removeHint = (index) => {
 	return ({
 		type: REMOVE_HINT,
-		index
+		index: parseInt(index)
 	})
 }
 
@@ -140,9 +135,52 @@ export const serverError = (error) => {
 }
 /* *************************** */
 
-/* asynchronous actions */
+/* asynchronous actions HOPEFULLY UNNECESSARY ACTIONS, ALL TRAFFIC THROUGH saveParagraph. */
 /* *************************** */
 
+// export const saveParagraphText = (text, index, textType) => {
+// 	return ((dispatch, getState) => {
+// 		let state = getState()
+// 		let p = state.paragraphs[index]
+
+// 		let badText
+// 		let improvedText
+// 		if (textType == 'badText') {
+// 			badText = text
+// 			improvedText = p.improvedText
+// 		} else { // textType == 'improvedText'
+// 			badText = p.badText
+// 			improvedText = text
+// 		}
+
+// 		saveParagraph(index, badText, improvedText, p.hintTags)
+// 		.then(success => {
+// 			updateParagraphText(text, index, textType)
+// 		}).catch((error) => {
+// 			dispatch(serverError(error))
+// 		})
+// 	})
+// }
+
+// export const saveHintTags = (paragraphIndex, hintTags) => {
+// 	return ((dispatch, getState) => {
+// 		dispatch(updateHintTags(paragraphIndex, hintTags))
+// 	})
+// }
+
+// export const saveHintText = (oldText, text, index) => {
+// 	// TODO: update to include saveParagraph
+// 	// TODO: update to pass error:
+// 	// 			if a hint text already exists in current state (not including this hint)
+// 	return (dispatch, getState) => {
+// 		dispatch(updateHintText(oldText, text, index))
+// 	}
+// }
+
+/* *************************** */
+
+/* backend actions */
+/* *************************** */
 export const pushParagraph = (index) => {
 	return ((dispatch, getState) => {
 		const state = getState()
@@ -168,15 +206,21 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 
 		const p = state.paragraphs[index]
 
+
 		// NOTE: slightly convoluted logic here, but it works.
 		theBackend.updateWebParagraph(p).then(
 			paragraph => {
-				dispatch([
-					saveParagraphText(badText, paragraph.id, 'badText'),
-					saveParagraphText(improvedText, paragraph.id, 'improvedText'),
-					saveHintTags(paragraph.id, hintTags),
-					addHints(hintTags),
-				])
+
+				const sendActions = () => {
+					return [
+						updateParagraphText(badText, index, 'badText'),
+						updateParagraphText(improvedText, index, 'improvedText'),
+						updateHintTags(parseInt(index), hintTags),
+						updateHints(hintTags)
+					]
+				}
+
+				dispatch(sendActions())
 
 				if (paragraph.isPushed) {
 					theBackend.updateDeviceParagraph(paragraph).then(
@@ -190,6 +234,24 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 			}
 		).catch(
 			error => serverError(error)
+		)
+	})
+}
+
+export const saveHint  = (index, text) => {
+	return ((dispatch, getState) => {
+		let state = getState()
+		let hint = state.hints[index]
+
+		theBackend.updateHint(hint).then(
+			hint => {
+
+				const sendActions = () => {
+					return [
+						// SIAMO QUI: abstracting all of updateHints and updateHintTags to saveHint here.
+					]
+				}
+			}
 		)
 	})
 }
@@ -233,8 +295,6 @@ export const deleteHint = (index) => {
 		Promise.each(state.paragraphs, (p) => {
 			let newHintTags = p.hintTags.filter(ht => ht != hint.text)
 			dispatch(saveHintTags(p.id, newHintTags))
-			saveParagraph(p.id, p.badText, p.improvedText, newHintTags)
-				.catch(error => dispatch(serverError(error)))
 		}).then(success => {
 			return theBackend.deleteHint(hint)
 		}).then(success => {

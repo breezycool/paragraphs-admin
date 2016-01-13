@@ -40,7 +40,7 @@ const dialogStyle = function() {
 };
 
 export const EditBox = React.createClass({
-	getInitialState() { 
+	getInitialState() {
 		let initText = this.props.isBadText? this.props.badText : this.props.improvedText
 		return {
 			text: initText,
@@ -63,8 +63,8 @@ export const EditBox = React.createClass({
 		//also adds any new hints added to the hint list on the right.
 		let hintTagArr = this.tagSelect.state.selected.map((each)=>{return each.name})
 		let lengthModal=false
-		
-		for(let i in hintTagArr) {		
+
+		for(let i in hintTagArr) {
 		    if (hintTagArr[i].length>100) {
 		        lengthModal=true;
 		        break;
@@ -76,13 +76,16 @@ export const EditBox = React.createClass({
 		}
 		else
 		{
-		this.props.actions.saveText(this.state.text, this.props.index)
-		this.props.actions.toggleEdit(this.props.index)
-		//save hint tags associated with paragraph
+		if (this.props.isBadText) {
+			// console.log(hintTagArr)
+			this.props.actions.saveParagraph(this.props.index, this.state.text, this.props.improvedText, hintTagArr)
+		} else {
+			this.props.actions.saveParagraph(this.props.index, this.props.badText, this.state.text, hintTagArr)
+		}
 
-		this.props.actions.saveHintTags(this.props.index, hintTagArr)
-		//add any new hints to the hint list on the right.
-		this.props.actions.addHints(this.tagSelect.state.selected.map((each)=>{return each.name}))
+		// TODO: call as a result of saveParagraph promise
+		this.props.actions.toggleParagraphEdit(this.props.index)
+		// this.props.actions.addHints(hintTagArr)
 		}
 	},
 	render() {

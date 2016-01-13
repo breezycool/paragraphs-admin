@@ -110,7 +110,7 @@ describe('asynchronous ACs', () => {
 
 			const initialState = {
 				paragraphs: paragraphs(undefined, actions.addParagraph(0, 'bad text', 'improved text', [])),
-				hints: hints(undefined, actions.addHints(['Hint 1', 'Hint 2']))
+				hints: hints(undefined, actions.updateHints(['Hint 1', 'Hint 2']))
 			}
 
 			// TODO: some freaky bug here with Promises and mockState...

@@ -24,6 +24,12 @@ export default class Backend {
 		})
 	}
 
+	updateHint(h) {
+		return new Promise((resolve, reject) => {
+			resolve(h)
+		})
+	}
+
 	deleteHint(h) {
 		return new Promise((resolve, reject) => {
 			// TODO: parse

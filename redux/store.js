@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import multi from 'redux-multi'
 import { reducer } from './reducer'
 import DevTools from './devtools'
 
 const createFinalStore = compose(
-	applyMiddleware(thunk),
+	applyMiddleware(thunk, multi),
 	DevTools.instrument()
 )(createStore)
 
