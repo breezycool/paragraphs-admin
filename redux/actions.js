@@ -185,12 +185,18 @@ export const pushParagraph = (index) => {
 		const state = getState()
 		const p = state.paragraphs[index]
 
-		theBackend.updateDeviceParagraph(p).then(
-			success => setParagraphPushed(index),
-			error      => serverError(error)
-		)
+		theBackend.updateDeviceParagraph(p)
+		.then(success => {
+			dispatch(setParagraphPushed(index))
+		}).catch(error => serverError(error))
 	})
 }
+
+// export const pushParagraph = (index) => {
+// 	return dispatch => {
+// 		dispatch(setParagraphPushed())
+// 	}
+// }
 
 // just save a new paragraph.
 export const saveNewParagraph = (badText, improvedText, hintTags) => {
