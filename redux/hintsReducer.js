@@ -3,7 +3,7 @@ import {
 	UPDATE_HINT_TEXT,
 	TOGGLE_HINT_EDIT,
 	REMOVE_HINT,
-	LOAD_SUCCESS
+	LOGIN_SUCCESS
 } from './actions'
 
 /* hint reducer */
@@ -35,7 +35,7 @@ export const hints = (state = initialState, action) => {
 
 	switch(action.type) {
 
-	case LOAD_SUCCESS:
+	case LOGIN_SUCCESS:
 		return action.state.hints
 
 	case UPDATE_HINTS:

@@ -7,7 +7,7 @@ import {
 	REMOVE_PARAGRAPH,
 	UPDATE_HINT_TAGS,
 	UPDATE_HINT_TEXT,
-	LOAD_SUCCESS
+	LOGIN_SUCCESS
 } from './actions'
 
 import {indexOf, pull} from 'lodash-node'
@@ -66,7 +66,7 @@ export const paragraphs = (state = initialState, action) => {
 
 	switch(action.type) {
 
-	case LOAD_SUCCESS:
+	case LOGIN_SUCCESS:
 		return action.state.paragraphs
 
 	case TOGGLE_PARAGRAPH_EDIT:
