@@ -160,6 +160,26 @@ export const resetError = () => {
 
 /* backend actions */
 /* *************************** */
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const login = (username, password) => {
+	return dispatch => {
+		// loginToParse
+		theBackend.login(username,password).then(state => {
+			return dispatch({
+				type: LOGIN_SUCCESS,
+				state: state
+			})
+		}).catch(error => {
+			return dispatch({
+				type: LOGIN_ERROR,
+				error: error
+			})
+		})
+	}
+}
+
 export const pushParagraph = (index) => {
 	return ((dispatch, getState) => {
 		const state = getState()
@@ -347,29 +367,6 @@ export const deleteHint = (index) => {
 }
 
 /* ************************* */
-
-
-/* server reducer */
-/* ************* */
-
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
-export const login = (username, password) => {
-	return dispatch => {
-		// loginToParse
-		theBackend.login(username,password).then(state => {
-			return dispatch({
-				type: LOGIN_SUCCESS,
-				state: state
-			})
-		}).catch(error => {
-			return dispatch({
-				type: LOGIN_ERROR,
-				error: error
-			})
-		})
-	}
-}
 
 // import {
 // 	getStateFromParse,
