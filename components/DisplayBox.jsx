@@ -105,10 +105,10 @@ export const DisplayBox = React.createClass({
 						onClick={this.openDeleteAlert}
 					> Delete <span className="glyphicon glyphicon-trash"></span></button>
 					{!this.props.isPushed?
-						<button style={{margin: '0.2em', color:'black'}} className="btn btn-info btn-sm"
+						<button style={{margin: '0.2em', fontWeight: 'bold'}} className="btn btn-success btn-sm"
 							onClick={this.onClickPushHandler}
 						> Push paragraph to app <span className="glyphicon glyphicon-hand-up"></span></button>
-						:<button style={{margin: '0.2em', color:'black'}} className="btn btn-info btn-sm active"
+						:<button style={{margin: '0.2em', fontWeight: 'bold'}} className="btn btn-success btn-sm active"
 						> Paragraph is pushed <span className="glyphicon glyphicon-thumbs-up"></span></button>
 					}
 					</span>
