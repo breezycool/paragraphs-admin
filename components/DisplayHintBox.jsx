@@ -83,6 +83,8 @@ export const DisplayHintBox = React.createClass({
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });
+		this.props.actions.resetStatus()
+		this.props.actions.resetError()
 		this.props.actions.deleteHint(this.props.index)
 	},
 

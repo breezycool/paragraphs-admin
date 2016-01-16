@@ -1,7 +1,7 @@
 
 import thunk from 'redux-thunk'
 import Promise from 'bluebird'
-import Backend from './danBackend'
+import Backend from './backend'
 
 let theBackend = new Backend()
 
@@ -188,7 +188,7 @@ export const pushParagraph = (index) => {
 		theBackend.newDeviceParagraph(p.id, p.badText, p.improvedText, p.hintTags)
 		.then(success => {
 			dispatch(setParagraphPushed(index))
-		}).catch(error => serverError(error))
+		}).catch(error => dispatch(serverError(error)))
 	})
 }
 
@@ -260,7 +260,11 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 			else {
 				return dispatch(serverSuccess())
 			}
-		}).catch(error => serverError(error))
+		}, // TODO: this save error is maybe not handled in UI
+			error => {
+				dispatch(serverError(error))
+		})
+		//.catch(error => serverError(error))
 	})
 }
 
