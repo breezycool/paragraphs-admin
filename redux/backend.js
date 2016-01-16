@@ -188,8 +188,8 @@ export default class Backend {
 			let hint = {
 				text: text
 			}
-			newHint.save(hint).then(function(newParagraph) {
-				resolve(hint)
+			newHint.save(hint).then(function() {
+				resolve({text: text})
 			}, function(error) {
 			    reject(error)
 			});
