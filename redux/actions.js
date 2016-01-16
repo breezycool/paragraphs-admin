@@ -313,7 +313,6 @@ export const saveHint  = (index, text) => {
 						dispatch(updateHintTags(pIndex, modifiedHintTags))
 					])
 				} else {
-					console.log('not updating paragraph at '+pIndex)
 					return
 				}
 			}))
@@ -365,7 +364,6 @@ export const deleteHint = (index) => {
 				let newHintTags = p.hintTags.filter(ht => ht != hint.text)
 				return dispatch(saveParagraph(pIndex, p.badText, p.improvedText, newHintTags))
 			} else {
-				console.log('not updating paragraph at '+pIndex)
 				return
 			}
 		})).then(success => {

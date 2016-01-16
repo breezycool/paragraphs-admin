@@ -151,7 +151,6 @@ export default class Backend {
 			    	)
 			  },
 			  error: function(object, error) {
-			  	console.log(error)
 			    // The object was not retrieved successfully.
 			    // error is a Parse.Error with an error code and description.
 			    reject(error)
@@ -192,7 +191,7 @@ export default class Backend {
 			newHint.save(hint).then(function(newParagraph) {
 				resolve(hint)
 			}, function(error) {
-			    reject(error.message)
+			    reject(error)
 			});
 		})
 	}
@@ -212,7 +211,7 @@ export default class Backend {
 			  error: function(object, error) {
 			    // The object was not retrieved successfully.
 			    // error is a Parse.Error with an error code and description.
-			    reject(error.message)
+			    reject(error)
 			  }
 			})
 		})
