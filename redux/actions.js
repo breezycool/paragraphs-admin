@@ -185,7 +185,7 @@ export const pushParagraph = (index) => {
 		const state = getState()
 		const p = state.paragraphs[index]
 
-		theBackend.updateDeviceParagraph(p)
+		theBackend.newDeviceParagraph(p.id, p.badText, p.improvedText, p.hintTags)
 		.then(success => {
 			dispatch(setParagraphPushed(index))
 		}).catch(error => serverError(error))
@@ -242,9 +242,8 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 			// doesn't seem to be working properly.
 			return dispatch(saveNewHint(hintTag))
 		})).then(success => {
-			return theBackend.updateWebParagraph(p)
+			return theBackend.updateWebParagraph(p, badText, improvedText, hintTags)
 		}).then(paragraph => {
-
 			dispatch([
 				updateParagraphText(badText, index, 'badText'),
 				updateParagraphText(improvedText, index, 'improvedText'),
@@ -296,11 +295,12 @@ export const saveHint  = (index, text) => {
 
 		// update Hint in Backend,
 		// update each Paragraph with Hint as tag in Backend, flushing to state after each.
-		theBackend.updateHint(hint).then(hint => {
+		theBackend.updateHint(hint, text).then(hint => {
 			return Promise.all(state.paragraphs.map((p, pIndex) => {
 				if (p.hintTags.includes(oldHintText)) {
+
 					let modifiedHintTags = p.hintTags.map(tag => {
-						return (tag == oldHintText) ? hint.text : tag
+						return (tag == oldHintText) ? text : tag
 					})
 
 					// NOTE: this dispatches before saveSuccess....
