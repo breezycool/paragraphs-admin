@@ -18,8 +18,6 @@ var allHints = new Parse.Query(Hint)
 
 const deleteDeviceParagraph = (pid) => {
 	return new Promise((resolve, reject) => {
-		console.log('deletedeviceparagraph')
-
 		allDeviceParagraphs.equalTo("pid", pid);
 		allDeviceParagraphs.find({
 		  success: function(dp) {
@@ -38,8 +36,6 @@ const deleteDeviceParagraph = (pid) => {
 
 const setWebParagraphPushed = (id) => {
 	return new Promise((resolve, reject) => {
-		console.log('setwparagraphpush')
-
 		allParagraphs.get(id, {
 		  success: function(pParse) {
 		    // The object was retrieved successfully.
@@ -60,7 +56,6 @@ const setWebParagraphPushed = (id) => {
 
 const updateDeviceParagraph = (p, badText, improvedText, hintTags) => {
 	return new Promise((resolve, reject) => {
-		console.log('updatingdeviceparagraph')
 
 		allDeviceParagraphs.equalTo("pid", p.id);
 		allDeviceParagraphs.find({
@@ -84,27 +79,32 @@ const updateDeviceParagraph = (p, badText, improvedText, hintTags) => {
 export default class Backend {
 
 	constructor() {
+		/* DAN'S PARSE CREDS */
+		// Parse.initialize(
+		// 	"m8EbyLxgYzVkpaNHxh0ogbJGxmS3uIeVR0bgRQ00",
+		// 	"A6PibBkhqENC4CJ6hZm9N6kF6Y0yntUEV5oXHmdV"
+		// )
+		/* LACHIE'S PARSE CREDS */
 		Parse.initialize(
-			"m8EbyLxgYzVkpaNHxh0ogbJGxmS3uIeVR0bgRQ00",
-			"A6PibBkhqENC4CJ6hZm9N6kF6Y0yntUEV5oXHmdV"
+			"tkaxaYALkFGuXoLebRyjGU6zxTV7Yswz7Y04zWG1",
+			"KVCwYVJhND1pfaE1lu8tT1Pe3MStpeqHyaevzttj"
 		)
-		
+
 	}
 
 	newWebParagraph(badText, improvedText, hintTags) {
 		let newParagraph = new WebParagraph();
 
 		return new Promise((resolve, reject) => {
-			console.log('NEW_WEB_PARAGRAPH')
 
 			newParagraph.save({
 			badText: badText,
 			improvedText: improvedText,
 			hintTags: hintTags
 			}).then(function(newParagraph) {
-				resolve({id: newParagraph.id, 
-						 badText: newParagraph.get('badText'), 
-						 improvedText: newParagraph.get('improvedText'), 
+				resolve({id: newParagraph.id,
+						 badText: newParagraph.get('badText'),
+						 improvedText: newParagraph.get('improvedText'),
 						 hintTags: newParagraph.get('hintTags')})
 			}, function(error) {
 			    reject(error)
@@ -116,7 +116,6 @@ export default class Backend {
 		let newDParagraph = new DeviceParagraph();
 
 		return new Promise((resolve, reject) => {
-			console.log('NEW_DEVICE_PARAGRAPH')
 
 			newDParagraph.save({
 			pid: id,
@@ -131,11 +130,10 @@ export default class Backend {
 		})
 	}
 
-	
+
 
 	updateWebParagraph(p, badText, improvedText, hintTags) {
 		return new Promise((resolve, reject) => {
-			console.log('updatewebparagraph')
 
 			allParagraphs.get(p.id, {
 			  success: function(pParse) {
@@ -158,16 +156,15 @@ export default class Backend {
 			    reject(error)
 			  }
 			})
-		}) 
+		})
 	}
 
 	deleteParagraph(id) {
 		return new Promise((resolve, reject) => {
-			console.log('deleteparagraph')
 			allParagraphs.get(id, {
 			  success: function(p) {
 			    // The object was retrieved successfully.
-			    if(p.get('isPushed')) 
+			    if(p.get('isPushed'))
 			    //also delete device paragraph if webParagraph is pushed. matches to appropriate paragraph with pid.
 			    {deleteDeviceParagraph(id)}
 			    resolve(p.destroy({}));
@@ -184,7 +181,6 @@ export default class Backend {
 
 	newHint(text) {
 		return new Promise((resolve, reject) => {
-			console.log('NEW_HINT')
 
 			let newHint = new Hint();
 
@@ -195,14 +191,14 @@ export default class Backend {
 			newHint.save(hint).then(function(newParagraph) {
 				resolve(hint)
 			}, function(error) {
-			    reject(error)
+			    reject(error.message)
 			});
 		})
 	}
 
 	updateHint(h, text) {
 		return new Promise((resolve, reject) => {
-			console.log('UPDATE_HINT')
+
 			allHints.get(h.id, {
 			  success: function(hParse) {
 			    // The object was retrieved successfully.
@@ -215,7 +211,7 @@ export default class Backend {
 			  error: function(object, error) {
 			    // The object was not retrieved successfully.
 			    // error is a Parse.Error with an error code and description.
-			    reject(error)
+			    reject(error.message)
 			  }
 			})
 		})
@@ -223,7 +219,7 @@ export default class Backend {
 
 	deleteHint(h) {
 		return new Promise((resolve, reject) => {
-			console.log('DELETE_HINT')
+
 			allHints.get(h.id, {
 			  success: function(h) {
 			    // The object was retrieved successfully.
@@ -240,9 +236,8 @@ export default class Backend {
 	/* getStateFromParse */
 	/* ******************************************** */
 	getStateFromParse() {
-	 
+
 	  return new Promise((resolve, reject) => {
-	  	console.log("getting state from parse")
 	    let server = {}
 
 	    allHints.find().then((serverHints) => {
@@ -282,7 +277,7 @@ export default class Backend {
 	        hints: hints,
 	        paragraphs: paragraphs
 	      }
-	
+
 	      resolve(state)
 	    }, (error) => {
 	      // error
@@ -293,18 +288,20 @@ export default class Backend {
 	}
 	/* ******************************************** */
 
+	// NOTE: catch for Promises doesn't work.
 	login(username, password) {
 		return new Promise((resolve, reject) => {
-			console.log("logging in")
 		  Parse.User.logIn(username, password).then(
 		    success => {
-		     return this.getStateFromParse()
-		    }
-		  ).then(state => resolve(state))
-		  //.catch(error => reject(error))
+			return this.getStateFromParse()
+		    },
+		    error => reject(error.message)
+		  ).then(state => {
+		  	resolve(state)
+		  })
 		})
 	}
 
-	
+
 
 }

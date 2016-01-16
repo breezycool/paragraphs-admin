@@ -29,9 +29,12 @@ export const App = React.createClass ({
 			<div>
 			{!this.props.server.loggedIn?
 			<div>
-				<LoginForm actions={this.props.actions} error={this.props.server.error} />
+				<LoginForm actions={this.props.actions} error={this.props.server.serverError} />
 			</div>
 			:	<div>
+					<div>
+						{ /* need to write general error, this.props.server.serverError */ }
+					</div>
 					<span>
 						<ParagraphList actions={this.props.actions} paragraphs={this.props.paragraphs} />
 					</span>

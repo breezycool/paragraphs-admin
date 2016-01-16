@@ -298,12 +298,12 @@ export const saveHint  = (index, text) => {
 		theBackend.updateHint(hint, text).then(hint => {
 			return Promise.all(state.paragraphs.map((p, pIndex) => {
 				if (p.hintTags.includes(oldHintText)) {
+
 					let modifiedHintTags = p.hintTags.map(tag => {
-						return (tag == oldHintText) ? hint.text : tag
+						return (tag == oldHintText) ? text : tag
 					})
 
 					// NOTE: this dispatches before saveSuccess....
-					console.log(modifiedHintTags)
 					return dispatch([
 						saveParagraph(pIndex, p.badText, p.improvedText, modifiedHintTags),
 						dispatch(updateHintTags(pIndex, modifiedHintTags))
