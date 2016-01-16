@@ -9,6 +9,8 @@ export const LoginForm = React.createClass({
     }
   },
   login() {
+    this.props.actions.resetStatus()
+    this.props.actions.resetError()
     this.props.actions.login(this.state.username,this.state.password)
   },
   handleUChange(e) {
@@ -29,7 +31,9 @@ export const LoginForm = React.createClass({
           <input onChange={this.handleUChange} onKeyDown={this.onEnter} type='text' placeholder='Username' />
           <input onChange={this.handlePChange} onKeyDown={this.onEnter} type='password' placeholder="Password"/>
           <hr/>
-            {this.props.error? <div className="alert alert-danger"> {this.props.error} </div> : <div></div>}
+            {this.props.error? <div className="alert alert-danger"> Login failed. 
+            <br/>
+            <b>Error:&nbsp;&nbsp;</b><i>{this.props.error}</i> </div> : <div></div>}
           <div>
         	<button onClick={this.login} className="btn btn-primary">Log In</button>
           </div>

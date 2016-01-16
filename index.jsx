@@ -15,26 +15,35 @@ import * as allActions from './redux/actions'
 import {ParagraphList} from './components/ParagraphList'
 import {HintList} from './components/HintList'
 import {LoginForm} from './components/LoginForm'
+import Title from './components/Title'
 
 //dragndrop
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+//actions are array for mapDispatchToProps
 const actions = [allActions];
 
 /* create container as stateless function to indicate pure component */
 export const App = React.createClass ({
+	resetError() {
+		this.props.actions.resetStatus(); this.props.actions.resetError()
+	},
 	render() {
 		return (
 			<div>
+				<Title/>
 			{!this.props.server.loggedIn?
 			<div>
 				<LoginForm actions={this.props.actions} error={this.props.server.serverError} />
 			</div>
 			:	<div>
-					<div>
-						{ /* need to write general error, this.props.server.serverError */ }
-					</div>
+					{this.props.server.serverError? <div className="alert alert-danger">
+					<a className="close" onClick={this.resetError} ariaLabel="close">&times;</a>
+					<span className="glyphicon glyphicon-exclamation-sign"></span> 
+					&nbsp;Something went wrong, sorry. Check your internet connection. <span style={{fontWeight: "bold"}}> 
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					Error:&nbsp;&nbsp;</span> <i>{this.props.server.serverError.message}</i> </div>: <div></div>}
 					<span>
 						<ParagraphList actions={this.props.actions} paragraphs={this.props.paragraphs} />
 					</span>

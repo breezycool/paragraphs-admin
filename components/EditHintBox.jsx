@@ -70,6 +70,8 @@ export const EditHintBox = React.createClass({
 		this.openLengthAlert()
 		}
 		else{
+		this.props.actions.resetStatus()
+		this.props.actions.resetError()
 		this.props.actions.saveHint(this.props.index, this.state.text);
 		this.props.actions.toggleHintEdit(this.props.index)
 		}

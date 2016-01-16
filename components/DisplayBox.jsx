@@ -64,9 +64,13 @@ export const DisplayBox = React.createClass({
 	},
 	onClickRemoveHandler() {
 		this.setState({ showModal: false });
+		this.props.actions.resetStatus()
+		this.props.actions.resetError()
 		this.props.actions.deleteParagraph(this.props.index);
 	},
 	onClickPushHandler() {
+		this.props.actions.resetStatus()
+		this.props.actions.resetError()
 		this.props.actions.pushParagraph(this.props.index);
 	},
 	render() { //

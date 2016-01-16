@@ -19,22 +19,6 @@ textarea {
   margin-bottom: 6px;
 }
 
-h1 {
-  /*background-color: #C3DCFF;*/
-  /*border-radius: 100px;*/
-  padding: 10px 5px;
-  font-family: 'Poiret One', cursive;
-  border-bottom: 10px solid #5bc0de; /* bootstrap button color */
-}
-
-h3 {
-  /*background-color: #C3DCFF;*/
-  /*border-radius: 100px;*/
-  padding: 10px 5px;
-  font-family: 'Poiret One', cursive;
-  border-bottom: 1px solid #D8CFCF; /* #28272A  dark color */
-}
-
 .ic-tokeninput {
   width: 100%;
 }

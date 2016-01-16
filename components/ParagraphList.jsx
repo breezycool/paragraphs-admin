@@ -19,6 +19,8 @@ export const ParagraphList = React.createClass({
 				<button
 					className="btn btn-sm btn-info glyphicon glyphicon-plus"
 					onClick={()=>{
+						this.props.actions.resetStatus()
+						this.props.actions.resetError()
 						this.props.actions.saveNewParagraph('write your bad text here', 'write your improved text here', [])
 					}}
 				 > </button>

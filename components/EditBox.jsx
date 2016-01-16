@@ -77,12 +77,14 @@ export const EditBox = React.createClass({
 		else
 		{
 		if (this.props.isBadText) {
+			
 			this.props.actions.saveParagraph(this.props.index, this.state.text, this.props.improvedText, hintTagArr)
 		} else {
 			this.props.actions.saveParagraph(this.props.index, this.props.badText, this.state.text, hintTagArr)
 		}
 
-		// TODO: call as a result of saveParagraph promise
+		this.props.actions.resetStatus()
+		this.props.actions.resetError()
 		this.props.actions.toggleParagraphEdit(this.props.index)
 		}
 	},

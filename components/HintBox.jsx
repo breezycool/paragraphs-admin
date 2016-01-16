@@ -20,6 +20,8 @@ export const HintBox = React.createClass({
 						text={this.props.hint.text}
 						index={this.props.index}
 						onClickHandler={() => {
+							this.props.actions.resetStatus()
+							this.props.actions.resetError()
 							this.props.actions.toggleHintEdit(this.props.index)
 						}}
 						actions={this.props.actions}
