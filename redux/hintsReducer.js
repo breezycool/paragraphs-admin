@@ -3,7 +3,8 @@ import {
 	UPDATE_HINT_TEXT,
 	TOGGLE_HINT_EDIT,
 	REMOVE_HINT,
-	LOGIN_SUCCESS
+	LOGIN_SUCCESS,
+	ADD_HINT
 } from './actions'
 
 /* hint reducer */
@@ -38,6 +39,14 @@ export const hints = (state = initialState, action) => {
 	case LOGIN_SUCCESS:
 		return action.state.hints
 
+	case ADD_HINT:
+		newState[state.length] = {
+			id: action.id,
+			text: action.text,
+			isEditing: false
+		}
+		return newState
+
 	case UPDATE_HINTS:
 		action.hintTags.forEach((hintText, index) => {
 
@@ -45,9 +54,9 @@ export const hints = (state = initialState, action) => {
 			state.map((hint) => {
 				if (hint.text == hintText) alreadyExists = true
 			})
-			if (!alreadyExists) {
-				newState.push(newHint(state.length + index, hintText))
-			}
+			// if (!alreadyExists) {
+			// 	newState.push(newHint(state.length + index, hintText))
+			// }
 		})
 		return newState
 

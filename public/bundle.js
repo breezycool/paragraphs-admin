@@ -25920,7 +25920,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.configureStore = configureStore;
 
@@ -25940,21 +25940,23 @@
 
 	// import DevTools from './devtools'
 
-	var createFinalStore = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxMulti2.default)
+	var createFinalStore = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxMulti2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
+		return f;
+	}
 	// DevTools.instrument()
 	)(_redux.createStore);
 
 	function configureStore(initialState) {
-	  var store = createFinalStore(_reducer.reducer, initialState);
+		var store = createFinalStore(_reducer.reducer, initialState);
 
-	  // // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
-	  // if (module.hot) {
-	  //   module.hot.accept('../reducers', () =>
-	  //     store.replaceReducer(require('../reducers')/*.default if you use Babel 6+ */)
-	  //   );
-	  // }
+		// // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
+		// if (module.hot) {
+		//   module.hot.accept('../reducers', () =>
+		//     store.replaceReducer(require('../reducers')/*.default if you use Babel 6+ */)
+		//   );
+		// }
 
-	  return store;
+		return store;
 	}
 
 /***/ },
@@ -26161,7 +26163,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.deleteHint = exports.DELETE_HINT = exports.deleteParagraph = exports.saveHint = exports.saveNewHint = exports.saveParagraph = exports.saveNewParagraph = exports.pushParagraph = exports.login = exports.LOGIN_ERROR = exports.LOGIN_SUCCESS = exports.resetError = exports.RESET_ERROR = exports.resetStatus = exports.RESET_STATUS = exports.userError = exports.USER_ERROR = exports.serverError = exports.SERVER_ERROR = exports.serverSuccess = exports.SERVER_SUCCESS = exports.removeHint = exports.REMOVE_HINT = exports.updateHints = exports.UPDATE_HINTS = exports.updateHintText = exports.UPDATE_HINT_TEXT = exports.toggleHintEdit = exports.TOGGLE_HINT_EDIT = exports.removeParagraph = exports.REMOVE_PARAGRAPH = exports.addParagraph = exports.ADD_PARAGRAPH = exports.updateHintTags = exports.UPDATE_HINT_TAGS = exports.updateParagraphText = exports.UPDATE_PARAGRAPH_TEXT = exports.setParagraphPushed = exports.SET_PARAGRAPH_PUSHED = exports.toggleParagraphTextType = exports.TOGGLE_PARAGRAPH_TEXT_TYPE = exports.toggleParagraphEdit = exports.TOGGLE_PARAGRAPH_EDIT = undefined;
+	exports.deleteHint = exports.DELETE_HINT = exports.deleteParagraph = exports.saveHint = exports.saveNewHint = exports.saveParagraph = exports.saveNewParagraph = exports.pushParagraph = exports.login = exports.LOGIN_ERROR = exports.LOGIN_SUCCESS = exports.resetError = exports.RESET_ERROR = exports.resetStatus = exports.RESET_STATUS = exports.userError = exports.USER_ERROR = exports.serverError = exports.SERVER_ERROR = exports.serverSuccess = exports.SERVER_SUCCESS = exports.removeHint = exports.REMOVE_HINT = exports.updateHints = exports.UPDATE_HINTS = exports.addHint = exports.ADD_HINT = exports.updateHintText = exports.UPDATE_HINT_TEXT = exports.toggleHintEdit = exports.TOGGLE_HINT_EDIT = exports.removeParagraph = exports.REMOVE_PARAGRAPH = exports.addParagraph = exports.ADD_PARAGRAPH = exports.updateHintTags = exports.UPDATE_HINT_TAGS = exports.updateParagraphText = exports.UPDATE_PARAGRAPH_TEXT = exports.setParagraphPushed = exports.SET_PARAGRAPH_PUSHED = exports.toggleParagraphTextType = exports.TOGGLE_PARAGRAPH_TEXT_TYPE = exports.toggleParagraphEdit = exports.TOGGLE_PARAGRAPH_EDIT = undefined;
 
 	var _reduxThunk = __webpack_require__(180);
 
@@ -26264,6 +26266,15 @@
 			oldText: oldText,
 			text: text,
 			index: index
+		};
+	};
+
+	var ADD_HINT = exports.ADD_HINT = 'ADD_HINT';
+	var addHint = exports.addHint = function addHint(id, text) {
+		return {
+			type: ADD_HINT,
+			id: id,
+			text: text
 		};
 	};
 
@@ -26427,11 +26438,9 @@
 				} else {
 					return dispatch(serverSuccess());
 				}
-			}, // TODO: this save error is maybe not handled in UI
-			function (error) {
-				dispatch(serverError(error));
+			}).catch(function (error) {
+				return dispatch(serverError(error));
 			});
-			//.catch(error => serverError(error))
 		};
 	};
 
@@ -26439,8 +26448,7 @@
 	var saveNewHint = exports.saveNewHint = function saveNewHint(text) {
 		return function (dispatch) {
 			theBackend.newHint(text).then(function (savedHint) {
-				dispatch(updateHints([savedHint.text]));
-				resolve();
+				dispatch(addHint(savedHint.id, savedHint.text));
 			}).catch(function (error) {
 				return dispatch(serverError(error));
 			});
@@ -26479,7 +26487,6 @@
 						// NOTE: this dispatches before saveSuccess....
 						return dispatch([saveParagraph(pIndex, p.badText, p.improvedText, modifiedHintTags), dispatch(updateHintTags(pIndex, modifiedHintTags))]);
 					} else {
-						console.log('not updating paragraph at ' + pIndex);
 						return;
 					}
 				}));
@@ -26533,7 +26540,6 @@
 					});
 					return dispatch(saveParagraph(pIndex, p.badText, p.improvedText, newHintTags));
 				} else {
-					console.log('not updating paragraph at ' + pIndex);
 					return;
 				}
 			})).then(function (success) {
@@ -32156,7 +32162,6 @@
 							}));
 						},
 						error: function error(object, _error4) {
-							console.log(_error4);
 							// The object was not retrieved successfully.
 							// error is a Parse.Error with an error code and description.
 							reject(_error4);
@@ -32198,10 +32203,10 @@
 					var hint = {
 						text: text
 					};
-					newHint.save(hint).then(function (newParagraph) {
-						resolve(hint);
+					newHint.save(hint).then(function () {
+						resolve({ text: text });
 					}, function (error) {
-						reject(error.message);
+						reject(error);
 					});
 				});
 			}
@@ -32220,7 +32225,7 @@
 						error: function error(object, _error6) {
 							// The object was not retrieved successfully.
 							// error is a Parse.Error with an error code and description.
-							reject(_error6.message);
+							reject(_error6);
 						}
 					});
 				});
@@ -54930,6 +54935,14 @@
 			case _actions.LOGIN_SUCCESS:
 				return action.state.hints;
 
+			case _actions.ADD_HINT:
+				newState[state.length] = {
+					id: action.id,
+					text: action.text,
+					isEditing: false
+				};
+				return newState;
+
 			case _actions.UPDATE_HINTS:
 				action.hintTags.forEach(function (hintText, index) {
 
@@ -54937,9 +54950,9 @@
 					state.map(function (hint) {
 						if (hint.text == hintText) alreadyExists = true;
 					});
-					if (!alreadyExists) {
-						newState.push(newHint(state.length + index, hintText));
-					}
+					// if (!alreadyExists) {
+					// 	newState.push(newHint(state.length + index, hintText))
+					// }
 				});
 				return newState;
 

@@ -93,6 +93,15 @@ export const updateHintText = (oldText, text, index) => {
 	}
 }
 
+export const ADD_HINT = 'ADD_HINT'
+export const addHint = (id, text) => {
+	return({
+		type: ADD_HINT,
+		id,
+		text
+	})
+}
+
 export const UPDATE_HINTS = 'UPDATE_HINTS'
 export const updateHints = (hintTags) => {
 
@@ -269,7 +278,8 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 export const saveNewHint = (text) => {
 	return ((dispatch) => {
 		theBackend.newHint(text).then(savedHint => {
-			dispatch(updateHints([savedHint.text]))
+			console.log(savedHint)
+			dispatch(addHint(savedHint.id, savedHint.text))
 		}).catch(error => dispatch(serverError(error)))
 	})
 }
