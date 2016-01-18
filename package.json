@@ -5,7 +5,7 @@
   "main": "''",
   "scripts": {
     "build": "webpack --progress --profile --colors",
-    "dev": "webpack-dev-server --progress --profile --colors --hot",
+    "dev": "webpack-dev-server --progress --profile --colors",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive",
     "test:watch": "npm run test -- --watch"
   },
@@ -29,6 +29,7 @@
   "dependencies": {
     "bluebird": "^3.1.1",
     "bootstrap": "3.3.5",
+    "express": "^4.13.3",
     "immutable": "^3.7.6",
     "lodash-node": "^3.10.1",
     "node-libs-browser": "0.5.3",
@@ -63,10 +64,6 @@
     "mocha": "^2.3.4",
     "mockery": "^1.4.0",
     "nock": "^3.6.0",
-    "react-hot-loader": "1.2.7",
-    "redux-devtools": "^3.0.0",
-    "redux-devtools-dock-monitor": "^1.0.1",
-    "redux-devtools-log-monitor": "^1.0.1",
     "redux-mock-store": "0.0.4",
     "rewire": "^2.5.1",
     "style-loader": "0.13.0",

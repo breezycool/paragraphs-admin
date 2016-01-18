@@ -7,8 +7,7 @@ import {Map} from 'immutable';
 import {Provider} from 'react-redux'
 import {configureStore} from './redux/store'
 import {connect} from 'react-redux'
-import { bindActionCreators } from 'redux';
-import DevTools from './redux/devtools'
+import { bindActionCreators } from 'redux'
 import * as allActions from './redux/actions'
 
 //components
@@ -40,8 +39,8 @@ export const App = React.createClass ({
 			:	<div>
 					{this.props.server.serverError? <div className="alert alert-danger">
 					<a className="close" onClick={this.resetError} ariaLabel="close">&times;</a>
-					<span className="glyphicon glyphicon-exclamation-sign"></span> 
-					&nbsp;Something went wrong, sorry. Check your internet connection. <span style={{fontWeight: "bold"}}> 
+					<span className="glyphicon glyphicon-exclamation-sign"></span>
+					&nbsp;Something went wrong, sorry. Check your internet connection. <span style={{fontWeight: "bold"}}>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					Error:&nbsp;&nbsp;</span> <i>{this.props.server.serverError.message}</i> </div>: <div></div>}
 					<span>
@@ -51,11 +50,12 @@ export const App = React.createClass ({
 						<HintList actions={this.props.actions} hints={this.props.hints}/>
 					</span>
 				</div>}
-			<DevTools />
 			</div>
 		);
 	}
 })
+
+/* NOTE: Add <DevTools /> in before the last div to debug with Redux Devtools */
 
 function mapStateToProps(state) {
   return {
