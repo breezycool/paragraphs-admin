@@ -81,6 +81,7 @@ const sendPushNotification = (preview) => {
 		var query = new Parse.Query(Parse.Installation);
 
 		Parse.Cloud.run("sendPushParagraph", { message:"quantity1"}).then(function(result) {
+			console.log("successfully pushed to Parse")
 		    // make sure the set the enail sent flag on the object
 		}, function(error) {
 		    // error
@@ -97,7 +98,7 @@ export default class Backend {
 		// 	"m8EbyLxgYzVkpaNHxh0ogbJGxmS3uIeVR0bgRQ00",
 		// 	"A6PibBkhqENC4CJ6hZm9N6kF6Y0yntUEV5oXHmdV"
 		// )
-		/* LACHIE'S PARSE CREDS */
+		/* KEN'S PARSE CREDS */
 		Parse.initialize(
 		  "JTzeb9lwh9OMmMGLCjoidN8dSQPMp2Tjsqum74xe",
 		  "E63eAFbKAaIAnWidg1HpHt50Xc2ALikXUIzscoI6"
