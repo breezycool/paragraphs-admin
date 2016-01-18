@@ -202,8 +202,12 @@ export default class Backend {
 			let hint = {
 				text: text
 			}
-			newHint.save(hint).then(function() {
-				resolve({text: text})
+			newHint.save(hint).then(function(hint) {
+				console.log(hint)
+				resolve({
+					text: hint.get("text"),
+					id: hint.id
+				})
 			}, function(error) {
 			    reject(error)
 			});
