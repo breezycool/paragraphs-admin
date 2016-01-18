@@ -269,7 +269,7 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 export const saveNewHint = (text) => {
 	return ((dispatch) => {
 		theBackend.newHint(text).then(savedHint => {
-			dispatch(updateHints([savedHint.text]))
+			dispatch(addHints([savedHint.text]))
 		}).catch(error => dispatch(serverError(error)))
 	})
 }

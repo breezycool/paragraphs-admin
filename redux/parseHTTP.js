@@ -4,10 +4,10 @@ import Parse from 'parse/node'
 import {newParagraph} from './paragraphsReducer'
 import {hints} from './hintsReducer'
 
-Parse.initialize(
-  "tkaxaYALkFGuXoLebRyjGU6zxTV7Yswz7Y04zWG1",
-  "KVCwYVJhND1pfaE1lu8tT1Pe3MStpeqHyaevzttj"
-);
+// Parse.initialize(
+//   "tkaxaYALkFGuXoLebRyjGU6zxTV7Yswz7Y04zWG1",
+//   "KVCwYVJhND1pfaE1lu8tT1Pe3MStpeqHyaevzttj"
+// );
 
 let Hint = Parse.Object.extend('Hint')
 let Paragraph = Parse.Object.extend('Paragraph')
