@@ -76,6 +76,19 @@ const updateDeviceParagraph = (p, badText, improvedText, hintTags) => {
 	})
 }
 
+const sendPushNotification = (preview) => {
+	return new Promise((resolve, reject) => {
+		var query = new Parse.Query(Parse.Installation);
+
+		Parse.Cloud.run("sendPushParagraph", { message:"quantity1"}).then(function(result) {
+		    // make sure the set the enail sent flag on the object
+		}, function(error) {
+		    // error
+		    console.log(error)
+		});
+	})
+}
+
 export default class Backend {
 
 	constructor() {
@@ -86,9 +99,9 @@ export default class Backend {
 		// )
 		/* LACHIE'S PARSE CREDS */
 		Parse.initialize(
-			"tkaxaYALkFGuXoLebRyjGU6zxTV7Yswz7Y04zWG1",
-			"KVCwYVJhND1pfaE1lu8tT1Pe3MStpeqHyaevzttj"
-		)
+		  "JTzeb9lwh9OMmMGLCjoidN8dSQPMp2Tjsqum74xe",
+		  "E63eAFbKAaIAnWidg1HpHt50Xc2ALikXUIzscoI6"
+		);
 
 	}
 
@@ -123,6 +136,7 @@ export default class Backend {
 			improvedText: improvedText,
 			hintTags: hintTags
 			}).then(function(newDParagraph) {
+				sendPushNotification(badText)
 				resolve(setWebParagraphPushed(id))
 			}, function(error) {
 			    reject(error)
@@ -215,6 +229,7 @@ export default class Backend {
 			  error: function(object, error) {
 			    // The object was not retrieved successfully.
 			    // error is a Parse.Error with an error code and description.
+
 			    reject(error)
 			  }
 			})
