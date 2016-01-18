@@ -260,11 +260,8 @@ export const saveParagraph = (index, badText, improvedText, hintTags) => {
 			else {
 				return dispatch(serverSuccess())
 			}
-		}, // TODO: this save error is maybe not handled in UI
-			error => {
-				dispatch(serverError(error))
 		})
-		//.catch(error => serverError(error))
+		.catch(error => dispatch(serverError(error)))
 	})
 }
 
@@ -273,7 +270,6 @@ export const saveNewHint = (text) => {
 	return ((dispatch) => {
 		theBackend.newHint(text).then(savedHint => {
 			dispatch(updateHints([savedHint.text]))
-			resolve()
 		}).catch(error => dispatch(serverError(error)))
 	})
 }
@@ -313,7 +309,6 @@ export const saveHint  = (index, text) => {
 						dispatch(updateHintTags(pIndex, modifiedHintTags))
 					])
 				} else {
-					console.log('not updating paragraph at '+pIndex)
 					return
 				}
 			}))
@@ -365,7 +360,6 @@ export const deleteHint = (index) => {
 				let newHintTags = p.hintTags.filter(ht => ht != hint.text)
 				return dispatch(saveParagraph(pIndex, p.badText, p.improvedText, newHintTags))
 			} else {
-				console.log('not updating paragraph at '+pIndex)
 				return
 			}
 		})).then(success => {
